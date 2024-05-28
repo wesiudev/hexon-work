@@ -457,7 +457,7 @@ export default function ClientFormLogic() {
               <h2 className="text-xl mb-3">Numer telefonu:</h2>
               <input
                 style={{ boxShadow: "0px 0px 3px black" }}
-                className="w-full sm:w-auto p-2 placeholder:font-light focus:outline-2 focus:outline-green-500"
+                className="w-full lg:w-auto p-2 placeholder:font-light focus:outline-2 focus:outline-green-500"
                 type="text"
                 onChange={(e) =>
                   setFormData({ ...formData, phone: e.target.value })
@@ -487,7 +487,7 @@ export default function ClientFormLogic() {
                     setIsSending("success");
                   });
                 }}
-                className="flex flex-row items-center justify-center py-3 px-5 w-full text-base sm:w-max bg-gradient-to-br from-[#C5FF17] to-[#33E5CF] hover:scale-110 duration-200 ease-in-out text-zinc-800 rounded-lg cursor-pointer font-bold mt-2"
+                className="disabled:cursor-not-allowed flex flex-row items-center justify-center py-3 px-5 w-full text-base lg:w-max bg-gradient-to-br from-[#C5FF17] to-[#33E5CF] hover:scale-105 duration-200 ease-in-out text-zinc-800 rounded-lg cursor-pointer font-bold mt-2"
               >
                 Wyślij wniosek <FaArrowRight className="ml-2" />
               </button>

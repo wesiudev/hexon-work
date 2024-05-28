@@ -20,7 +20,7 @@ export default function RecruitmentVideo() {
         <div ref={ref} className="absolute w-12 h-px top-[50%] left-0 z-50" />
         <video
           src="https://firebasestorage.googleapis.com/v0/b/wesiudev-5e3b9.appspot.com/o/recruitment-video.mp4?alt=media&token=40861c1a-e97f-40b2-a116-83961107615f"
-          autoPlay={playing}
+          autoPlay={false}
           loop
           muted={(playing === false || muted === true) && true}
           className={`w-full z-50`}
@@ -46,7 +46,12 @@ export default function RecruitmentVideo() {
           } ${isVisible && "fixed opacity-0 -right-12 -bottom-12"}`}
         >
           <div className="relative">
-            <video src="https://firebasestorage.googleapis.com/v0/b/wesiudev-5e3b9.appspot.com/o/recruitment-video.mp4?alt=media&token=40861c1a-e97f-40b2-a116-83961107615f" autoPlay={playing} loop muted />
+            <video
+              src="https://firebasestorage.googleapis.com/v0/b/wesiudev-5e3b9.appspot.com/o/recruitment-video.mp4?alt=media&token=40861c1a-e97f-40b2-a116-83961107615f"
+              autoPlay={false}
+              loop
+              muted
+            />
             <button
               onClick={() => setMuted(!muted)}
               className="p-2 flex items-center justify-center absolute bottom-3 right-3 sm:right-6 sm:bottom-6 rounded-full bg-black text-white text-lg sm:text-xl"

@@ -1,21 +1,25 @@
 "use client";
+import { pushEmployee, storage } from "@/common/firebase";
+import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export default function RecruitmentForm() {
+  const [isSent, setIsSent] = useState(false);
   const [inputs, setInputs] = useState<{
     name: string;
     email: string;
     phoneNumber: string;
-    file: File | null;
+    file: File | string;
   }>({
     name: "",
     email: "",
     phoneNumber: "",
-    file: null,
+    file: "",
   });
   const [isFileTooBig, setIsFileTooBig] = useState<boolean>(false);
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
-
+  const [fileUploading, setFileUploading] = useState(false);
   const handleFileChange = (e: any) => {
     const file = e.target.files[0];
     if (file.size > 20 * 1024 * 1024) {
@@ -36,8 +40,24 @@ export default function RecruitmentForm() {
     }
   };
 
+  const uploadFile = async (file: any) => {
+    console.log(file);
+    setFileUploading(true);
+    const randId = `cv-${uuidv4()}`;
+    const docRef = ref(storage, randId);
+
+    try {
+      await uploadBytes(docRef, file);
+      const url = await getDownloadURL(docRef);
+      setInputs({ ...inputs, file: url });
+      setFileUploading(false);
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
+
   return (
-    <form>
+    <div>
       <div className="grid grid-cols-1 gap-4 mt-12 lg:w-1/2">
         <div className="flex flex-col text-black">
           <label className="text-sm text-white" htmlFor="name">
@@ -98,31 +118,48 @@ export default function RecruitmentForm() {
           <input
             required
             className=" border-gray-300 px-2 py-0.5 outline-none focus:outline-none border-transparent"
-            type="file"
             id="file"
+            type="file"
             name="file"
-            onChange={handleFileChange}
+            onChange={(e: any) => uploadFile(e.target.files[0])}
           />
         </div>
         <div className="flex flex-col items-center justify-center text-sm text-white">
           {isFileTooBig && <p className="text-red-600">Plik jest za duży</p>}
         </div>
-        <button
-          className="bg-black hover:scale-110 text border-transparent-zinc-800 px-2 py-0.5 outline-none focus:outline-none duration-200 text-center p-2"
-          onClick={validateForm}
-        >
-          <span className="bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
-            APLIKUJĘ NA STANOWISKO DORADCY
-          </span>
-        </button>
+        {!fileUploading && (
+          <button
+            onClick={() => {
+              pushEmployee({ ...inputs, id: uuidv4() });
+              setIsSent(true);
+            }}
+            disabled={isSent}
+            className="disabled:cursor-not-allowed bg-black hover:scale-110 text border-transparent-zinc-800 outline-none focus:outline-none duration-200 text-center p-4"
+          >
+            <span className="bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
+              {!isSent && "APLIKUJĘ NA STANOWISKO DORADCY"}
+              {isSent && "DZIĘKUJEMY"}
+            </span>
+          </button>
+        )}
+        {fileUploading && (
+          <button
+            disabled={true}
+            className="disabled:cursor-not-allowed bg-black hover:scale-110 text border-transparent-zinc-800 outline-none focus:outline-none duration-200 text-center p-4"
+          >
+            <span className="bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
+              WYSYŁANIE
+            </span>
+          </button>
+        )}
         <div className="flex flex-col items-center justify-center text-sm text-white">
           {isFormValid && (
             <p className="bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
-              Formularz zosta wysłany
+              Formularz został wysłany
             </p>
           )}
         </div>
-        <p className="text-sm">
+        <p className="text-sm text-gray-500">
           Aplikując wyrażam zgodę na przetwarzanie moich danych osobowych
           zawartych w formularzu rekrutacyjnym przez HEXON GROUP SPÓŁKA Z
           OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ w celu przeprowadzenia procesu
@@ -132,6 +169,6 @@ export default function RecruitmentForm() {
           osobowych i w sprawie swobodnego przepływu takich danych (RODO).
         </p>
       </div>
-    </form>
+    </div>
   );
 }

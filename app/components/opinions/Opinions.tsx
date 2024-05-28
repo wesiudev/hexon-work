@@ -47,7 +47,7 @@ export default function Opinions() {
         <div
           data-aos="fade-up"
           aos-duration="300"
-          className="flex flex-col justify-center border-t border-green-500 py-6 px-6 relative"
+          className="flex flex-col justify-center border-t border-green-500 p-6 relative"
           key={index}
         >
           <div className="rounded-full w-10 h-10 text-white font-bold flex items-center justify-center text-2xl">

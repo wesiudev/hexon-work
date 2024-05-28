@@ -48,4 +48,18 @@ export async function pushLead(data) {
     return productDocRef;
   }
 }
+export async function pushEmployee(data) {
+  const productDocRef = doc(collection(db, "employees"), data.id);
+  const docSnap = await getDoc(productDocRef);
+  if (docSnap.exists()) {
+    return productDocRef;
+  } else {
+    await setDoc(productDocRef, {
+      ...data,
+      createdAt: Date.now(),
+    });
+    return productDocRef;
+  }
+}
+
 export { provider, storage, auth };

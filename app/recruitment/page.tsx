@@ -24,24 +24,16 @@ export default function Page() {
           />
         </Link>
       </div>
-      <Suspense
-        fallback={
-          <div className="flex items-center justify-center w-full min-h-[60vh] bg-black text-white">
-            <FaVideo className="text-8xl" />
-          </div>
-        }
-      >
-        <RecruitmentVideo />
-      </Suspense>
-      <div className="bg-zinc-800 w-[80vw] mx-auto lg:mx-0 lg:w-full z-[50] relative p-6 lg:p-12">
-        <div className="flex flex-col sm:flex-row justify-between w-full">
+      <RecruitmentVideo />
+      <div className="bg-zinc-800 mx-auto lg:mx-0 w-full z-[50] relative p-3 sm:p-6 lg:p-8 xl:p-12">
+        <div className="flex flex-col lg:grid lg:gap-4 lg:grid-cols-2 w-full">
           <h1 className="text-white font-bold text-3xl lg:text-6xl max-w-[40rem]">
             Rekrutacja na stanowisko{" "}
             <span className="bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent">
               Doracdy Klienta
             </span>
           </h1>
-          <div className="flex flex-col h-max">
+          <div className="flex flex-col h-max mt-12 lg:mt-0">
             <CountToTheNumberAnimated
               textBeforeNumber="W tym miesiącu zatrudniliśmy:"
               textAfterNumber="doradców"
@@ -49,16 +41,20 @@ export default function Page() {
               animationSpeed={300}
               textColor="white"
             />
-            <CountToTheNumberAnimated
-              textBeforeNumber="Zaufało nam"
-              numberToAnimateTo={97}
-              textAfterNumber="klientów"
-              animationSpeed={20}
-              textColor="white"
-            />
+            <div className="mt-12">
+              <CountToTheNumberAnimated
+                textBeforeNumber="Zaufało nam:"
+                numberToAnimateTo={97}
+                textAfterNumber="klientów"
+                animationSpeed={20}
+                textColor="white"
+              />
+            </div>
           </div>
         </div>
-        <h2 className="text-2xl font-bold mt-12">Opis stanowiska:</h2>
+        <h2 className="text-2xl font-bold mt-12 bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent">
+          Opis stanowiska:
+        </h2>
         <p className="text-white mt-4 bg-zinc-700 p-3">
           Twoim zadaniem będzie przedstawianie oferty potencjalnym klientom
           dotyczącej dofinansowania na termomodernizację z wykorzystaniem OZE

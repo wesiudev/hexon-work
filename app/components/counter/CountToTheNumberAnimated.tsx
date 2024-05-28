@@ -46,18 +46,28 @@ export default function CountToTheNumberAnimated({
         ref={ref}
         data-aos="fade-up"
         aos-duration="1000"
-        className="text-2xl flex flex-col items-end max-w-[40rem]"
+        className={`${
+          textAfterNumber !== "Projektów" && "lg:items-end"
+        } text-2xl flex flex-col items-start max-w-[40rem]`}
       >
-        <div style={{ color: textColor }} className=" text-base">
+        <div
+          style={{ color: textColor }}
+          className="text-base lg:text-lg font-bold"
+        >
           {textBeforeNumber}
         </div>
 
-        <div className="font-bold text-8xl flex flex-row w-max items-end justify-end">
-          <div className="bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent drop-shadow-xl shadow-zinc-800">
+        <div className="font-bold text-8xl flex flex-row w-max items-end">
+          <div className="font-bold bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent drop-shadow-xl shadow-zinc-800">
             {count.toLocaleString("pl-PL")}
             {numberToAnimateTo === 97 && "%"}
           </div>
-          <div className=" text-sm italic mb-2">{textAfterNumber}</div>
+          <div
+            style={{ color: textColor }}
+            className="text-sm italic mb-2 ml-4"
+          >
+            {textAfterNumber}
+          </div>
         </div>
       </div>
     </>

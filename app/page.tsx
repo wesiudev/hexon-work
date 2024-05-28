@@ -118,7 +118,7 @@ export default async function Home({
               </ul>
             </div>
             <div className="mt-6">
-              <div className="flex flex-col lg:flex-row justify-between">
+              <div className="flex flex-col">
                 <div>
                   <h2 className="text-3xl lg:text-4xl font-bold">
                     Progi dofinansowania:
@@ -134,7 +134,7 @@ export default async function Home({
                     </li>
                   </ul>
                 </div>
-                <div className="">
+                <div className="mt-12">
                   <CountToTheNumberAnimated
                     textBeforeNumber="Zrealizowaliśmy już"
                     textAfterNumber="Projektów"
