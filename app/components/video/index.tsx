@@ -20,7 +20,7 @@ export default function RecruitmentVideo() {
         <div ref={ref} className="absolute w-12 h-px top-[50%] left-0 z-50" />
         <video
           src="https://firebasestorage.googleapis.com/v0/b/wesiudev-5e3b9.appspot.com/o/recruitment-video.mp4?alt=media&token=40861c1a-e97f-40b2-a116-83961107615f"
-          autoPlay={false}
+          autoPlay={playing}
           loop
           muted={(playing === false || muted === true) && true}
           className={`w-full z-50`}
@@ -48,7 +48,7 @@ export default function RecruitmentVideo() {
           <div className="relative">
             <video
               src="https://firebasestorage.googleapis.com/v0/b/wesiudev-5e3b9.appspot.com/o/recruitment-video.mp4?alt=media&token=40861c1a-e97f-40b2-a116-83961107615f"
-              autoPlay={false}
+              autoPlay={playing}
               loop
               muted
             />
