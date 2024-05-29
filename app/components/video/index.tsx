@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import { useIsVisible } from "react-is-visible";
 import { FaPause, FaPlay } from "react-icons/fa";
 export default function RecruitmentVideo() {
-  const [isMuted, setIsMuted] = useState<boolean>(false);
   const ref = useRef<any>();
   const video1 = useRef<any>();
   const video2 = useRef<any>();
@@ -22,7 +21,9 @@ export default function RecruitmentVideo() {
   }
   useEffect(() => {
     play();
-  }, [ref]);
+  }, [video1, video2]);
+  const source =
+    "https://firebasestorage.googleapis.com/v0/b/wesiudev-5e3b9.appspot.com/o/recruitment-video.mp4?alt=media&token=40861c1a-e97f-40b2-a116-83961107615f";
   return (
     <>
       <div className="w-full z-50 relative">
@@ -48,9 +49,8 @@ export default function RecruitmentVideo() {
         <video
           onPause={() => setPlaying(false)}
           ref={video1}
-          src="https://firebasestorage.googleapis.com/v0/b/wesiudev-5e3b9.appspot.com/o/recruitment-video.mp4?alt=media&token=40861c1a-e97f-40b2-a116-83961107615f"
+          src={source}
           autoPlay
-          muted={isMuted}
           className={`w-full z-50`}
         />
       </div>
@@ -80,12 +80,7 @@ export default function RecruitmentVideo() {
               <FaPause />
             </button>
           )}
-          <video
-            ref={video2}
-            src="https://firebasestorage.googleapis.com/v0/b/wesiudev-5e3b9.appspot.com/o/recruitment-video.mp4?alt=media&token=40861c1a-e97f-40b2-a116-83961107615f"
-            autoPlay
-            muted
-          />
+          <video ref={video2} src={source} autoPlay muted />
         </div>
       </div>
     </>
