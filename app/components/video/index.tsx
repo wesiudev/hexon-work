@@ -18,11 +18,11 @@ export default function RecruitmentVideo() {
     video1?.current?.play();
     video2?.current?.play();
     setPlaying(true);
+  }
+  useEffect(() => {
     setTimeout(() => {
       setIsMuted(false);
     }, 1000);
-  }
-  useEffect(() => {
     video1?.current?.play();
     video2?.current?.play();
     video2.current.currentTime = video1.current.currentTime;
