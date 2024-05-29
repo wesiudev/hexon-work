@@ -44,7 +44,7 @@ export default function CountToTheNumberAnimated({
     <>
       <div
         ref={ref}
-        data-aos={textAfterNumber === "projektów" ? "fade-down" : "fade-up"}
+        data-aos={textAfterNumber === "Projektów" ? "fade-down" : "fade-up"}
         aos-duration="1000"
         className={`${
           textAfterNumber !== "Projektów" && "lg:items-end"
