@@ -21,21 +21,11 @@ export default function RecruitmentVideo() {
         <video
           src="https://firebasestorage.googleapis.com/v0/b/wesiudev-5e3b9.appspot.com/o/recruitment-video.mp4?alt=media&token=40861c1a-e97f-40b2-a116-83961107615f"
           autoPlay={playing}
+          controls
           loop
           muted={(playing === false || muted === true) && true}
           className={`w-full z-50`}
-          onClick={() => {
-            setPlaying(!playing), setMuted(!muted);
-          }}
         />
-
-        <button
-          onClick={() => setMuted(!muted)}
-          className="p-2 flex items-center justify-center absolute bottom-3 right-3 sm:right-6 sm:bottom-6 rounded-full bg-black text-white text-2xl sm:text-4xl"
-        >
-          {muted && <IoMdVolumeOff />}
-          {!muted && <IoVolumeHigh />}
-        </button>
       </div>
       {playing === true && (
         <div
@@ -48,17 +38,11 @@ export default function RecruitmentVideo() {
           <div className="relative">
             <video
               src="https://firebasestorage.googleapis.com/v0/b/wesiudev-5e3b9.appspot.com/o/recruitment-video.mp4?alt=media&token=40861c1a-e97f-40b2-a116-83961107615f"
+              controls
               autoPlay={playing}
               loop
               muted
             />
-            <button
-              onClick={() => setMuted(!muted)}
-              className="p-2 flex items-center justify-center absolute bottom-3 right-3 sm:right-6 sm:bottom-6 rounded-full bg-black text-white text-lg sm:text-xl"
-            >
-              {muted && <IoMdVolumeOff />}
-              {!muted && <IoVolumeHigh />}
-            </button>
           </div>
         </div>
       )}
