@@ -1,7 +1,5 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { IoVolumeHigh } from "react-icons/io5";
-import { IoMdCloseCircle, IoMdVolumeOff } from "react-icons/io";
 import { useIsVisible } from "react-is-visible";
 import { FaPause, FaPlay } from "react-icons/fa";
 export default function RecruitmentVideo() {
@@ -22,6 +20,9 @@ export default function RecruitmentVideo() {
     video2?.current?.play();
     setPlaying(true);
   }
+  useEffect(() => {
+    play();
+  }, []);
   return (
     <>
       <div className="w-full z-50 relative">
