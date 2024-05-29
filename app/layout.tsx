@@ -36,11 +36,23 @@ export default async function Root({
   );
 }
 export const metadata: Metadata = {
+  viewport: "width=device-width, initial-scale=1",
+  themeColor: "#ffffff",
+  manifest: "/manifest.json",
   title:
-    "Hexon Group - Dofinansowanie na termomodernizacje budynków | Czyste Powietrze",
+    "Hexon Group | Dofinansowanie na termomodernizacje budynków | Czyste Powietrze",
   description:
     "Kompleksowa termomodernizacja budynków. Fotowoltaika, pompy ciepła. Specjaliści od dofinansowań. Zyskaj do 136200zł dofinansowania",
-  authors: [{ name: "wesiu.dev", url: "https://wesiu.dev" }],
+  openGraph: {
+    type: "website",
+    url: "https://hexon.work",
+    title:
+      "Hexon Group | Dofinansowanie na termomodernizacje budynków | Czyste Powietrze",
+    description:
+      "Kompleksowa termomodernizacja budynków. Fotowoltaika, pompy ciepła. Specjaliści od dofinansowań. Zyskaj do 136200zł dofinansowania",
+    siteName: "Hexon",
+  },
+  authors: [{ name: "wesiu.dev", url: "https://wesiudev.netlify.app" }],
   publisher: "wesiu.dev",
   keywords:
     "dotacje, finansowanie, termomodernizacja, remont, modernizacja energetyczna, oszczędność energii, efektywność energetyczna, wsparcie finansowe, programy rządowe, fundusze unijne, poprawa izolacji, renowacja budynków, energooszczędność, zrównoważony rozwój, dotacje unijne",
