@@ -22,10 +22,7 @@ export default function RecruitmentVideo() {
   }
   useEffect(() => {
     play();
-    setTimeout(() => {
-      play();
-    }, 3000);
-  }, []);
+  }, [ref]);
   return (
     <>
       <div className="w-full z-50 relative">
@@ -83,7 +80,6 @@ export default function RecruitmentVideo() {
               <FaPause />
             </button>
           )}
-
           <video
             ref={video2}
             src="https://firebasestorage.googleapis.com/v0/b/wesiudev-5e3b9.appspot.com/o/recruitment-video.mp4?alt=media&token=40861c1a-e97f-40b2-a116-83961107615f"
