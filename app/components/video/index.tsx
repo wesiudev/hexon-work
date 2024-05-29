@@ -55,11 +55,11 @@ export default function RecruitmentVideo() {
       </div>
 
       <div
-        className={`duration-500 w-[200px] sm:w-[250px] lg:w-[350px] xl:w-[400px] 2xl:w-[450px] ${
+        className={`duration-500 z-[9999] w-[200px] sm:w-[250px] lg:w-[350px] xl:w-[400px] 2xl:w-[450px] ${
           !playing && "opacity-0"
         } ${
           // is the element that we are scrolling to visible?
-          !isVisible && "fixed bottom-6 right-6 z-[99999999]"
+          !isVisible && "fixed bottom-6 right-6"
         } ${isVisible && "fixed opacity-0 -right-12 -bottom-12"}`}
       >
         <div className="relative">
