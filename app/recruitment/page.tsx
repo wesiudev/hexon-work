@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import Hero from "../components/hero/Hero";
-import { Suspense } from "react";
-import { FaVideo } from "react-icons/fa";
 import RecruitmentForm from "../components/cta/RecruitmentForm";
 import RecruitmentVideo from "../components/video";
 import CountToTheNumberAnimated from "../components/counter/CountToTheNumberAnimated";
