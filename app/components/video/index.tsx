@@ -26,8 +26,8 @@ export default function RecruitmentVideo() {
   const source =
     "https://firebasestorage.googleapis.com/v0/b/wesiudev-5e3b9.appspot.com/o/recruitment-video.mp4?alt=media&token=40861c1a-e97f-40b2-a116-83961107615f";
   return (
-    <>
-      <div className="w-full z-50 relative">
+    <div>
+      <div className="w-full z-[10000] relative">
         <div ref={ref} className="absolute w-12 h-px top-[50%] left-0 z-50" />
         <video
           onPause={() => setPlaying(false)}
@@ -67,6 +67,6 @@ export default function RecruitmentVideo() {
           <video ref={video2} src={source} autoPlay muted />
         </div>
       </div>
-    </>
+    </div>
   );
 }
