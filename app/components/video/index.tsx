@@ -8,7 +8,7 @@ export default function RecruitmentVideo() {
   const video2 = useRef<any>();
   const isVisible = useIsVisible(ref);
   const [playing, setPlaying] = useState(true);
-
+  const [isMuted, setIsMuted] = useState(true);
   function pause() {
     video1?.current?.pause();
     video2?.current?.pause();
@@ -18,11 +18,15 @@ export default function RecruitmentVideo() {
     video1?.current?.play();
     video2?.current?.play();
     setPlaying(true);
+    setTimeout(() => {
+      setIsMuted(false);
+    }, 1000);
   }
   useEffect(() => {
-    play();
+    video1?.current?.play();
+    video2?.current?.play();
     video2.current.currentTime = video1.current.currentTime;
-  }, [video1, video2]);
+  }, []);
   const source =
     "https://firebasestorage.googleapis.com/v0/b/wesiudev-5e3b9.appspot.com/o/recruitment-video.mp4?alt=media&token=40861c1a-e97f-40b2-a116-83961107615f";
   return (
@@ -35,6 +39,7 @@ export default function RecruitmentVideo() {
           src={source}
           autoPlay={true}
           controls
+          muted={isMuted}
           className={`w-full z-50`}
         />
       </div>
