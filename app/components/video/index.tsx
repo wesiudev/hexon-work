@@ -22,6 +22,9 @@ export default function RecruitmentVideo() {
   }
   useEffect(() => {
     play();
+    setTimeout(() => {
+      play();
+    }, 3000);
   }, []);
   return (
     <>
