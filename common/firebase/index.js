@@ -48,6 +48,24 @@ export async function pushLead(data) {
     return productDocRef;
   }
 }
+export async function getLeads() {
+  try {
+    const leadsRef = collection(db, "leads");
+    const leadsSnapshot = await getDocs(leadsRef);
+    const leads = [];
+
+    leadsSnapshot.forEach((doc) => {
+      const lead = doc.data();
+      lead.id = doc.id;
+      leads.push(lead);
+    });
+
+    return leads;
+  } catch (error) {
+    console.error("Error getting leads:", error);
+    throw error;
+  }
+}
 export async function pushEmployee(data) {
   const productDocRef = doc(collection(db, "employees"), data.id);
   const docSnap = await getDoc(productDocRef);

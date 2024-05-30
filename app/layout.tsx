@@ -31,6 +31,18 @@ export default async function Root({
               gtag('config', 'AW-10818390066');
           `}
         </Script>
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-TKFVWD1KMR"
+        />
+        <Script strategy="afterInteractive" id="google-analytics">
+          {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-TKFVWD1KMR');
+          `}
+        </Script>
       </body>
     </html>
   );
