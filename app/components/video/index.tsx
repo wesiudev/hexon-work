@@ -20,13 +20,6 @@ export default function RecruitmentVideo() {
     setPlaying(true);
   }
   useEffect(() => {
-    setTimeout(() => {
-      setIsMuted(false);
-    }, 1000);
-    setTimeout(() => {
-      video1?.current?.play();
-      video2?.current?.play();
-    }, 1200);
     video1?.current?.play();
     video2?.current?.play();
     video2.current.currentTime = video1.current.currentTime;
