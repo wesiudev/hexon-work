@@ -36,7 +36,7 @@ export default function RecruitmentVideo() {
           src={source}
           autoPlay={true}
           controls
-          muted={isMuted}
+          muted={false}
           className={`w-full z-50`}
         />
       </div>
