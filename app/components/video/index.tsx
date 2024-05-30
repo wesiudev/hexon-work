@@ -22,6 +22,7 @@ export default function RecruitmentVideo() {
   useEffect(() => {
     video1?.current?.play();
     video2?.current?.play();
+    setIsMuted(false);
     video2.current.currentTime = video1.current.currentTime;
   }, []);
   const source =
@@ -34,9 +35,9 @@ export default function RecruitmentVideo() {
           onPause={() => setPlaying(false)}
           ref={video1}
           src={source}
-          autoPlay={true}
+          autoPlay
           controls
-          muted={false}
+          muted={isMuted}
           className={`w-full z-50`}
         />
       </div>
