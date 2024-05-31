@@ -55,7 +55,7 @@ export default function Leads() {
             {!lead.isFinished && filter === "new" && (
               <div key={lead.id} className="bg-zinc-800 p-3 h-max">
                 <div className="flex w-full justify-between items-center">
-                  <p>{moment(lead.createdAt).format("DD-MM-YYYY")}, </p>
+                  <p>{moment(lead.createdAt).format("DD-MM-YYYY")}</p>
                   <p className="flex flex-row items-center">
                     <FaClock className="mr-2 h-4 w-4" />
                     {moment(lead.createdAt).fromNow()}
@@ -126,7 +126,7 @@ export default function Leads() {
             {filter === "" && (
               <div key={lead.id} className="bg-zinc-800 p-3 h-max">
                 <div className="flex w-full justify-between items-center">
-                  <p>{moment(lead.createdAt).format("DD-MM-YYYY")}, </p>
+                  <p>{moment(lead.createdAt).format("DD-MM-YYYY")}</p>
                   <p className="flex flex-row items-center">
                     <FaClock className="mr-2 h-4 w-4" />
                     {moment(lead.createdAt).fromNow()}
@@ -188,7 +188,7 @@ export default function Leads() {
                       onClick={() =>
                         updateLead(lead.id, { ...lead, isFinished: true })
                       }
-                      className="w-full text-center bg-green-500 text-white py-2  font-light text-base"
+                      className="w-full text-center bg-green-500 text-white py-2 font-light text-base"
                     >
                       Oznacz jako sprawdzone
                     </button>
@@ -209,7 +209,7 @@ export default function Leads() {
             {filter === "old" && lead.isFinished && (
               <div key={lead.id} className="bg-zinc-800 p-3 h-max">
                 <div className="flex w-full justify-between items-center">
-                  <p>{moment(lead.createdAt).format("DD-MM-YYYY")}, </p>
+                  <p>{moment(lead.createdAt).format("DD-MM-YYYY")}</p>
                   <p className="flex flex-row items-center">
                     <FaClock className="mr-2 h-4 w-4" />
                     {moment(lead.createdAt).fromNow()}
