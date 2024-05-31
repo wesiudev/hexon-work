@@ -14,6 +14,19 @@ export default async function Home({
   return (
     <div className="font-sans w-full bg-[#222222] pb-48 h-full">
       <Header view={searchParams?.view} />
+      <div className="z-[12000] absolute w-[130px] sm:w-[300px] h-[50px] left-0 top-6 xl:top-12 overflow-hidden rounded-r-xl">
+        <div className="w-full flex items-start relative">
+          <div className="w-max absolute left-[300px] top-0">
+            <Image
+              src="/loga.png"
+              width={3600}
+              height={200}
+              alt="Dofinansowanie na termomodernizację"
+              className="w-auto h-[50px] move-from-right-to-left"
+            />
+          </div>
+        </div>
+      </div>
       <div className="z-[30] fixed h-screen w-full left-0 top-0">
         <Hero />
       </div>
@@ -124,11 +137,11 @@ export default async function Home({
                     Progi dofinansowania:
                   </h2>
                   <ul className="mt-6 space-y-3 flex flex-col text-sm">
-                    <li className="flex flex-row items-center">
+                    <li className="flex flex-row items-center font-bold">
                       <div className="bg-[#52eba7] h-2 w-2 rounded-full mr-2"></div>
                       Próg II (do 99 tys. zł)
                     </li>
-                    <li className="flex flex-row items-center">
+                    <li className="flex flex-row items-center font-bold">
                       <div className="bg-[#52eba7] h-2 w-2 rounded-full mr-2"></div>
                       Próg III (do 136 tys. zł)
                     </li>

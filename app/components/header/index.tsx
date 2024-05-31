@@ -36,7 +36,7 @@ export default function Header({ view }: { view: any }) {
     },
   ];
   return (
-    <header className="fixed left-0 top-6 w-full z-[500] font-sans">
+    <header className="fixed left-0 top-6 xl:top-12 w-full z-[500] font-sans">
       <Faq faqs={faqs} isFaqOpen={isFaqOpen} setFaqOpen={setFaqOpen} />
       <div className="w-[98vw] mx-auto flex flex-row justify-end px-6">
         <button
@@ -80,7 +80,9 @@ export default function Header({ view }: { view: any }) {
             <Link href={`/recruitment`}>
               <div className="hover:scale-110 duration-200 ease-in-out flex flex-row items-center bg-gradient-to-br from-[#C5FF17] to-[#33E5CF] border-px rounded-lg px-3 py-2">
                 <FaUser className="mr-2 h-5 w-5 text-zinc-800" />
-                <span className="text-zinc-800">Dołącz do nas</span>
+                <span className="text-zinc-800 text-sm sm:text-base">
+                  Dołącz do nas
+                </span>
               </div>
             </Link>
           </div>

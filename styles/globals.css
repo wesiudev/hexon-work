@@ -293,3 +293,16 @@ body {
 .animate-left-to-right {
   animation: slide-left-to-right 15s ease-in-out infinite;
 }
+
+@keyframes move-from-right-to-left {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.move-from-right-to-left {
+  animation: move-from-right-to-left 15s linear infinite;
+}
