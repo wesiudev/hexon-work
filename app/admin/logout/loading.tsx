@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Loading() {
   return (
     <div className="fixed left-0 top-0 z-[5000] font-sans italic font-light h-screen w-screen flex justify-center items-center bg-[#202020] text-4xl text-white">
@@ -20,13 +18,7 @@ export default function Loading() {
             fill="currentFill"
           />
         </svg>
-        <Image
-          src="/logo-hexon2.png"
-          width={200}
-          height={200}
-          alt=""
-          className="animate-pulse"
-        />
+        <h1>Wczytywanie danych...</h1>
       </div>
     </div>
   );

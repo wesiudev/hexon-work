@@ -66,6 +66,11 @@ export async function getLeads() {
     throw error;
   }
 }
+export async function updateLead(id, data) {
+  const docRef = doc(collection(db, "leads"), id);
+  await updateDoc(docRef, data);
+  return docRef;
+}
 export async function pushEmployee(data) {
   const productDocRef = doc(collection(db, "employees"), data.id);
   const docSnap = await getDoc(productDocRef);
@@ -80,4 +85,4 @@ export async function pushEmployee(data) {
   }
 }
 
-export { provider, storage, auth };
+export { provider, storage, auth, app };
