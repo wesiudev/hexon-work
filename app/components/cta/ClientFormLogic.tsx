@@ -1,9 +1,11 @@
 "use client";
 import { pushLead } from "@/common/firebase";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FaArrowRight, FaCheckCircle } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
 export default function ClientFormLogic() {
+  const router = useRouter();
   const [formData, setFormData] = useState<any>({
     ownership: undefined,
     incomeLevel: undefined,
@@ -485,6 +487,7 @@ export default function ClientFormLogic() {
                 onClick={() => {
                   pushLead({ ...formData, id: uuidv4() }).then(() => {
                     setIsSending("success");
+                    router.push("/?success=true");
                   });
                 }}
                 className="disabled:cursor-not-allowed flex flex-row items-center justify-center py-3 px-5 w-full text-base lg:w-max bg-gradient-to-br from-[#C5FF17] to-[#33E5CF] hover:scale-105 duration-200 ease-in-out text-zinc-800 rounded-lg cursor-pointer font-bold mt-2"
