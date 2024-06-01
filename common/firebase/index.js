@@ -4,19 +4,13 @@ import {
   getFirestore,
   collection,
   getDocs,
-  addDoc,
-  query,
-  where,
-  limit,
-  orderBy,
   updateDoc,
   doc,
-  arrayUnion,
   getDoc,
   setDoc,
 } from "firebase/firestore/lite";
 import { getStorage } from "firebase/storage";
-import moment from "moment";
+import { getAnalytics, isSupported } from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -35,6 +29,9 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 const storage = getStorage(app);
+
+const analytics = isSupported().then((yes) => (yes ? getAnalytics(app) : null));
+
 export async function pushLead(data) {
   const productDocRef = doc(collection(db, "leads"), data.id);
   const docSnap = await getDoc(productDocRef);
