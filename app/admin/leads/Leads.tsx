@@ -93,7 +93,9 @@ export default function Leads() {
                     </tr>
                     <tr className="bg-gray-600">
                       <td>Numer Telefonu:</td>
-                      <td>{lead.phone}</td>
+                      <td>
+                        {lead.phone} {lead.name}
+                      </td>
                     </tr>
                     <tr className="bg-gray-700">
                       <td>Uczestnicy gospodarstwa:</td>
@@ -164,7 +166,9 @@ export default function Leads() {
                     </tr>
                     <tr className="bg-gray-600">
                       <td>Numer Telefonu:</td>
-                      <td>{lead.phone}</td>
+                      <td>
+                        {lead.phone} {lead.name}
+                      </td>
                     </tr>
                     <tr className="bg-gray-700">
                       <td>Uczestnicy gospodarstwa:</td>
