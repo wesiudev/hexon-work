@@ -16,6 +16,7 @@ export default function ClientFormLogic() {
     houseType: undefined,
     houseAge: undefined,
     phone: "",
+    name: "",
   });
   const [isSending, setIsSending] = useState<any>(undefined);
 
@@ -456,8 +457,22 @@ export default function ClientFormLogic() {
             className="absolute bottom-0 left-0 p-6 w-full bg-white z-[500]"
           >
             <div className="">
+              <h2 className="text-xl mb-3">Imię:</h2>
+              <input
+                style={{ boxShadow: "0px 0px 3px black" }}
+                className="w-full lg:w-auto p-2 placeholder:font-light focus:outline-2 focus:outline-green-500"
+                type="text"
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+                value={formData.name}
+                placeholder="Wpisz imię"
+              />
+            </div>
+            <div className="mt-4">
               <h2 className="text-xl mb-3">Numer telefonu:</h2>
               <input
+                required
                 style={{ boxShadow: "0px 0px 3px black" }}
                 className="w-full lg:w-auto p-2 placeholder:font-light focus:outline-2 focus:outline-green-500"
                 type="text"

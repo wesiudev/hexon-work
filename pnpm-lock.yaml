@@ -140,6 +140,9 @@ dependencies:
   react-firebase-hooks:
     specifier: ^5.1.1
     version: 5.1.1(firebase@9.18.0)(react@18.3.1)
+  react-google-autocomplete:
+    specifier: ^2.7.3
+    version: 2.7.3(react@18.3.1)
   react-hot-toast:
     specifier: ^2.4.0
     version: 2.4.0(csstype@3.1.3)(react-dom@18.3.1)(react@18.3.1)
@@ -8096,6 +8099,16 @@ packages:
       react: '>= 16.8.0'
     dependencies:
       firebase: 9.18.0
+      react: 18.3.1
+    dev: false
+
+  /react-google-autocomplete@2.7.3(react@18.3.1):
+    resolution: {integrity: sha512-Nm+7/VDe7/NDWb8p/a39is7ktNqt5bNqAOoQv2Ev/XkuEvjsRk08VAPFmXUH03xKuM8IUuDrk2Lwfge44YEj6Q==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      lodash.debounce: 4.0.8
+      prop-types: 15.8.1
       react: 18.3.1
     dev: false
 

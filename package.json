@@ -54,6 +54,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-firebase-hooks": "^5.1.1",
+    "react-google-autocomplete": "^2.7.3",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.8.0",
     "react-image-file-resizer": "^0.4.8",
