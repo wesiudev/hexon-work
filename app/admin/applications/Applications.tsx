@@ -1,5 +1,5 @@
 "use client";
-import { app, updateLead } from "@/common/firebase";
+import { app, updateApplication } from "@/common/firebase";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, getFirestore } from "firebase/firestore";
@@ -93,7 +93,7 @@ export default function Leads() {
                 <div className="flex flex-col w-full mt-3">
                   <button
                     onClick={() =>
-                      updateLead(lead.id, { ...lead, isFinished: true })
+                      updateApplication(lead.id, { ...lead, isFinished: true })
                     }
                     className="w-full text-center bg-green-500 text-white py-2  font-light text-base"
                   >
@@ -155,7 +155,10 @@ export default function Leads() {
                   {lead.isFinished && (
                     <button
                       onClick={() =>
-                        updateLead(lead.id, { ...lead, isFinished: false })
+                        updateApplication(lead.id, {
+                          ...lead,
+                          isFinished: false,
+                        })
                       }
                       className="w-full text-center bg-green-500 text-white py-2  font-light text-base"
                     >
@@ -165,7 +168,10 @@ export default function Leads() {
                   {!lead.isFinished && (
                     <button
                       onClick={() =>
-                        updateLead(lead.id, { ...lead, isFinished: true })
+                        updateApplication(lead.id, {
+                          ...lead,
+                          isFinished: true,
+                        })
                       }
                       className="w-full text-center bg-green-500 text-white py-2 font-light text-base"
                     >
@@ -227,7 +233,10 @@ export default function Leads() {
                   {lead.isFinished && (
                     <button
                       onClick={() =>
-                        updateLead(lead.id, { ...lead, isFinished: false })
+                        updateApplication(lead.id, {
+                          ...lead,
+                          isFinished: false,
+                        })
                       }
                       className="w-full text-center bg-green-500 text-white py-2  font-light text-base"
                     >
@@ -237,7 +246,10 @@ export default function Leads() {
                   {!lead.isFinished && (
                     <button
                       onClick={() =>
-                        updateLead(lead.id, { ...lead, isFinished: true })
+                        updateApplication(lead.id, {
+                          ...lead,
+                          isFinished: true,
+                        })
                       }
                       className="w-full text-center bg-green-500 text-white py-2  font-light text-base"
                     >

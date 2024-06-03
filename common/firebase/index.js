@@ -68,6 +68,11 @@ export async function updateLead(id, data) {
   await updateDoc(docRef, data);
   return docRef;
 }
+export async function updateApplication(id, data) {
+  const docRef = doc(collection(db, "employees"), id);
+  await updateDoc(docRef, data);
+  return docRef;
+}
 export async function pushEmployee(data) {
   const productDocRef = doc(collection(db, "employees"), data.id);
   const docSnap = await getDoc(productDocRef);
