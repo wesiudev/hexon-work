@@ -13,7 +13,7 @@ export default function Page() {
           width={400}
           height={400}
           alt=""
-          className="w-[170px] sm:w-[200px]"
+          className="w-[150px] sm:w-[200px]"
         />
       </Link>
       <Header view={"courses"} />
