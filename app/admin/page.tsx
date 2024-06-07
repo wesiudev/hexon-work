@@ -17,6 +17,12 @@ export default function Admin() {
       >
         Aplikacje
       </Link>
+      <Link
+        href="/admin/courses"
+        className="bg-purple-500 text-white text-3xl p-3 font-light"
+      >
+        Szkolenia
+      </Link>
     </div>
   );
 }

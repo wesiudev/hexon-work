@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        courses: "url('/bg-courses.jpg')",
+      },
       fontFamily: {
         sans: ["var(--font-cocosharp)"],
         gotham: ["var(--font-gotham)"],

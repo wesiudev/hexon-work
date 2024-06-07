@@ -73,6 +73,24 @@ export async function updateApplication(id, data) {
   await updateDoc(docRef, data);
   return docRef;
 }
+export async function updateCourse(id, data) {
+  const docRef = doc(collection(db, "courses"), id);
+  await updateDoc(docRef, data);
+  return docRef;
+}
+export async function pushCourse(data) {
+  const productDocRef = doc(collection(db, "courses"), data.id);
+  const docSnap = await getDoc(productDocRef);
+  if (docSnap.exists()) {
+    return productDocRef;
+  } else {
+    await setDoc(productDocRef, {
+      ...data,
+      createdAt: Date.now(),
+    });
+    return productDocRef;
+  }
+}
 export async function pushEmployee(data) {
   const productDocRef = doc(collection(db, "employees"), data.id);
   const docSnap = await getDoc(productDocRef);
