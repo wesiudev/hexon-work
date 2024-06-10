@@ -35,7 +35,7 @@ export default function Page() {
             <CountToTheNumberAnimated
               textBeforeNumber="W tym miesiącu zatrudniliśmy:"
               textAfterNumber="doradców"
-              numberToAnimateTo={9}
+              numberToAnimateTo={10}
               animationSpeed={300}
               textColor="white"
             />
