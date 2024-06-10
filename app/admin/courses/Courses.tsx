@@ -23,7 +23,7 @@ export default function Courses() {
   moment.locale("pl");
   return (
     <div className="bg-gray-600 h-max w-full">
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 p-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 p-6 !text-white">
         <button
           onClick={() => setFilter("")}
           className={`bg-black p-1 border-2 border-transparent border-dashed ${
