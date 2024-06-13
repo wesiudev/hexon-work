@@ -14,7 +14,11 @@ export default function ClientForm({
   return (
     <div
       className={`${
-        pathname.includes("admin") && "hidden"
+        !pathname.includes("admin") &&
+        !pathname.includes("recruitment") &&
+        !pathname.includes("courses")
+          ? "block"
+          : "hidden"
       } font-gotham z-[1600] left-0 top-0 fixed w-full h-full ${
         action === "client" ? "translate-x-0" : "-translate-x-[400vw]"
       }`}
