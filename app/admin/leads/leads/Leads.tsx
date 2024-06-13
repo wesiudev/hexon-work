@@ -110,7 +110,7 @@ export default function Leads() {
                     </tr>
                     <tr className="bg-gray-600">
                       <td>Region:</td>
-                      <td>{lead.region}</td>
+                      <td>{lead?.region ? lead.region : "Nie podano"}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -187,7 +187,7 @@ export default function Leads() {
                     </tr>
                     <tr className="bg-gray-600">
                       <td>Region:</td>
-                      <td>{lead.region}</td>
+                      <td>{lead?.region ? lead.region : "Nie podano"}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -276,7 +276,7 @@ export default function Leads() {
                     </tr>
                     <tr className="bg-gray-600">
                       <td>Region:</td>
-                      <td>{lead.region}</td>
+                      <td>{lead?.region ? lead.region : "Nie podano"}</td>
                     </tr>
                   </tbody>
                 </table>
