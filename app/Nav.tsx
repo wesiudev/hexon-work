@@ -91,7 +91,7 @@ export default function Nav({
         <div className="text-white py-4 px-3 relative">
           <h1 className="text-base font-bold  flex flex-row items-center ">
             <Image
-              src="/favicons/favicon.ico"
+              src="/favicon.ico"
               width={36}
               height={36}
               alt=""
