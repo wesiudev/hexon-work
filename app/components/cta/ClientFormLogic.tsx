@@ -455,7 +455,15 @@ export default function ClientFormLogic() {
             {formData.houseType !== undefined && (
               <div className="-ml-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <button
-                  onClick={() => setFormData({ ...formData, houseAge: "Tak" })}
+                  onClick={() => {
+                    setFormData({ ...formData, houseAge: "Tak" });
+                    setError({
+                      ...error,
+                      phone: false,
+                      name: false,
+                      region: false,
+                    });
+                  }}
                   className={`${
                     formData.houseAge === "Tak"
                       ? "border-black"
@@ -465,7 +473,15 @@ export default function ClientFormLogic() {
                   Tak
                 </button>
                 <button
-                  onClick={() => setFormData({ ...formData, houseAge: "Nie" })}
+                  onClick={() => {
+                    setFormData({ ...formData, houseAge: "Nie" });
+                    setError({
+                      ...error,
+                      phone: false,
+                      name: false,
+                      region: false,
+                    });
+                  }}
                   className={`${
                     formData.houseAge === "Nie"
                       ? "border-black"
