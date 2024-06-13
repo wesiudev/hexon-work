@@ -5,6 +5,8 @@ import Cta from "./components/cta/Cta";
 import ScrollTo from "./components/ScrollTo";
 import Opinions from "./components/opinions/Opinions";
 import CountToTheNumberAnimated from "./components/counter/CountToTheNumberAnimated";
+import { getLeads } from "@/common/firebase";
+import Link from "next/link";
 
 export default async function Home({
   searchParams,
@@ -14,7 +16,7 @@ export default async function Home({
   return (
     <div className="font-sans w-full bg-[#222222] pb-48 h-full">
       <Header view={searchParams?.view} />
-      <div className="z-[12000] absolute w-[130px] sm:w-[300px] h-[50px] left-0 top-6 xl:top-12 overflow-hidden rounded-r-xl">
+      <div className="z-[1500] absolute w-[130px] sm:w-[300px] h-[50px] left-0 top-6 xl:top-12 overflow-hidden rounded-r-xl">
         <div className="w-full flex items-start relative">
           <div className="w-max absolute left-[300px] top-0">
             <Image
@@ -151,7 +153,7 @@ export default async function Home({
                   <CountToTheNumberAnimated
                     textBeforeNumber="Zrealizowaliśmy już"
                     textAfterNumber="Projektów"
-                    numberToAnimateTo={68}
+                    numberToAnimateTo={70}
                     textColor="#3F3F46"
                     animationSpeed={50}
                   />
@@ -161,6 +163,21 @@ export default async function Home({
             <Cta styleType="colored" label="ZŁÓŻ WNIOSEK" />
             <div className="mt-12">
               <Opinions />
+            </div>
+            <div className="mt-6 text-center flex items-center justify-center">
+              <Link
+                href="https://www.google.com/search?sa=X&sca_esv=361f429e8db713bc&sca_upv=1&tbm=lcl&sxsrf=ADLYWIKH7tM-tI-2f5QMONghmCtFcrpq4A:1718290938971&q=hexon%20opinie&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxNDU2NjexNDS1MLcwNzY3MzYxMNrAyPiKkScjtSI_TyG_IDMvM3URKwoXADurxIU5AAAA&rldimm=15337491587873763402&hl=pl-PL&ved=0CAUQ5foLahcKEwiw9YfJ7NiGAxUAAAAAHQAAAAAQCQ&biw=1920&bih=953&dpr=1#lkt=LocalPoiReviews&arid=ChZDSUhNMG9nS0VJQ0FnSUMxXzZldmVREAE"
+                target="_blank"
+              >
+                Zobacz opinie
+                <Image
+                  src="/google.webp"
+                  width={100}
+                  height={100}
+                  alt=""
+                  className="h-auto w-[100px] mx-auto"
+                />
+              </Link>
             </div>
           </div>
         </section>

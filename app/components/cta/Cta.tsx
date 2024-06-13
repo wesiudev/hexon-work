@@ -2,7 +2,6 @@
 import RecruitmentForm from "./RecruitmentForm";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalVisible } from "@/common/redux/slices/actionSlice";
-
 export default function Cta({
   styleType,
   label,

@@ -1,7 +1,7 @@
 "use client";
-
 import Image from "next/image";
 import ClientFormLogic from "./ClientFormLogic";
+import { usePathname } from "next/navigation";
 
 export default function ClientForm({
   action,
@@ -10,9 +10,12 @@ export default function ClientForm({
   action: string;
   setAction: Function;
 }) {
+  const pathname = usePathname();
   return (
     <div
-      className={`font-gotham z-[1600] left-0 top-0 fixed w-full h-full ${
+      className={`${
+        pathname.includes("admin") && "hidden"
+      } font-gotham z-[1600] left-0 top-0 fixed w-full h-full ${
         action === "client" ? "translate-x-0" : "-translate-x-[400vw]"
       }`}
     >

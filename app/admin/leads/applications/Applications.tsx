@@ -1,17 +1,17 @@
 "use client";
-import { app, updateLead } from "@/common/firebase";
+import { app, updateApplication } from "@/common/firebase";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, getFirestore } from "firebase/firestore";
 import "moment/locale/pl";
 import Link from "next/link";
-import { FaClock } from "react-icons/fa";
+import { FaClock, FaLongArrowAltLeft } from "react-icons/fa";
 
 export default function Leads() {
   const [leads, setLeads] = useState<any[]>([]);
   const [filter, setFilter] = useState("");
   useEffect(() => {
-    const ref = collection(getFirestore(app), "leads");
+    const ref = collection(getFirestore(app), "employees");
     const unsub = onSnapshot(ref, (querySnapshot: any) => {
       const snapshotData: any[] = [];
       querySnapshot.forEach((doc: any) => {
@@ -22,7 +22,14 @@ export default function Leads() {
   }, []);
   moment.locale("pl");
   return (
-    <div className="bg-gray-600 h-max w-full">
+    <div className="bg-gray-600 h-max w-full font-sans">
+      <Link
+        href="/admin/leads"
+        className="bg-black py-3 px-6 text-white font-bold text-lg flex items-center"
+      >
+        <FaLongArrowAltLeft className="mr-2 text-xl" />
+        Powrót
+      </Link>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 p-6 !text-white">
         <button
           onClick={() => setFilter("")}
@@ -64,49 +71,36 @@ export default function Leads() {
                 <table className="w-full mt-3">
                   <tbody>
                     <tr className="bg-gray-700">
-                      <td>Komornik:</td>
-                      <td>{lead.debtStatus}</td>
-                    </tr>
-                    <tr className="bg-gray-600">
-                      <td>Źródło ciepła:</td>
-                      <td>{lead.heatingSource}</td>
+                      <td>Email:</td>
+                      <td>{lead.email}</td>
                     </tr>
                     <tr className="bg-gray-700">
-                      <td>Hektary:</td>
-                      <td>{lead.hectareCount}</td>
-                    </tr>
-                    <tr className="bg-gray-600">
-                      <td>Więcej niż 10 lat:</td>
-                      <td>{lead.houseAge}</td>
+                      <td>Imię i nazwisko:</td>
+                      <td>{lead.name}</td>
                     </tr>
                     <tr className="bg-gray-700">
-                      <td>Rodzaj budynku:</td>
-                      <td>{lead.houseType}</td>
-                    </tr>
-                    <tr className="bg-gray-600">
-                      <td>Dochody:</td>
-                      <td>{lead.incomeLevel}</td>
+                      <td>Tel:</td>
+                      <td>{lead.phoneNumber}</td>
                     </tr>
                     <tr className="bg-gray-700">
-                      <td>Właściciel KW:</td>
-                      <td>{lead.ownership.toString()}</td>
-                    </tr>
-                    <tr className="bg-gray-600">
-                      <td>Numer Telefonu:</td>
-                      <td>
-                        {lead.phone} {lead.name}
-                      </td>
-                    </tr>
-                    <tr className="bg-gray-700">
-                      <td>Uczestnicy gospodarstwa:</td>
-                      <td>{lead.visitors}</td>
+                      <tr className="bg-gray-700">
+                        <td colSpan={2}>
+                          <a
+                            href={lead.file}
+                            download
+                            className="text-white underline font-light"
+                          >
+                            Pobierz CV
+                          </a>
+                        </td>
+                      </tr>
                     </tr>
                   </tbody>
                 </table>
                 <div className="flex flex-col w-full mt-3">
                   <button
                     onClick={() =>
-                      updateLead(lead.id, { ...lead, isFinished: true })
+                      updateApplication(lead.id, { ...lead, isFinished: true })
                     }
                     className="w-full text-center bg-green-500 text-white py-2  font-light text-base"
                   >
@@ -114,7 +108,7 @@ export default function Leads() {
                   </button>
                   <Link
                     className="w-full text-center bg-blue-500 text-white py-2 font-light text-base mt-2"
-                    href={`tel:${lead.phone}`}
+                    href={`tel:${lead.phoneNumber}`}
                   >
                     Zadzwoń
                   </Link>
@@ -136,43 +130,31 @@ export default function Leads() {
                 </div>
                 <table className="w-full mt-3">
                   <tbody>
+                    {" "}
                     <tr className="bg-gray-700">
-                      <td>Komornik:</td>
-                      <td>{lead.debtStatus}</td>
-                    </tr>
-                    <tr className="bg-gray-600">
-                      <td>Źródło ciepła:</td>
-                      <td>{lead.heatingSource}</td>
+                      <td>Email:</td>
+                      <td>{lead.email}</td>
                     </tr>
                     <tr className="bg-gray-700">
-                      <td>Hektary:</td>
-                      <td>{lead.hectareCount}</td>
-                    </tr>
-                    <tr className="bg-gray-600">
-                      <td>Więcej niż 10 lat:</td>
-                      <td>{lead.houseAge}</td>
+                      <td>Imię i nazwisko:</td>
+                      <td>{lead.name}</td>
                     </tr>
                     <tr className="bg-gray-700">
-                      <td>Rodzaj budynku:</td>
-                      <td>{lead.houseType}</td>
-                    </tr>
-                    <tr className="bg-gray-600">
-                      <td>Dochody:</td>
-                      <td>{lead.incomeLevel}</td>
+                      <td>Tel:</td>
+                      <td>{lead.phoneNumber}</td>
                     </tr>
                     <tr className="bg-gray-700">
-                      <td>Właściciel KW:</td>
-                      <td>{lead.ownership.toString()}</td>
-                    </tr>
-                    <tr className="bg-gray-600">
-                      <td>Numer Telefonu:</td>
-                      <td>
-                        {lead.phone} {lead.name}
-                      </td>
-                    </tr>
-                    <tr className="bg-gray-700">
-                      <td>Uczestnicy gospodarstwa:</td>
-                      <td>{lead.visitors}</td>
+                      <tr className="bg-gray-700">
+                        <td colSpan={2}>
+                          <a
+                            href={lead.file}
+                            download
+                            className="text-white underline font-light"
+                          >
+                            Pobierz CV
+                          </a>
+                        </td>
+                      </tr>
                     </tr>
                   </tbody>
                 </table>
@@ -180,7 +162,10 @@ export default function Leads() {
                   {lead.isFinished && (
                     <button
                       onClick={() =>
-                        updateLead(lead.id, { ...lead, isFinished: false })
+                        updateApplication(lead.id, {
+                          ...lead,
+                          isFinished: false,
+                        })
                       }
                       className="w-full text-center bg-green-500 text-white py-2  font-light text-base"
                     >
@@ -190,7 +175,10 @@ export default function Leads() {
                   {!lead.isFinished && (
                     <button
                       onClick={() =>
-                        updateLead(lead.id, { ...lead, isFinished: true })
+                        updateApplication(lead.id, {
+                          ...lead,
+                          isFinished: true,
+                        })
                       }
                       className="w-full text-center bg-green-500 text-white py-2 font-light text-base"
                     >
@@ -199,7 +187,7 @@ export default function Leads() {
                   )}
                   <Link
                     className="w-full text-center bg-blue-500 text-white py-2 font-light text-base mt-2"
-                    href={`tel:${lead.phone}`}
+                    href={`tel:${lead.phoneNumber}`}
                   >
                     Zadzwoń
                   </Link>
@@ -222,42 +210,29 @@ export default function Leads() {
                 <table className="w-full mt-3">
                   <tbody>
                     <tr className="bg-gray-700">
-                      <td>Komornik:</td>
-                      <td>{lead.debtStatus}</td>
-                    </tr>
-                    <tr className="bg-gray-600">
-                      <td>Źródło ciepła:</td>
-                      <td>{lead.heatingSource}</td>
+                      <td>Email:</td>
+                      <td>{lead.email}</td>
                     </tr>
                     <tr className="bg-gray-700">
-                      <td>Hektary:</td>
-                      <td>{lead.hectareCount}</td>
-                    </tr>
-                    <tr className="bg-gray-600">
-                      <td>Więcej niż 10 lat:</td>
-                      <td>{lead.houseAge}</td>
+                      <td>Imię i nazwisko:</td>
+                      <td>{lead.name}</td>
                     </tr>
                     <tr className="bg-gray-700">
-                      <td>Rodzaj budynku:</td>
-                      <td>{lead.houseType}</td>
-                    </tr>
-                    <tr className="bg-gray-600">
-                      <td>Dochody:</td>
-                      <td>{lead.incomeLevel}</td>
+                      <td>Tel:</td>
+                      <td>{lead.phoneNumber}</td>
                     </tr>
                     <tr className="bg-gray-700">
-                      <td>Właściciel KW:</td>
-                      <td>{lead.ownership.toString()}</td>
-                    </tr>
-                    <tr className="bg-gray-600">
-                      <td>Numer Telefonu:</td>
-                      <td>
-                        {lead.phone} {lead.name}
-                      </td>
-                    </tr>
-                    <tr className="bg-gray-700">
-                      <td>Uczestnicy gospodarstwa:</td>
-                      <td>{lead.visitors}</td>
+                      <tr className="bg-gray-700">
+                        <td colSpan={2}>
+                          <a
+                            href={lead.file}
+                            download
+                            className="text-white underline font-light"
+                          >
+                            Pobierz CV
+                          </a>
+                        </td>
+                      </tr>
                     </tr>
                   </tbody>
                 </table>
@@ -265,7 +240,10 @@ export default function Leads() {
                   {lead.isFinished && (
                     <button
                       onClick={() =>
-                        updateLead(lead.id, { ...lead, isFinished: false })
+                        updateApplication(lead.id, {
+                          ...lead,
+                          isFinished: false,
+                        })
                       }
                       className="w-full text-center bg-green-500 text-white py-2  font-light text-base"
                     >
@@ -275,7 +253,10 @@ export default function Leads() {
                   {!lead.isFinished && (
                     <button
                       onClick={() =>
-                        updateLead(lead.id, { ...lead, isFinished: true })
+                        updateApplication(lead.id, {
+                          ...lead,
+                          isFinished: true,
+                        })
                       }
                       className="w-full text-center bg-green-500 text-white py-2  font-light text-base"
                     >
@@ -284,7 +265,7 @@ export default function Leads() {
                   )}
                   <Link
                     className="w-full text-center bg-blue-500 text-white py-2 font-light text-base mt-2"
-                    href={`tel:${lead.phone}`}
+                    href={`tel:${lead.phoneNumber}`}
                   >
                     Zadzwoń
                   </Link>

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { collection, onSnapshot, getFirestore } from "firebase/firestore";
 import "moment/locale/pl";
 import Link from "next/link";
-import { FaClock } from "react-icons/fa";
+import { FaClock, FaLongArrowAltLeft } from "react-icons/fa";
 
 export default function Courses() {
   const [leads, setLeads] = useState<any[]>([]);
@@ -22,7 +22,14 @@ export default function Courses() {
   }, []);
   moment.locale("pl");
   return (
-    <div className="bg-gray-600 h-max w-full">
+    <div className="bg-gray-600 h-max w-full font-sans">
+      <Link
+        href="/admin/leads"
+        className="bg-black py-3 px-6 text-white font-bold text-lg flex items-center"
+      >
+        <FaLongArrowAltLeft className="mr-2 text-xl" />
+        Powrót
+      </Link>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 p-6 !text-white">
         <button
           onClick={() => setFilter("")}

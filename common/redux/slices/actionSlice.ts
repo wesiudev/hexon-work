@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: any = {
-  action: undefined,
+  action: "client",
 };
 
 export const actionSlice = createSlice({

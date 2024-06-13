@@ -1,11 +1,14 @@
 "use client";
 import { pushLead } from "@/common/firebase";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FaArrowRight, FaCheckCircle } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
 export default function ClientFormLogic() {
-  const router = useRouter();
+  const [error, setError] = useState({
+    name: false,
+    region: false,
+    phone: false,
+  });
   const [formData, setFormData] = useState<any>({
     ownership: undefined,
     incomeLevel: undefined,
@@ -17,18 +20,43 @@ export default function ClientFormLogic() {
     houseAge: undefined,
     phone: "",
     name: "",
+    region: "",
   });
+
   const [isSending, setIsSending] = useState<any>(undefined);
 
   const handleSubmit = (e: any) => {
-    setIsSending(true);
+    // Reset errors
+    setError({ name: false, region: false, phone: false });
+
+    // Check for errors
+    let hasError = false;
+    if (formData.name === "") {
+      setError((prev) => ({ ...prev, name: true }));
+      hasError = true;
+    }
+    if (formData.phone === "") {
+      setError((prev) => ({ ...prev, phone: true }));
+      hasError = true;
+    }
+    if (formData.region === "" || formData.region === "Wybierz województwo") {
+      setError((prev) => ({ ...prev, region: true }));
+      hasError = true;
+    }
+
+    // If no errors, proceed
+    if (!hasError) {
+      pushLead({ ...formData, id: uuidv4() }).then(() => {
+        setIsSending("success");
+      });
+    }
     e.preventDefault();
   };
 
   return (
     <>
-      <div className="z-0 relative">
-        <form onSubmit={handleSubmit} className="flex flex-col">
+      <form onSubmit={(e: any) => handleSubmit(e)} className="flex flex-col">
+        <div className="z-0 relative">
           <div className="flex flex-col justify-center border-t border-green-500 py-6 px-6 relative">
             <span className="font-bold text-lg">
               {formData.ownership !== undefined && (
@@ -36,7 +64,7 @@ export default function ClientFormLogic() {
                   <FaCheckCircle />
                 </div>
               )}
-              Pytanie 1
+              Pytanie 1/8
             </span>
             <label className="font-light mt-3">
               Czy jesteś właścicielem KW bądź współwłaścicielem?
@@ -70,7 +98,7 @@ export default function ClientFormLogic() {
                   <FaCheckCircle />
                 </div>
               )}
-              Pytanie 2
+              Pytanie 2/8
             </span>
             <label className="font-light mt-3">
               Jakiej wysokości są Twoje dochody?
@@ -136,7 +164,7 @@ export default function ClientFormLogic() {
                   <FaCheckCircle />
                 </div>
               )}
-              Pytanie 3
+              Pytanie 3/8
             </span>
             <label className="font-light mt-3">
               Jakim źródłem ciepła ogrzewasz gospodarstwo domowe?
@@ -208,7 +236,7 @@ export default function ClientFormLogic() {
                   <FaCheckCircle />
                 </div>
               )}
-              Pytanie 4
+              Pytanie 4/8
             </span>
             <label className="font-light mt-3">
               Czy posiadasz dzieci bądź wnuków, którzy uczestniczą w
@@ -247,7 +275,7 @@ export default function ClientFormLogic() {
                   <FaCheckCircle />
                 </div>
               )}
-              Pytanie 5
+              Pytanie 5/8
             </span>
             <label className="font-light mt-3">
               Czy KW jest zadłużona przez komornika?
@@ -289,7 +317,7 @@ export default function ClientFormLogic() {
                   <FaCheckCircle />
                 </div>
               )}
-              Pytanie 6
+              Pytanie 6/8
             </span>
             <label className="font-light mt-3">
               Ile posiadasz przeliczeniowych hektarów?
@@ -379,7 +407,7 @@ export default function ClientFormLogic() {
                   <FaCheckCircle />
                 </div>
               )}
-              Pytanie 7
+              Pytanie 7/8
             </span>
             <label className="font-light mt-3">
               Czy jest to dom czy bliźniak?
@@ -419,7 +447,7 @@ export default function ClientFormLogic() {
                   <FaCheckCircle />
                 </div>
               )}
-              Pytanie 8
+              Pytanie 8/8
             </span>
             <label className="font-light mt-3">
               Czy Twój dom stoi więcej niż 10 lat?
@@ -450,69 +478,123 @@ export default function ClientFormLogic() {
             )}
             {/* Add more input fields as needed */}
           </div>
-        </form>
-        {formData.houseAge !== undefined && (
-          <div
-            style={{ boxShadow: "0px 0px 3px black" }}
-            className="absolute bottom-0 left-0 p-6 w-full bg-white z-[500]"
-          >
-            <div className="">
-              <h2 className="text-xl mb-3">Imię:</h2>
-              <input
-                style={{ boxShadow: "0px 0px 3px black" }}
-                className="w-full lg:w-auto p-2 placeholder:font-light focus:outline-2 focus:outline-green-500"
-                type="text"
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-                value={formData.name}
-                placeholder="Wpisz imię"
-              />
-            </div>
-            <div className="mt-4">
-              <h2 className="text-xl mb-3">Numer telefonu:</h2>
-              <input
-                required
-                style={{ boxShadow: "0px 0px 3px black" }}
-                className="w-full lg:w-auto p-2 placeholder:font-light focus:outline-2 focus:outline-green-500"
-                type="text"
-                onChange={(e) =>
-                  setFormData({ ...formData, phone: e.target.value })
-                }
-                value={formData.phone}
-                placeholder="Wpisz numer"
-              />
-            </div>
-            {isSending === "success" && (
-              <div className="text-green-500 animate-pulse mt-3">
-                Wysłano pomyślnie!
+          {formData.houseAge !== undefined && (
+            <div
+              style={{ boxShadow: "0px 0px 3px black" }}
+              className="absolute bottom-0 left-0 p-6 w-full bg-white z-[500]"
+            >
+              <div className="">
+                <h2 className="text-xl">Imię:</h2>
+                {error.name && (
+                  <p>
+                    <span className="text-red-500">Wymagane</span>
+                  </p>
+                )}
+                <input
+                  onFocus={() => setError({ ...error, name: false })}
+                  autoComplete="name"
+                  style={{ boxShadow: "0px 0px 3px black" }}
+                  className={`mt-3 w-full lg:w-auto p-2 placeholder:font-light focus:outline-2 focus:outline-green-500 ${
+                    error.name && "border-2 border-red-500"
+                  }`}
+                  type="text"
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  value={formData.name}
+                  placeholder="Wpisz imię"
+                />
               </div>
-            )}
-            <div className="flex flex-col-reverse lg:flex-row items-center w-full mt-2">
-              <button
-                onClick={() =>
-                  setFormData({ ...formData, houseAge: undefined })
-                }
-                className="font-light mt-2 lg:mr-4"
-              >
-                Powrót
-              </button>
-              <button
-                disabled={isSending === "success"}
-                onClick={() => {
-                  pushLead({ ...formData, id: uuidv4() }).then(() => {
-                    setIsSending("success");
-                    router.push("/?success=true");
-                  });
-                }}
-                className="disabled:cursor-not-allowed flex flex-row items-center justify-center py-3 px-5 w-full text-base lg:w-max bg-gradient-to-br from-[#C5FF17] to-[#33E5CF] hover:scale-105 duration-200 ease-in-out text-zinc-800 rounded-lg cursor-pointer font-bold mt-2"
-              >
-                Wyślij wniosek <FaArrowRight className="ml-2" />
-              </button>
+              <div className="mt-4">
+                <h2 className="text-xl">Numer telefonu:</h2>
+                {error.phone && (
+                  <p>
+                    <span className="text-red-500">Wymagane</span>
+                  </p>
+                )}
+                <input
+                  onFocus={() => setError({ ...error, phone: false })}
+                  autoComplete="tel"
+                  style={{ boxShadow: "0px 0px 3px black" }}
+                  className={`mt-3 w-full lg:w-auto p-2 placeholder:font-light focus:outline-2 focus:outline-green-500 ${
+                    error.phone && "border-2 border-red-500"
+                  }`}
+                  type="text"
+                  onChange={(e) =>
+                    setFormData({ ...formData, phone: e.target.value })
+                  }
+                  value={formData.phone}
+                  placeholder="Wpisz numer"
+                />
+              </div>
+              <div className="mt-4">
+                <h2 className="text-xl">Województwo:</h2>
+                {error.region && (
+                  <p>
+                    <span className="text-red-500">Wymagane</span>
+                  </p>
+                )}
+                <select
+                  onFocus={() => setError({ ...error, region: false })}
+                  required
+                  style={{ boxShadow: "0px 0px 3px black" }}
+                  className={`mt-3 w-full lg:w-auto p-2 placeholder:font-light focus:outline-2 focus:outline-green-500 ${
+                    error.region && "border-2 border-red-500"
+                  }`}
+                  onChange={(e) =>
+                    setFormData({ ...formData, region: e.target.value })
+                  }
+                  value={formData.region}
+                >
+                  <option value="">Wybierz województwo</option>
+                  <option value="dolnośląskie">dolnośląskie</option>
+                  <option value="kujawsko-pomorskie">kujawsko-pomorskie</option>
+                  <option value="lubelskie">lubelskie</option>
+                  <option value="lubuskie">lubuskie</option>
+                  <option value="łódzkie">łódzkie</option>
+                  <option value="małopolskie">małopolskie</option>
+                  <option value="mazowieckie">mazowieckie</option>
+                  <option value="opolskie">opolskie</option>
+                  <option value="podkarpackie">podkarpackie</option>
+                  <option value="podlaskie">podlaskie</option>
+                  <option value="pomorskie">pomorskie</option>
+                  <option value="śląskie">śląskie</option>
+                  <option value="świętokrzyskie">świętokrzyskie</option>
+                  <option value="warmińsko-mazurskie">
+                    warmińsko-mazurskie
+                  </option>
+                  <option value="wielkopolskie">wielkopolskie</option>
+                  <option value="zachodniopomorskie">
+                    zachodnio-pomorskie
+                  </option>
+                </select>
+              </div>
+              {isSending === "success" && (
+                <div className="text-green-500 animate-pulse mt-3">
+                  Wysłano pomyślnie!
+                </div>
+              )}
+              <div className="flex flex-col-reverse lg:flex-row items-center w-full mt-2">
+                <button
+                  onClick={() =>
+                    setFormData({ ...formData, houseAge: undefined })
+                  }
+                  className="font-light mt-2 lg:mr-4"
+                >
+                  Powrót
+                </button>
+                <button
+                  disabled={isSending === "success"}
+                  type="submit"
+                  className="disabled:cursor-not-allowed flex flex-row items-center justify-center py-3 px-5 w-full text-base lg:w-max bg-gradient-to-br from-[#C5FF17] to-[#33E5CF] hover:scale-105 duration-200 ease-in-out text-zinc-800 rounded-lg cursor-pointer font-bold mt-2"
+                >
+                  Wyślij wniosek <FaArrowRight className="ml-2" />
+                </button>
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      </form>
     </>
   );
 }

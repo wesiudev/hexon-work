@@ -6,11 +6,7 @@ import { Providers } from "@/common/redux/Provider";
 import ClientFormWrapper from "./components/cta/ClientFormWrapper";
 import { Metadata } from "next";
 
-export default async function Root({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Root({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pl">
       <body className={`${cocosharp.variable} ${gotham.variable}`}>

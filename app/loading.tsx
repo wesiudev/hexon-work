@@ -1,6 +1,8 @@
+import Image from "next/image";
+
 export default function Loading() {
   return (
-    <div className="font-sans italic font-light h-screen w-screen flex justify-center items-center bg-gradient-to-br from-zinc-800 via-gray-700 to-zinc-800 text-4xl text-white">
+    <div className="fixed left-0 top-0 z-[5000] font-sans italic font-light h-screen w-screen flex justify-center items-center bg-[#202020] text-4xl text-white">
       <div className="flex flex-col items-center justify-center">
         <svg
           aria-hidden="true"
@@ -18,8 +20,13 @@ export default function Loading() {
             fill="currentFill"
           />
         </svg>
-
-        <span className="text-white">Retrieving data...</span>
+        <Image
+          src="/logo-hexon2.png"
+          width={200}
+          height={200}
+          alt=""
+          className="animate-pulse"
+        />
       </div>
     </div>
   );

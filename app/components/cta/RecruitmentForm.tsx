@@ -41,7 +41,6 @@ export default function RecruitmentForm() {
   };
 
   const uploadFile = async (file: any) => {
-    console.log(file);
     setFileUploading(true);
     const randId = `cv-${uuidv4()}`;
     const docRef = ref(storage, randId);
