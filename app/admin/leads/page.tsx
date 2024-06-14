@@ -67,22 +67,13 @@ export default function Admin() {
     const uniqueMonthNames = Array.from(uniqueMonths);
 
     // {'czerwiec 2024', 'maj 2024'}
-    const chartData = uniqueMonthNames
-      .map((month: any) => ({
-        miesiac: month,
-        leady: data
-          .filter(
-            (lead: any) => moment(lead.createdAt).format("MMMM YYYY") === month
-          )
-          .sort(
-            (a: any, b: any) =>
-              moment(a.createdAt).valueOf() - moment(b.createdAt).valueOf()
-          ),
-      }))
-      .sort(
-        (a: any, b: any) =>
-          moment(a.miesiac).valueOf() - moment(b.miesiac).valueOf()
-      );
+    const chartData = uniqueMonthNames.map((month: any) => ({
+      miesiac: month,
+      leady: data.filter(
+        (lead: any) => moment(lead.createdAt).format("MMMM YYYY") === month
+      ).length,
+    }));
+
     return chartData;
   }
   generateLeadsChartData(data.leads);
