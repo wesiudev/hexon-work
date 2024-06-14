@@ -60,7 +60,14 @@ export default function Leads() {
         {leads.map((lead: any, i: any) => (
           <>
             {!lead.isFinished && filter === "new" && (
-              <div key={lead.id} className="bg-zinc-800 p-3 h-max">
+              <div
+                key={lead.id}
+                className={`bg-zinc-800 p-3 h-max border-[3px] ${
+                  lead.status === undefined && "border-zinc-800"
+                } ${lead.status === "rejected" && "border-red-500"} ${
+                  lead?.status === "accepted" && "border-yellow-400"
+                }`}
+              >
                 <div className="flex w-full justify-between items-center">
                   <p>{moment(lead.createdAt).format("DD-MM-YYYY")}</p>
                   <p className="flex flex-row items-center">
@@ -123,6 +130,26 @@ export default function Leads() {
                   >
                     Oznacz jako sprawdzone
                   </button>
+                  {lead.isFinished && (
+                    <div className="grid grid-cols-2 mt-2">
+                      <button
+                        onClick={() =>
+                          updateLead(lead.id, { ...lead, status: "rejected" })
+                        }
+                        className="bg-gray-500 hover:bg-gray-400 duration-200 p-3"
+                      >
+                        Odrzuć
+                      </button>
+                      <button
+                        onClick={() =>
+                          updateLead(lead.id, { ...lead, status: "accepted" })
+                        }
+                        className="bg-green-500 hover:bg-green-400 duration-200 p-3"
+                      >
+                        Akceptuj
+                      </button>
+                    </div>
+                  )}
                   <Link
                     className="w-full text-center bg-blue-500 text-white py-2 font-light text-base mt-2"
                     href={`tel:${lead.phone}`}
@@ -137,7 +164,14 @@ export default function Leads() {
         {leads.map((lead: any, i: any) => (
           <>
             {filter === "" && (
-              <div key={lead.id} className="bg-zinc-800 p-3 h-max">
+              <div
+                key={lead.id}
+                className={`bg-zinc-800 p-3 h-max border-[3px] ${
+                  lead.status === undefined && "border-zinc-800"
+                } ${lead.status === "rejected" && "border-red-500"} ${
+                  lead?.status === "accepted" && "border-yellow-400"
+                }`}
+              >
                 <div className="flex w-full justify-between items-center">
                   <p>{moment(lead.createdAt).format("DD-MM-YYYY")}</p>
                   <p className="flex flex-row items-center">
@@ -212,6 +246,26 @@ export default function Leads() {
                       Oznacz jako sprawdzone
                     </button>
                   )}
+                  {lead.isFinished && (
+                    <div className="grid grid-cols-2 mt-2">
+                      <button
+                        onClick={() =>
+                          updateLead(lead.id, { ...lead, status: "rejected" })
+                        }
+                        className="bg-gray-500 hover:bg-gray-400 duration-200 p-3"
+                      >
+                        Odrzuć
+                      </button>
+                      <button
+                        onClick={() =>
+                          updateLead(lead.id, { ...lead, status: "accepted" })
+                        }
+                        className="bg-green-500 hover:bg-green-400 duration-200 p-3"
+                      >
+                        Akceptuj
+                      </button>
+                    </div>
+                  )}
                   <Link
                     className="w-full text-center bg-blue-500 text-white py-2 font-light text-base mt-2"
                     href={`tel:${lead.phone}`}
@@ -226,7 +280,14 @@ export default function Leads() {
         {leads.map((lead: any, i: any) => (
           <>
             {filter === "old" && lead.isFinished && (
-              <div key={lead.id} className="bg-zinc-800 p-3 h-max">
+              <div
+                key={lead.id}
+                className={`bg-zinc-800 p-3 h-max border-[3px] ${
+                  lead.status === undefined && "border-zinc-800"
+                } ${lead.status === "rejected" && "border-red-500"} ${
+                  lead?.status === "accepted" && "border-yellow-400"
+                }`}
+              >
                 <div className="flex w-full justify-between items-center">
                   <p>{moment(lead.createdAt).format("DD-MM-YYYY")}</p>
                   <p className="flex flex-row items-center">
@@ -300,6 +361,26 @@ export default function Leads() {
                     >
                       Oznacz jako sprawdzone
                     </button>
+                  )}
+                  {lead.isFinished && (
+                    <div className="grid grid-cols-2 mt-2">
+                      <button
+                        onClick={() =>
+                          updateLead(lead.id, { ...lead, status: "rejected" })
+                        }
+                        className="bg-gray-500 hover:bg-gray-400 duration-200 p-3"
+                      >
+                        Odrzuć
+                      </button>
+                      <button
+                        onClick={() =>
+                          updateLead(lead.id, { ...lead, status: "accepted" })
+                        }
+                        className="bg-green-500 hover:bg-green-400 duration-200 p-3"
+                      >
+                        Akceptuj
+                      </button>
+                    </div>
                   )}
                   <Link
                     className="w-full text-center bg-blue-500 text-white py-2 font-light text-base mt-2"
