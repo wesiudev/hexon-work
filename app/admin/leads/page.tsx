@@ -60,11 +60,11 @@ export default function Admin() {
   }, []);
 
   function generateLeadsChartData(data: any) {
-    //find unique month names from leads
+    // Find unique month names from leads
     const uniqueMonths = new Set(
       data.map((lead: any) => moment(lead.createdAt).format("MMMM YYYY"))
     );
-    const uniqueMonthNames = Array.from(uniqueMonths);
+    const uniqueMonthNames = Array.from(uniqueMonths).sort().reverse();
 
     // {'czerwiec 2024', 'maj 2024'}
     const chartData = uniqueMonthNames.map((month: any) => ({
