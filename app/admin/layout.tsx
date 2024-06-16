@@ -12,7 +12,7 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [isNavOpen, setNavOpen] = useState(true);
+  const [isNavOpen, setNavOpen] = useState(false);
   const [user, loading] = useAuthState(auth);
   if (loading) {
     return <Loading />;

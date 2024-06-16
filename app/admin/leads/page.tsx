@@ -77,24 +77,6 @@ export default function Admin() {
     return chartData;
   }
   generateLeadsChartData(data.leads);
-  const leadsChartData = [
-    {
-      miesiac: "Maj",
-      leady: data.leads.filter(
-        (lead: any) =>
-          moment(lead.createdAt).year() === 2024 &&
-          moment(lead.createdAt).month() === 4
-      ).length,
-    },
-    {
-      miesiac: "Czerwiec",
-      leady: data.leads.filter(
-        (lead: any) =>
-          moment(lead.createdAt).year() === 2024 &&
-          moment(lead.createdAt).month() === 5
-      ).length,
-    },
-  ];
 
   const { width } = useWindowDimensions();
   return (
