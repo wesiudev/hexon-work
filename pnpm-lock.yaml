@@ -140,6 +140,9 @@ dependencies:
   react-chartjs-2:
     specifier: ^5.2.0
     version: 5.2.0(chart.js@4.4.3)(react@18.3.1)
+  react-confetti:
+    specifier: ^6.1.0
+    version: 6.1.0(react@18.3.1)
   react-dom:
     specifier: latest
     version: 18.3.1(react@18.3.1)
@@ -173,6 +176,9 @@ dependencies:
   react-scroll:
     specifier: ^1.8.9
     version: 1.8.9(react-dom@18.3.1)(react@18.3.1)
+  react-sketch-canvas:
+    specifier: ^6.2.0
+    version: 6.2.0(react@18.3.1)
   react-toastify:
     specifier: ^9.1.2
     version: 9.1.2(react-dom@18.3.1)(react@18.3.1)
@@ -8255,6 +8261,16 @@ packages:
       react: 18.3.1
     dev: false
 
+  /react-confetti@6.1.0(react@18.3.1):
+    resolution: {integrity: sha512-7Ypx4vz0+g8ECVxr88W9zhcQpbeujJAVqL14ZnXJ3I23mOI9/oBVTQ3dkJhUmB0D6XOtCZEM6N0Gm9PMngkORw==}
+    engines: {node: '>=10.18'}
+    peerDependencies:
+      react: ^16.3.0 || ^17.0.1 || ^18.0.0
+    dependencies:
+      react: 18.3.1
+      tween-functions: 1.2.0
+    dev: false
+
   /react-dom@18.3.1(react@18.3.1):
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
@@ -8421,6 +8437,15 @@ packages:
       prop-types: 15.8.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+    dev: false
+
+  /react-sketch-canvas@6.2.0(react@18.3.1):
+    resolution: {integrity: sha512-Z56RQN0viV9W3Y+DpZfQMi2lf3pO+UB4l+cMwnx7j7pQ9WHkQwN+qZKVFGANgpjXQMyY42NODF/DXjuKPCMf1w==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      react: 18.3.1
     dev: false
 
   /react-smooth@4.0.1(react-dom@18.3.1)(react@18.3.1):
@@ -9536,6 +9561,10 @@ packages:
       - '@types/react'
       - immer
       - react
+    dev: false
+
+  /tween-functions@1.2.0:
+    resolution: {integrity: sha512-PZBtLYcCLtEcjL14Fzb1gSxPBeL7nWvGhO5ZFPGqziCcr8uvHp0NDmdjBchp6KHL+tExcg0m3NISmKxhU394dA==}
     dev: false
 
   /tweetnacl@0.14.5:
