@@ -96,7 +96,7 @@ export default function Admin() {
         </div>
         <div className="mt-4 bg-white p-4">
           <LineChart
-            height={500}
+            height={300}
             width={width < 1024 ? 0.75 * width : 0.4 * width}
             data={generateLeadsChartData(data.leads)}
             margin={{
@@ -132,7 +132,7 @@ export default function Admin() {
         </div>
         <div className="mt-4 bg-white p-4">
           <LineChart
-            height={500}
+            height={300}
             width={width < 1024 ? 0.75 * width : 0.4 * width}
             data={generateLeadsChartData(data.courses)}
             margin={{
@@ -168,7 +168,7 @@ export default function Admin() {
         </div>
         <div className="mt-4 bg-white p-4">
           <LineChart
-            height={500}
+            height={300}
             width={width < 1024 ? 0.75 * width : 0.4 * width}
             data={generateLeadsChartData(data.applications)}
             margin={{
