@@ -56,9 +56,10 @@ export default function Leads() {
               {noteOpen.note}
             </textarea>
             <button
-              onClick={() =>
-                updateLead(noteOpen.id, { ...noteOpen, note: noteOpen.note })
-              }
+              onClick={() => {
+                updateLead(noteOpen.id, { ...noteOpen, note: noteOpen.note });
+                setNoteOpen(undefined);
+              }}
               className="w-full bg-green-500 hover:bg-green-400 font-gotham p-3 text-white font-bold"
             >
               Zapisz
