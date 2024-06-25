@@ -135,11 +135,19 @@ export default function Leads() {
           >
             Sprawdzone
           </button>
+          <button
+            onClick={() => setFilter("signed")}
+            className={`bg-black p-1 border-2 border-transparent border-dashed ${
+              filter === "signed" && "border-white"
+            }`}
+          >
+            Podpisane
+          </button>
         </div>
         <div className="px-6 py-3 grid grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 font-sans gap-6 min-h-screen text-white">
           {leads.map((lead: any, i: any) => (
             <>
-              {!lead.isFinished && filter === "new" && (
+              {!lead.isFinished && filter === "new" && !lead.signed && (
                 <div
                   key={lead.id}
                   className={`relative bg-zinc-800 p-3 h-max border-[3px] ${
@@ -288,7 +296,7 @@ export default function Leads() {
           ))}
           {leads.map((lead: any, i: any) => (
             <>
-              {filter === "" && (
+              {filter === "" && !lead.signed && (
                 <div
                   key={lead.id}
                   className={`relative bg-zinc-800 p-3 h-max border-[3px] ${
@@ -450,7 +458,8 @@ export default function Leads() {
             <>
               {filter === "old" &&
                 lead.isFinished &&
-                lead.status !== "rejected" && (
+                lead.status !== "rejected" &&
+                !lead.signed && (
                   <div
                     key={lead.id}
                     className={`relative bg-zinc-800 p-3 h-max border-[3px] ${
@@ -548,6 +557,178 @@ export default function Leads() {
                         <button
                           onClick={() =>
                             updateLead(lead.id, { ...lead, isFinished: false })
+                          }
+                          className="w-full text-center bg-green-500 text-white py-2  font-light text-base"
+                        >
+                          Odznacz
+                        </button>
+                      )}
+                      {!lead.isFinished && (
+                        <button
+                          onClick={() =>
+                            updateLead(lead.id, { ...lead, isFinished: true })
+                          }
+                          className="w-full text-center bg-green-500 text-white py-2  font-light text-base"
+                        >
+                          Oznacz jako sprawdzone
+                        </button>
+                      )}
+                      {lead.isFinished && !lead?.status && (
+                        <div className="grid grid-cols-2 mt-2">
+                          <button
+                            onClick={() =>
+                              updateLead(lead.id, {
+                                ...lead,
+                                status: "rejected",
+                              })
+                            }
+                            className="bg-gray-500 hover:bg-gray-400 duration-200 p-3"
+                          >
+                            Odrzuć
+                          </button>
+                          <button
+                            onClick={() =>
+                              updateLead(lead.id, {
+                                ...lead,
+                                status: "accepted",
+                              })
+                            }
+                            className="bg-green-500 hover:bg-green-400 duration-200 p-3"
+                          >
+                            Akceptuj
+                          </button>
+                        </div>
+                      )}
+                      {lead?.status === "accepted" && !lead.signed && (
+                        <button
+                          onClick={() => {
+                            setIsSigning(true);
+                            setSigningLead(lead);
+                          }}
+                          className="w-full text-center bg-yellow-400 font-bold text-white py-2 text-base mt-2"
+                        >
+                          Podpisz
+                        </button>
+                      )}
+                      {lead.isFinished && !lead?.status && (
+                        <Link
+                          className="w-full text-center bg-blue-500 text-white py-2 font-light text-base mt-2"
+                          href={`tel:${lead.phone}`}
+                        >
+                          Zadzwoń
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                )}
+            </>
+          ))}
+          {leads.map((lead: any, i: any) => (
+            <>
+              {filter === "signed" &&
+                lead.isFinished &&
+                lead.status === "accepted" &&
+                lead.signed && (
+                  <div
+                    key={lead.id}
+                    className={`relative bg-zinc-800 p-3 h-max border-[3px] ${
+                      lead.status === undefined && "border-zinc-800"
+                    } ${lead.status === "rejected" && "border-red-500"} ${
+                      lead?.status === "accepted" && "border-yellow-400"
+                    }`}
+                  >
+                    {lead.signed && (
+                      <div
+                        onClick={() => {
+                          setIsAnimating(true);
+                          setTimeout(() => {
+                            setIsAnimating(false);
+                          }, 7500);
+                        }}
+                        className="cursor-pointer absolute w-full h-full z-50 bg-black left-0 top-0 bg-opacity-80 flex items-center justify-center "
+                      >
+                        <Image
+                          src="/dolar.gif"
+                          width={200}
+                          height={200}
+                          alt=""
+                          className={`w-1/2 ${isAnimating && "animate-bounce"}`}
+                        />
+                      </div>
+                    )}
+                    <div className="flex w-full justify-between items-center">
+                      <p>{moment(lead.createdAt).format("DD-MM-YYYY")}</p>
+                      <p className="flex flex-row items-center">
+                        <FaClock className="mr-2 h-4 w-4" />
+                        {moment(lead.createdAt).fromNow()}
+                      </p>
+                    </div>
+                    <table className="w-full mt-3">
+                      <tbody>
+                        <tr className="bg-gray-700">
+                          <td>Komornik:</td>
+                          <td>{lead.debtStatus}</td>
+                        </tr>
+                        <tr className="bg-gray-600">
+                          <td>Źródło ciepła:</td>
+                          <td>{lead.heatingSource}</td>
+                        </tr>
+                        <tr className="bg-gray-700">
+                          <td>Hektary:</td>
+                          <td>{lead.hectareCount}</td>
+                        </tr>
+                        <tr className="bg-gray-600">
+                          <td>Więcej niż 10 lat:</td>
+                          <td>{lead.houseAge}</td>
+                        </tr>
+                        <tr className="bg-gray-700">
+                          <td>Rodzaj budynku:</td>
+                          <td>{lead.houseType}</td>
+                        </tr>
+                        <tr className="bg-gray-600">
+                          <td>Dochody:</td>
+                          <td>{lead.incomeLevel}</td>
+                        </tr>
+                        <tr className="bg-gray-700">
+                          <td>Właściciel KW:</td>
+                          <td>{lead.ownership === true ? "Tak" : "Nie"}</td>
+                        </tr>
+                        <tr className="bg-gray-600">
+                          <td>Numer Telefonu:</td>
+                          <td>
+                            {lead.phone} {lead.name}
+                          </td>
+                        </tr>
+                        <tr className="bg-gray-700">
+                          <td>Uczestnicy gospodarstwa:</td>
+                          <td>{lead.visitors}</td>
+                        </tr>
+                        <tr className="bg-gray-600">
+                          <td>Region:</td>
+                          <td>{lead?.region ? lead.region : "Nie podano"}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div className="pt-3 w-full flex flex-row justify-between">
+                      <div>Notatka:</div>
+                      <button
+                        onClick={() => setNoteOpen(lead)}
+                        className="text-blue-500 font-light"
+                      >
+                        Edytuj
+                      </button>
+                    </div>
+                    {lead?.note !== undefined && (
+                      <p className="text-white font-light">{lead?.note}</p>
+                    )}
+                    <div className="flex flex-col w-full mt-3">
+                      {lead.isFinished && !lead?.signed && (
+                        <button
+                          onClick={() =>
+                            updateLead(lead.id, {
+                              ...lead,
+                              isFinished: false,
+                            })
                           }
                           className="w-full text-center bg-green-500 text-white py-2  font-light text-base"
                         >
