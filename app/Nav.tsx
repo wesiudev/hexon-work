@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-
+import { SiAbbrobotstudio } from "react-icons/si";
 import {
   FaArrowLeft,
   FaArtstation,
@@ -12,6 +12,7 @@ import {
   FaHome,
   FaPlus,
   FaRemoveFormat,
+  FaRobot,
   FaShoppingCart,
   FaSignOutAlt,
   FaTags,
@@ -33,6 +34,16 @@ export default function Nav({
 
   const navItems = [
     { title: "Przegląd", href: `/admin`, icon: <FaHome /> },
+    {
+      title: "Generuj zaproszenia",
+      href: `/admin/generate-links`,
+      icon: <FaRobot />,
+    },
+    {
+      title: "Status zaproszeń",
+      href: `/admin/links`,
+      icon: <SiAbbrobotstudio />,
+    },
     {
       title: "Blog",
       href: `/admin/blog/edit`,
@@ -91,7 +102,7 @@ export default function Nav({
         <div className="text-white py-4 px-3 relative">
           <h1 className="text-base font-bold  flex flex-row items-center ">
             <Image
-              src="/favicon.ico"
+              src="/favicons/android-chrome-192x192.png"
               width={36}
               height={36}
               alt=""

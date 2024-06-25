@@ -28,17 +28,11 @@ body {
 }
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
-    width: 5px;
     height: 20px;
   }
 
   .scrollbar::-webkit-scrollbar {
-    width: 15px;
-    height: 10px;
-    background-color: #e4e4e7;
-    padding: 2px;
-    margin: 2px;
-    border-radius: 99px;
+    height: 5px;
   }
 
   .scrollbar::-webkit-scrollbar-thumb {

@@ -8,6 +8,7 @@ import {
   doc,
   getDoc,
   setDoc,
+  deleteDoc,
 } from "firebase/firestore/lite";
 import { getStorage } from "firebase/storage";
 import { getAnalytics, isSupported } from "firebase/analytics";
@@ -26,7 +27,7 @@ const provider = new GoogleAuthProvider();
 
 const auth = getAuth(app);
 
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
 const storage = getStorage(app);
 
@@ -103,6 +104,85 @@ export async function pushEmployee(data) {
     });
     return productDocRef;
   }
+}
+export async function getLinks() {
+  const linksRef = collection(db, "links");
+  const linksSnapshot = await getDocs(linksRef);
+  const links = [];
+
+  linksSnapshot.forEach((doc) => {
+    const link = doc.data();
+    link.id = doc.id;
+    links.push(link);
+  });
+
+  return links;
+}
+export async function getLinksById(id) {
+  const linksRef = collection(db, "links");
+  const linksSnapshot = await getDocs(linksRef);
+  const links = [];
+
+  linksSnapshot.forEach((doc) => {
+    const link = doc.data();
+    link.id = doc.id;
+    links.push(link);
+  });
+
+  return links.find((link) => link.id === id);
+}
+export async function getInviteById(id) {
+  const linksRef = collection(db, "links");
+  const linksSnapshot = await getDocs(linksRef);
+  const links = linksSnapshot.docs.map((doc) => doc.data());
+  const datas = links.map((link) => link.data);
+  return datas[0]?.filter((link) => link.link.includes(id))[0];
+}
+export async function pushLinks(data) {
+  const linkDocRef = doc(collection(db, "links"), data.id);
+  await setDoc(linkDocRef, {
+    ...data,
+    createdAt: Date.now(),
+  });
+  return linkDocRef;
+}
+export async function fetchLinks() {
+  const linksRef = collection(db, "links");
+  const querySnapshot = await getDocs(linksRef);
+  const links = querySnapshot.docs.map((doc) => ({
+    ...doc.data(),
+    id: doc.id,
+  }));
+  return links;
+}
+
+function replaceById(array, newObj) {
+  return array.map((item) => (item.link.includes(newObj.link) ? newObj : item));
+}
+export async function getLinkWithId(linkId, updatedLink) {
+  const linksRef = collection(db, "links");
+  const linksSnapshot = await getDocs(linksRef);
+  const links = linksSnapshot.docs
+    .map((doc) => doc.data())
+    .filter((link) => link.data.some((l) => l.link.includes(linkId)));
+  let newObject = {
+    link: `https://hexon.work/invite/${linkId}`,
+    status: "delivered",
+    ...updatedLink,
+  };
+
+  let updatedArray = replaceById(links[0].data, newObject);
+
+  await updateDoc(doc(db, "links", links[0].id), {
+    data: updatedArray,
+  });
+
+  console.log(updatedArray);
+  return links;
+}
+
+export async function deleteLink(id) {
+  await deleteDoc(doc(db, "links", id));
 }
 
 export { provider, storage, auth, app };

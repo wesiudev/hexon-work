@@ -22,6 +22,7 @@ import {
   Pie,
   ResponsiveContainer,
 } from "recharts";
+import { useSelector } from "react-redux";
 interface AdminPageProps {
   courses: any[];
   leads: any[];
@@ -77,17 +78,31 @@ export default function Admin() {
     return chartData;
   }
   generateLeadsChartData(data.leads);
-
+  const { light } = useSelector((state: any) => state.light);
   const { width } = useWindowDimensions();
   return (
-    <div className=" bg-gray-600 min-h-screen grid grid-cols-1 lg:grid-cols-2 -ml-4 -mt-4 p-6 font-sans">
-      <div className="text-zinc-800 flex flex-col p-6 bg-zinc-800 h-max ml-4 mt-4">
-        <h2 className="text-3xl font-bold font-sans text-white">
+    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 -ml-4 -mt-4 p-6 font-sans">
+      <div
+        className={`${
+          light
+            ? "text-zinc-800 bg-white"
+            : "text-white bg-zinc-800 duration-300"
+        } flex flex-col p-6 h-max ml-4 mt-4`}
+      >
+        <h2
+          className={`text-3xl font-bold font-sans ${
+            light ? "text-zinc-800" : "text-white"
+          }`}
+        >
           <Link href="/admin/leads/leads" className="flex items-center">
             <FaArrowRight className="mr-2" /> Dofinansowanie
           </Link>
         </h2>
-        <div className="mt-4 font-bold text-white">
+        <div
+          className={`mt-4 p-3 font-bold ${
+            light ? "text-zinc-800 bg-gray-300" : "text-white bg-zinc-600"
+          }`}
+        >
           <p className="text-xl">Wszystkie Leady: {data.leads.length}</p>
           <p className="text-xl">
             Nowe Leady:{" "}
@@ -116,14 +131,28 @@ export default function Admin() {
           </LineChart>
         </div>
       </div>
-      <div className="text-zinc-800 flex flex-col p-6 bg-zinc-800 h-max ml-4 mt-4">
-        <h2 className="text-3xl font-bold font-sans text-white">
+      <div
+        className={`${
+          light
+            ? "text-zinc-800 bg-white"
+            : "text-white bg-zinc-800 duration-300"
+        } flex flex-col p-6 h-max ml-4 mt-4`}
+      >
+        <h2
+          className={`text-3xl font-bold font-sans ${
+            light ? "text-zinc-800" : "text-white"
+          }`}
+        >
           <Link href="/admin/leads/courses" className="flex items-center">
             <FaArrowRight className="mr-2" />
             Szkolenia
           </Link>
         </h2>
-        <div className="mt-4 font-bold text-white">
+        <div
+          className={`mt-4 p-3 font-bold ${
+            light ? "text-zinc-800 bg-gray-300" : "text-white bg-zinc-600"
+          }`}
+        >
           <p className="text-xl">Wszystkie Leady: {data.courses.length}</p>
           <p className="text-xl">
             Nowe Leady:{" "}
@@ -152,14 +181,28 @@ export default function Admin() {
           </LineChart>
         </div>
       </div>
-      <div className="text-zinc-800 flex flex-col p-6 bg-zinc-800 h-max ml-4 mt-4">
-        <h2 className="text-3xl font-bold font-sans text-white">
+      <div
+        className={`${
+          light
+            ? "text-zinc-800 bg-white"
+            : "text-white bg-zinc-800 duration-300"
+        } flex flex-col p-6 h-max ml-4 mt-4`}
+      >
+        <h2
+          className={`text-3xl font-bold font-sans ${
+            light ? "text-zinc-800" : "text-white"
+          }`}
+        >
           <Link href="/admin/leads/applications" className="flex items-center">
             <FaArrowRight className="mr-2" />
             Aplikacje
           </Link>
         </h2>
-        <div className="mt-4 font-bold text-white">
+        <div
+          className={`mt-4 p-3 font-bold ${
+            light ? "text-zinc-800 bg-gray-300" : "text-white bg-zinc-600"
+          }`}
+        >
           <p className="text-xl">Wszystkie Leady: {data.applications.length}</p>
           <p className="text-xl">
             Nowe Leady:{" "}

@@ -14,6 +14,7 @@ export default function ClientForm({
   return (
     <div
       className={`${
+        !pathname.includes("invite") &&
         !pathname.includes("admin") &&
         !pathname.includes("recruitment") &&
         !pathname.includes("courses")

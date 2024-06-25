@@ -7,3 +7,8 @@ declare module "react-scroll";
 declare module "react-is-visible";
 declare module "aos";
 declare module "uuid";
+declare module "@emotion/css";
+declare module "@mui/x-date-pickers/DatePicker";
+declare module "@mui/x-date-pickers/LocalizationProvider";
+declare module "@mui/x-date-pickers/AdapterDayjs";
+declare module "@mui/x-date-pickers/internals/demo";

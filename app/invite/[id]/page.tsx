@@ -1,0 +1,45 @@
+import Header from "@/app/components/header";
+import Hero from "@/app/components/hero/Hero";
+import { getInviteById } from "@/common/firebase";
+import Image from "next/image";
+import Link from "next/link";
+import ChooseTime from "./ChooseTime";
+
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: { id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
+  return (
+    <div className="min-h-screen w-full relative font-sans">
+      <Link href="/" className="absolute left-8 top-6 xl:top-12 z-[501]">
+        <Image
+          src="/logo-hexon2.png"
+          width={400}
+          height={400}
+          alt=""
+          className="w-[150px] sm:w-[200px]"
+        />
+      </Link>
+      <Header view={"courses"} />
+      <div className="bg-zinc-800 h-screen w-full fixed left-0 top-0">
+        <Hero />
+      </div>
+      <div className="relative z-50 flex items-center justify-center h-full px-8 py-48">
+        <div className="bg-black bg-opacity-50 rounded-3xl p-6 h-max lg:w-3/4 xl:w-3/5 2xl:w-1/2 flex items-center justify-center flex-col">
+          <h1 className="font-gotham text-5xl text-white text-center">
+            Szkolenie wdrożeniowe
+          </h1>
+
+          <p className="text-white text-sm xl:text-base max-w-[30rem] font-sans mt-3 text-center">
+            Aktywuj link, aby dołączyć do wdrażającego szkolenia online. Wybierz
+            kiedy chcesz uczestniczyć w szkoleniu.
+          </p>
+          <ChooseTime linkId={params.id} />
+        </div>
+      </div>
+    </div>
+  );
+}

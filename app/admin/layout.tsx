@@ -7,18 +7,41 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import Nav from "../Nav";
+import Toast from "../components/Toast";
+import { FaLightbulb } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { setLight } from "@/common/redux/slices/lightSlice";
+import { usePathname } from "next/navigation";
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
   const [isNavOpen, setNavOpen] = useState(false);
   const [user, loading] = useAuthState(auth);
+  const dispatch = useDispatch();
+  const { light } = useSelector((state: any) => state.light);
   if (loading) {
     return <Loading />;
   } else
     return (
-      <div className="w-full overflow-x-hidden font-coco bg-[#404149]">
+      <div className="relative w-full overflow-x-hidden font-coco bg-[#404149] font-sans">
+        <Toast />
+        {!pathname.includes("/leads/leads") &&
+          !pathname.includes("/leads/courses") &&
+          !pathname.includes("/leads/applications") && (
+            <button
+              onClick={() => dispatch(setLight(!light))}
+              className="absolute right-6 top-6"
+            >
+              <FaLightbulb
+                className={`text-4xl ${
+                  light ? "text-yellow-400" : "text-white"
+                }`}
+              />
+            </button>
+          )}
         {user ? (
           <>
             <Nav isNavOpen={isNavOpen} setNavOpen={setNavOpen} />
