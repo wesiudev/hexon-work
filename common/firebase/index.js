@@ -171,7 +171,7 @@ export async function getLinkWithId(linkId, updatedLink) {
     ...updatedLink,
   };
 
-  let updatedArray = replaceById(links[0].data, newObject);
+  let updatedArray = replaceById(links[0]?.data, newObject);
 
   await updateDoc(doc(db, "links", links[0].id), {
     data: updatedArray,

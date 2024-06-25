@@ -31,7 +31,7 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
       end: 0,
     },
     hour: "",
-    date: dayjs(moment().format("YYYY-MM-DD")),
+    date: dayjs(moment().add(1, "day").format("YYYY-MM-DD")),
   });
 
   function convertTimeRanges(timeRange: any) {
@@ -51,7 +51,7 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
         <>
           <p className="text-white text-sm xl:text-base max-w-[30rem] font-sans mt-3 text-center">
             Aktywuj link, aby dołączyć do wdrażającego szkolenia online. Wybierz
-            kiedy chcesz uczestniczyć w szkoleniu.
+            godzinę, w której będziesz jutro uczestniczyć w szkoleniu.
           </p>
           <div className="flex flex-col my-3">
             <h2
@@ -63,7 +63,7 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
             <select
               required
               style={{ boxShadow: "0px 0px 3px black" }}
-              className={`mt-6 w-full lg:w-auto p-2 placeholder:font-light focus:outline-2 focus:outline-green-500 text-black`}
+              className={`mt-3 w-full lg:w-auto p-2 placeholder:font-light focus:outline-2 focus:outline-green-500 text-black`}
               onChange={(e) => {
                 convertTimeRanges(e.target.value);
               }}
@@ -80,10 +80,10 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
               <option value="20:00-22:00">20:00-22:00</option>
             </select>
 
-            <h2 className="mt-3 text-xl bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
+            {/* <h2 className="mt-3 text-xl bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
               Wybierz datę
-            </h2>
-            <BasicDatePicker data={data} setData={setData} />
+            </h2> */}
+            {/* <BasicDatePicker data={data} setData={setData} /> */}
             <button
               onClick={() => {
                 getLinkWithId(linkId, {
