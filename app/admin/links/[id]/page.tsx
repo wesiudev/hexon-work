@@ -4,6 +4,7 @@ import Links from "../../../components/Links";
 import Link from "next/link";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import DeleteCollection from "./DeleteCollection";
+import LinksWrapper from "./LinksWrapper";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const links = await getLinksById(params.id);
@@ -25,7 +26,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         <span className="text-red-500">Uwaga!</span>{" "}
         <DeleteCollection id={links.id} />
       </div>
-      <Links links={links.data} />
+      <LinksWrapper id={params.id!} />
     </div>
   );
 }

@@ -26,42 +26,44 @@ export default function AdminLayout({
     return <Loading />;
   } else
     return (
-      <div className="relative w-full overflow-x-hidden font-coco bg-[#404149] font-sans">
+      <>
         <Toast />
-        {!pathname.includes("/leads/leads") &&
-          !pathname.includes("/leads/courses") &&
-          !pathname.includes("/leads/applications") && (
-            <button
-              onClick={() => dispatch(setLight(!light))}
-              className="absolute right-6 top-6"
-            >
-              <FaLightbulb
-                className={`text-4xl ${
-                  light ? "text-yellow-400" : "text-white"
-                }`}
-              />
-            </button>
-          )}
-        {user ? (
-          <>
-            <Nav isNavOpen={isNavOpen} setNavOpen={setNavOpen} />
-            <div className={` duration-500 w-full pt-24 scrollbar`}>
-              <Link href="/" className="absolute left-20 top-6 z-50">
-                <Image
-                  src="/logo-hexon2.png"
-                  width={200}
-                  height={200}
-                  alt=""
-                  className="w-[150px]"
+        <div className="relative w-full overflow-x-hidden font-coco bg-[#404149] font-sans">
+          {!pathname.includes("/leads/leads") &&
+            !pathname.includes("/leads/courses") &&
+            !pathname.includes("/leads/applications") && (
+              <button
+                onClick={() => dispatch(setLight(!light))}
+                className="absolute right-6 top-6"
+              >
+                <FaLightbulb
+                  className={`text-4xl ${
+                    light ? "text-yellow-400" : "text-white"
+                  }`}
                 />
-              </Link>
+              </button>
+            )}
+          {user ? (
+            <>
+              <Nav isNavOpen={isNavOpen} setNavOpen={setNavOpen} />
+              <div className={` duration-500 w-full pt-24 scrollbar`}>
+                <Link href="/" className="absolute left-20 top-6 z-50">
+                  <Image
+                    src="/logo-hexon2.png"
+                    width={200}
+                    height={200}
+                    alt=""
+                    className="w-[150px]"
+                  />
+                </Link>
 
-              {children}
-            </div>
-          </>
-        ) : (
-          <LoginPage />
-        )}
-      </div>
+                {children}
+              </div>
+            </>
+          ) : (
+            <LoginPage />
+          )}
+        </div>
+      </>
     );
 }

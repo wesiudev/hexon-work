@@ -14,7 +14,7 @@ export default function Links({ links }: { links: any }) {
   }
   const { light } = useSelector((state: any) => state.light);
   return (
-    <div className="mt-12 px-6 duration-300">
+    <div className="mt-12 px-6 duration-300 min-h-screen">
       <div className="flex items-center w-full">
         <div
           className={`${
@@ -32,7 +32,7 @@ export default function Links({ links }: { links: any }) {
         </div>
       </div>
       <div className="grid grid-cols-1">
-        {links.map((link: any, i: any) => (
+        {links?.map((link: any, i: any) => (
           <div
             key={i}
             className={`flex items-center ${

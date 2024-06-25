@@ -33,10 +33,6 @@ export default async function Page({
             Szkolenie wdrożeniowe
           </h1>
 
-          <p className="text-white text-sm xl:text-base max-w-[30rem] font-sans mt-3 text-center">
-            Aktywuj link, aby dołączyć do wdrażającego szkolenia online. Wybierz
-            kiedy chcesz uczestniczyć w szkoleniu.
-          </p>
           <ChooseTime linkId={params.id} />
         </div>
       </div>

@@ -15,6 +15,11 @@ const nextConfig = {
         hostname: "lh3.googleusercontent.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "cataas.com",
+        port: "",
+      },
     ],
   },
 };
