@@ -152,7 +152,7 @@ export default function Nav({
                     }`}
                   >
                     <div className="relative flex flex-row items-center justify-between w-full">
-                      <div className="flex flex-row">
+                      <div className="flex flex-row items-center">
                         <span className="mr-2">{item.icon}</span>
                         {item.title}
                       </div>
