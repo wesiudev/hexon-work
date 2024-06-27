@@ -183,9 +183,29 @@ export async function fetchLinks() {
 }
 
 function replaceById(array, newObj) {
-  return array.map((item) => (item.link.includes(newObj.link) ? newObj : item));
+  return array?.map((item) =>
+    item.link.includes(newObj.link) ? newObj : item
+  );
 }
-export async function getLinkWithId(linkId, updatedLink) {
+export async function updateLinkMovieTime(linkId, updatedLink) {
+  const linksRef = collection(db, "links");
+  const linksSnapshot = await getDocs(linksRef);
+  const links = linksSnapshot.docs
+    .map((doc) => doc.data())
+    .filter((link) => link.data.some((l) => l.link.includes(linkId)));
+  let newObject = {
+    hasMovieTimeEnded: true,
+    ...updatedLink,
+  };
+
+  let updatedArray = replaceById(links[0]?.data, newObject);
+
+  await updateDoc(doc(db, "links", links[0]?.id), {
+    data: updatedArray,
+  });
+  return links;
+}
+export async function updateLink(linkId, updatedLink) {
   const linksRef = collection(db, "links");
   const linksSnapshot = await getDocs(linksRef);
   const links = linksSnapshot.docs
@@ -199,11 +219,9 @@ export async function getLinkWithId(linkId, updatedLink) {
 
   let updatedArray = replaceById(links[0]?.data, newObject);
 
-  await updateDoc(doc(db, "links", links[0].id), {
+  await updateDoc(doc(db, "links", links[0]?.id), {
     data: updatedArray,
   });
-
-  console.log(updatedArray);
   return links;
 }
 

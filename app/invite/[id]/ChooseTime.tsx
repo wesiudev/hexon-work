@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import {
   app,
-  getLinkWithId,
+  updateLink,
   pushMessage,
   pushSession,
   updateApplication,
+  updateLinkMovieTime,
 } from "@/common/firebase";
 import { useRouter } from "next/navigation";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
@@ -93,6 +94,10 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
     // If no errors, proceed
     if (!hasError) {
       pushMessage({ ...formData, id: uuidv4() });
+      updateLink(linkId, {
+        ...invite,
+        finished: true,
+      });
     }
   };
   const [time, setTime] = useState(0);
@@ -142,7 +147,7 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
             {/* <BasicDatePicker data={data} setData={setData} /> */}
             <button
               onClick={() => {
-                getLinkWithId(linkId, {
+                updateLink(linkId, {
                   ...data,
                   date: data.date.format("MM-DD-YYYY"),
                 });
@@ -162,106 +167,110 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
       {invite?.status === "delivered" && (
         <div className="">
           <p className="flex flex-col items-center justify-center text-white text-lg xl:text-base max-w-[30rem] font-sans mt-3 text-center">
-            {(isAfter || hasMovieTimeEnded) && (
+            {(isAfter || hasMovieTimeEnded || invite.hasMovieTimeEnded) && (
               <div className="w-full">
                 <h2 className="text-green-500 my-3 font-bold">
                   Dziękujemy za udział w szkoleniu.
                 </h2>
-                <p className="text-center max-w-[30rem] mx-auto text-white">
-                  Masz jakieś pytania zanim podpiszesz z nami umowę o
-                  współpracę? Kliknij tutaj i zapisz się, a biuro do Ciebie na
-                  pewno się odezwie.
-                </p>
+                {!invite.finished && (
+                  <div className="">
+                    <p className="text-center max-w-[30rem] mx-auto text-white">
+                      Masz jakieś pytania zanim podpiszesz z nami umowę o
+                      współpracę? Kliknij tutaj i zapisz się, a biuro do Ciebie
+                      na pewno się odezwie.
+                    </p>
 
-                <h2 className="mt-3 text-xl bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
-                  Imię
-                </h2>
-                {error.name && (
-                  <p>
-                    <span className="text-red-500">Wymagane</span>
-                  </p>
+                    <h2 className="mt-3 text-xl bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
+                      Imię
+                    </h2>
+                    {error.name && (
+                      <p>
+                        <span className="text-red-500">Wymagane</span>
+                      </p>
+                    )}
+                    <input
+                      onFocus={() => setError({ ...error, name: false })}
+                      autoComplete="name"
+                      style={{ boxShadow: "0px 0px 3px black" }}
+                      className={`text-xl text-zinc-800 drop-shadow-xl shadow-black mt-3 w-full p-2 font-bold font-gotham placeholder:font-light focus:outline-2 focus:outline-green-500 ${
+                        error.name && "border-2 border-red-500"
+                      }`}
+                      type="text"
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
+                      value={formData.name}
+                      placeholder="Wpisz imię"
+                    />
+                    <h2 className="mt-3 text-xl bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
+                      Numer Telefonu
+                    </h2>
+                    {error.phone && (
+                      <p>
+                        <span className="text-red-500">Wymagane</span>
+                      </p>
+                    )}
+                    <input
+                      onFocus={() => setError({ ...error, phone: false })}
+                      autoComplete="tel"
+                      style={{ boxShadow: "0px 0px 3px black" }}
+                      className={`text-xl text-zinc-800 drop-shadow-xl shadow-black mt-3 w-full p-2 font-bold font-gotham placeholder:font-light focus:outline-2 focus:outline-green-500 ${
+                        error.phone && "border-2 border-red-500"
+                      }`}
+                      type="text"
+                      onChange={(e) =>
+                        setFormData({ ...formData, phone: e.target.value })
+                      }
+                      value={formData.phone}
+                      placeholder="Wpisz numer"
+                    />
+                    <h2 className="mt-3 text-xl bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
+                      Adres Email
+                    </h2>
+                    {error.email && (
+                      <p>
+                        <span className="text-red-500">Wymagane</span>
+                      </p>
+                    )}
+                    <input
+                      onFocus={() => setError({ ...error, email: false })}
+                      autoComplete="email"
+                      style={{ boxShadow: "0px 0px 3px black" }}
+                      className={`text-xl text-zinc-800 drop-shadow-xl shadow-black mt-3 w-full p-2 font-bold font-gotham placeholder:font-light focus:outline-2 focus:outline-green-500 ${
+                        error.email && "border-2 border-red-500"
+                      }`}
+                      type="text"
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                      value={formData.email}
+                      placeholder="Wpisz email"
+                    />
+                    <textarea
+                      onChange={(e) =>
+                        setFormData({ ...formData, message: e.target.value })
+                      }
+                      placeholder="Napisz wiadomość... (opcjonalnie)"
+                      name=""
+                      id=""
+                      cols={30}
+                      className="p-3 outline-green-500 text-zinc-800 drop-shadow-xl shadow-black mt-8 text-xl font-bold font-gotham placeholder:font-light w-full"
+                    ></textarea>
+                    <button
+                      onClick={() => {
+                        handleSubmit();
+                        setIsSent(true);
+                      }}
+                      disabled={isSent}
+                      className="disabled:cursor-not-allowed bg-black hover:scale-110 text border-transparent-zinc-800 outline-none focus:outline-none duration-200 text-center p-4 w-full mt-6"
+                    >
+                      <span className="bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
+                        {!isSent && "CHCĘ PRZEJŚĆ DO DALSZEGO ETAPU"}
+                        {isSent && "DZIĘKUJEMY"}
+                      </span>
+                    </button>
+                  </div>
                 )}
-                <input
-                  onFocus={() => setError({ ...error, name: false })}
-                  autoComplete="name"
-                  style={{ boxShadow: "0px 0px 3px black" }}
-                  className={`text-xl text-zinc-800 drop-shadow-xl shadow-black mt-3 w-full p-2 font-bold font-gotham placeholder:font-light focus:outline-2 focus:outline-green-500 ${
-                    error.name && "border-2 border-red-500"
-                  }`}
-                  type="text"
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  value={formData.name}
-                  placeholder="Wpisz imię"
-                />
-                <h2 className="mt-3 text-xl bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
-                  Numer Telefonu
-                </h2>
-                {error.phone && (
-                  <p>
-                    <span className="text-red-500">Wymagane</span>
-                  </p>
-                )}
-                <input
-                  onFocus={() => setError({ ...error, phone: false })}
-                  autoComplete="tel"
-                  style={{ boxShadow: "0px 0px 3px black" }}
-                  className={`text-xl text-zinc-800 drop-shadow-xl shadow-black mt-3 w-full p-2 font-bold font-gotham placeholder:font-light focus:outline-2 focus:outline-green-500 ${
-                    error.phone && "border-2 border-red-500"
-                  }`}
-                  type="text"
-                  onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
-                  }
-                  value={formData.phone}
-                  placeholder="Wpisz numer"
-                />
-                <h2 className="mt-3 text-xl bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
-                  Adres Email
-                </h2>
-                {error.email && (
-                  <p>
-                    <span className="text-red-500">Wymagane</span>
-                  </p>
-                )}
-                <input
-                  onFocus={() => setError({ ...error, email: false })}
-                  autoComplete="email"
-                  style={{ boxShadow: "0px 0px 3px black" }}
-                  className={`text-xl text-zinc-800 drop-shadow-xl shadow-black mt-3 w-full p-2 font-bold font-gotham placeholder:font-light focus:outline-2 focus:outline-green-500 ${
-                    error.email && "border-2 border-red-500"
-                  }`}
-                  type="text"
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  value={formData.email}
-                  placeholder="Wpisz email"
-                />
-                <textarea
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                  placeholder="Napisz wiadomość... (opcjonalnie)"
-                  name=""
-                  id=""
-                  cols={30}
-                  className="p-3 outline-green-500 text-zinc-800 drop-shadow-xl shadow-black mt-8 text-xl font-bold font-gotham placeholder:font-light w-full"
-                ></textarea>
-                <button
-                  onClick={() => {
-                    handleSubmit();
-                    setIsSent(true);
-                  }}
-                  disabled={isSent}
-                  className="disabled:cursor-not-allowed bg-black hover:scale-110 text border-transparent-zinc-800 outline-none focus:outline-none duration-200 text-center p-4 w-full mt-6"
-                >
-                  <span className="bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
-                    {!isSent && "CHCĘ PRZEJŚĆ DO DALSZEGO ETAPU"}
-                    {isSent && "DZIĘKUJEMY"}
-                  </span>
-                </button>
               </div>
             )}
             {!show && !isAfter && (
@@ -269,30 +278,37 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
                 Link aktywowano pomyślnie.
               </span>
             )}
-            {show && !isAfter && !hasMovieTimeEnded && (
-              <div className="w-full sm:w-[30rem] lg:w-[40rem] mt-12">
-                <video
-                  src="https://firebasestorage.googleapis.com/v0/b/decocanva-408fb.appspot.com/o/video-output-2BAF655B-6E85-450F-B34A-E8E84A94B640.MOV?alt=media&token=c2e1033d-6658-481b-886d-7aa523b03aed"
-                  controls
-                  className={`w-full z-50`}
-                />
-                <button
-                  onClick={() => {
-                    setHasMovieTimeEnded(true);
-                    pushSession({ timeSpent: time, id: uuidv4() });
-                    setTimeout(() => {
-                      clearInterval(interval);
-                    }, 2000);
-                  }}
-                  disabled={isSent}
-                  className="disabled:cursor-not-allowed bg-black hover:scale-110 text border-transparent-zinc-800 outline-none focus:outline-none duration-200 text-center p-4 w-max mt-12"
-                >
-                  <span className="bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
-                    ZAKOŃCZ CZAS OGLĄDANIA
-                  </span>
-                </button>
-              </div>
-            )}
+            {show &&
+              !isAfter &&
+              !hasMovieTimeEnded &&
+              !invite.hasMovieTimeEnded && (
+                <div className="w-full sm:w-[30rem] lg:w-[40rem] mt-12">
+                  <video
+                    src="https://firebasestorage.googleapis.com/v0/b/decocanva-408fb.appspot.com/o/video-output-2BAF655B-6E85-450F-B34A-E8E84A94B640.MOV?alt=media&token=c2e1033d-6658-481b-886d-7aa523b03aed"
+                    controls
+                    className={`w-full z-50`}
+                  />
+                  <button
+                    onClick={() => {
+                      setHasMovieTimeEnded(true);
+                      updateLink(linkId, {
+                        ...invite,
+                        hasMovieTimeEnded: true,
+                      });
+                      pushSession({ timeSpent: time, id: uuidv4() });
+                      setTimeout(() => {
+                        clearInterval(interval);
+                      }, 2000);
+                    }}
+                    disabled={isSent}
+                    className="disabled:cursor-not-allowed bg-black hover:scale-110 text border-transparent-zinc-800 outline-none focus:outline-none duration-200 text-center p-4 w-max mt-12"
+                  >
+                    <span className="bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
+                      ZAKOŃCZ CZAS OGLĄDANIA
+                    </span>
+                  </button>
+                </div>
+              )}
             {!show && !isAfter && (
               <div className="mt-6 text-xl">
                 Wróć tutaj {moment().add(1, "day").format("YYYY-MM-DD")} między
