@@ -30,16 +30,6 @@ export default function RecruitmentForm() {
     }
   };
 
-  const validateForm = () => {
-    if (!inputs.name || !inputs.email || !inputs.phoneNumber || !inputs.file) {
-      setIsFormValid(false);
-    } else if (isFileTooBig) {
-      setIsFormValid(false);
-    } else {
-      setIsFormValid(true);
-    }
-  };
-
   const uploadFile = async (file: any) => {
     setFileUploading(true);
     const randId = `cv-${uuidv4()}`;
@@ -151,13 +141,7 @@ export default function RecruitmentForm() {
             </span>
           </button>
         )}
-        <div className="flex flex-col items-center justify-center text-sm text-white">
-          {isFormValid && (
-            <p className="bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
-              Formularz został wysłany
-            </p>
-          )}
-        </div>
+
         <p className="text-sm text-gray-500">
           Aplikując wyrażam zgodę na przetwarzanie moich danych osobowych
           zawartych w formularzu rekrutacyjnym przez HEXON GROUP SPÓŁKA Z

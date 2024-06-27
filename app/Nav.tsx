@@ -9,6 +9,7 @@ import {
   FaClipboardList,
   FaCog,
   FaEdit,
+  FaEnvelope,
   FaHome,
   FaPlus,
   FaRemoveFormat,
@@ -34,6 +35,7 @@ export default function Nav({
 
   const navItems = [
     { title: "Przegląd", href: `/admin`, icon: <FaHome /> },
+    { title: "Wiadomości", href: `/admin/messages`, icon: <FaEnvelope /> },
     {
       title: "Generuj zaproszenia",
       href: `/admin/generate-links`,

@@ -33,8 +33,34 @@ const storage = getStorage(app);
 
 const analytics = isSupported().then((yes) => (yes ? getAnalytics(app) : null));
 
+export async function pushSession(data) {
+  const productDocRef = doc(collection(db, "sessions"), data.id);
+  const docSnap = await getDoc(productDocRef);
+  if (docSnap.exists()) {
+    return productDocRef;
+  } else {
+    await setDoc(productDocRef, {
+      ...data,
+      createdAt: Date.now(),
+    });
+    return productDocRef;
+  }
+}
 export async function pushLead(data) {
   const productDocRef = doc(collection(db, "leads"), data.id);
+  const docSnap = await getDoc(productDocRef);
+  if (docSnap.exists()) {
+    return productDocRef;
+  } else {
+    await setDoc(productDocRef, {
+      ...data,
+      createdAt: Date.now(),
+    });
+    return productDocRef;
+  }
+}
+export async function pushMessage(data) {
+  const productDocRef = doc(collection(db, "messages"), data.id);
   const docSnap = await getDoc(productDocRef);
   if (docSnap.exists()) {
     return productDocRef;

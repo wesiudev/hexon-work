@@ -17,7 +17,9 @@ export default function Leads() {
       querySnapshot.forEach((doc: any) => {
         snapshotData.push(doc.data());
       });
-      setLeads(snapshotData);
+      setLeads(
+        snapshotData.sort((a, b) => (b.createdAt > a.createdAt ? 1 : -1))
+      );
     });
   }, []);
   moment.locale("pl");
