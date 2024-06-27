@@ -56,6 +56,8 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
     parseInt(moment().format("H")) >= invite?.ranges?.start &&
     parseInt(moment().format("H")) <= invite?.ranges?.end;
   const isAfter =
+    moment(invite?.date).format("MM-DD-YYYY") ===
+      moment().format("MM-DD-YYYY") &&
     parseInt(moment().format("H")) >= invite?.ranges?.start &&
     parseInt(moment().format("H")) >= invite?.ranges?.end;
   const [error, setError] = useState({
