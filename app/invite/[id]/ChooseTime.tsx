@@ -37,9 +37,8 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
       end: 0,
     },
     hour: "",
-    date: dayjs(moment().format("YYYY-MM-DD")),
+    date: dayjs(moment().add(1, "day").format("YYYY-MM-DD")),
   });
-
   function convertTimeRanges(timeRange: any) {
     const [start, end] = timeRange.split("-");
     const startHour = parseInt(start.split(":")[0], 10);
