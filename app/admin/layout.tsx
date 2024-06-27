@@ -2,25 +2,38 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import LoginPage from "./LoginPage";
 import Loading from "./loading";
-import { auth } from "@/common/firebase";
+import { app, auth } from "@/common/firebase";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Nav from "../Nav";
 import Toast from "../components/Toast";
 import { FaLightbulb } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setLight } from "@/common/redux/slices/lightSlice";
 import { usePathname } from "next/navigation";
+import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [messages, setMessages] = useState<any[]>([]);
+  useEffect(() => {
+    const ref = collection(getFirestore(app), "messages");
+    const unsub = onSnapshot(ref, (querySnapshot: any) => {
+      const snapshotData: any[] = [];
+      querySnapshot.forEach((doc: any) => {
+        snapshotData.push(doc.data());
+      });
+      setMessages(snapshotData);
+    });
+  }, []);
   const pathname = usePathname();
   const [isNavOpen, setNavOpen] = useState(false);
   const [user, loading] = useAuthState(auth);
   const dispatch = useDispatch();
+
   const { light } = useSelector((state: any) => state.light);
   if (loading) {
     return <Loading />;
@@ -45,7 +58,11 @@ export default function AdminLayout({
             )}
           {user ? (
             <>
-              <Nav isNavOpen={isNavOpen} setNavOpen={setNavOpen} />
+              <Nav
+                isNavOpen={isNavOpen}
+                setNavOpen={setNavOpen}
+                messages={messages}
+              />
               <div className={` duration-500 w-full pt-24 scrollbar`}>
                 <Link href="/" className="absolute left-20 top-6 z-50">
                   <Image

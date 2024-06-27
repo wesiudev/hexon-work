@@ -27,9 +27,11 @@ import Image from "next/image";
 export default function Nav({
   isNavOpen,
   setNavOpen,
+  messages,
 }: {
   isNavOpen: boolean;
   setNavOpen: Function;
+  messages: any;
 }) {
   const [expandedItems, setExpandedItems] = useState([]);
 
@@ -149,10 +151,17 @@ export default function Nav({
                         : "bg-[#222430]"
                     }`}
                   >
-                    <span className="flex flex-row items-center">
-                      <span className="mr-2">{item.icon}</span>
-                      {item.title}
-                    </span>
+                    <div className="relative flex flex-row items-center justify-between w-full">
+                      <div className="flex flex-row">
+                        <span className="mr-2">{item.icon}</span>
+                        {item.title}
+                      </div>
+                      {item.title === "Wiadomości" && messages?.length > 0 && (
+                        <div className="bg-red-500 text-white aspect-square rounded-full flex items-center justify-center h-6 w-6">
+                          {messages?.length}
+                        </div>
+                      )}
+                    </div>
                     {item.expandable && (
                       <div
                         onClick={(event) => {
@@ -186,7 +195,7 @@ export default function Nav({
                 </Link>
 
                 {item.expandable && expandedItems.includes(index as never) && (
-                  <ul className=" bg-[#222430]  py-2 px-4 w-full">
+                  <ul className=" bg-[#222430] py-2 px-4 w-full">
                     {item.subItems.map((subItem, subIndex) => (
                       <li key={subIndex}>
                         <Link href={subItem.href}>

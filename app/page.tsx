@@ -5,7 +5,6 @@ import Cta from "./components/cta/Cta";
 import ScrollTo from "./components/ScrollTo";
 import Opinions from "./components/opinions/Opinions";
 import CountToTheNumberAnimated from "./components/counter/CountToTheNumberAnimated";
-import { getLeads } from "@/common/firebase";
 import Link from "next/link";
 
 export default async function Home({

@@ -90,6 +90,29 @@ export async function getLeads() {
     throw error;
   }
 }
+export async function getMessages() {
+  try {
+    const leadsRef = collection(db, "messages");
+    const leadsSnapshot = await getDocs(leadsRef);
+    const messages = [];
+
+    leadsSnapshot.forEach((doc) => {
+      const lead = doc.data();
+      lead.id = doc.id;
+      messages.push(lead);
+    });
+
+    return messages;
+  } catch (error) {
+    console.error("Error getting leads:", error);
+    throw error;
+  }
+}
+export async function updateMessage(id, data) {
+  const docRef = doc(collection(db, "messages"), id);
+  await updateDoc(docRef, data);
+  return docRef;
+}
 export async function updateLead(id, data) {
   const docRef = doc(collection(db, "leads"), id);
   await updateDoc(docRef, data);
