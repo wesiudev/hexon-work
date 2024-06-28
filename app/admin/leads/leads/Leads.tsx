@@ -136,6 +136,14 @@ export default function Leads() {
             Sprawdzone
           </button>
           <button
+            onClick={() => setFilter("manage")}
+            className={`bg-black p-1 border-2 border-transparent border-dashed ${
+              filter === "manage" && "border-white"
+            }`}
+          >
+            Zarządzaj
+          </button>
+          <button
             onClick={() => setFilter("signed")}
             className={`bg-black p-1 border-2 border-transparent border-dashed ${
               filter === "signed" && "border-white"
@@ -144,7 +152,13 @@ export default function Leads() {
             Podpisane
           </button>
         </div>
-        <div className="px-6 py-3 grid grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 font-sans gap-6 min-h-screen text-white">
+        <div
+          className={`${
+            filter !== "manage"
+              ? "grid grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4"
+              : "grid grid-cols-1"
+          } px-6 py-3 font-sans gap-6 min-h-screen text-white`}
+        >
           {leads.map((lead: any, i: any) => (
             <>
               {!lead.isFinished && filter === "new" && !lead.signed && (
@@ -853,6 +867,14 @@ export default function Leads() {
                     </div>
                   </div>
                 )}
+            </>
+          ))}
+
+          {leads.map((lead: any, i: any) => (
+            <>
+              {filter === "manage" && (
+                <div className="flex flex-col w-full"></div>
+              )}
             </>
           ))}
         </div>

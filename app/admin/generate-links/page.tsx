@@ -111,43 +111,42 @@ export default function Page() {
           </div>
         </div>
       </div>
-      {links?.length > 0 && (
-        <div className="flex flex-col w-full mx-6">
-          <input
-            type="text"
-            className={`mt-4 p-3 shodow-sm shadow-black w-full sm:w-[300px] ${
-              light
-                ? "text-zinc-800 bg-white placeholder:text-zinc-600"
-                : "text-white bg-zinc-800 placeholder:text-gray-500"
-            }`}
-            placeholder="Wpisz nazwę kolekcji"
-            value={collection}
-            onChange={(e: any) => setCollection(e.target.value)}
-            required
-          />
-          {error && (
-            <div className="text-red-500 font-bold">Wpisz nazwę kolekcji.</div>
-          )}
-          <button
-            onClick={() => {
-              if (collection !== "") {
-                const id = uuidv4();
-                pushLinks({ name: collection, data: links, id: id });
-                router.push(`/admin/links/${id}`);
-              } else {
-                setError(true);
-              }
-            }}
-            className={`w-max mt-3 mb-6 p-3 duration-300 text-center text-white ${
-              light
-                ? "bg-green-500 hover:bg-green-600"
-                : "bg-purple-500 hover:bg-purple-600"
-            }`}
-          >
-            Zapisz kolekcję
-          </button>
-        </div>
-      )}
+
+      <div className="flex flex-col w-full mx-6">
+        <input
+          type="text"
+          className={`mt-4 p-3 shodow-sm shadow-black w-full sm:w-[300px] ${
+            light
+              ? "text-zinc-800 bg-white placeholder:text-zinc-600"
+              : "text-white bg-zinc-800 placeholder:text-gray-500"
+          }`}
+          placeholder="Wpisz nazwę kolekcji"
+          value={collection}
+          onChange={(e: any) => setCollection(e.target.value)}
+          required
+        />
+        {error && (
+          <div className="text-red-500 font-bold">Wpisz nazwę kolekcji.</div>
+        )}
+        <button
+          onClick={() => {
+            if (collection !== "") {
+              const id = uuidv4();
+              pushLinks({ name: collection, data: links, id: id });
+              router.push(`/admin/links/${id}`);
+            } else {
+              setError(true);
+            }
+          }}
+          className={`w-max mt-3 mb-6 p-3 duration-300 text-center text-white ${
+            light
+              ? "bg-green-500 hover:bg-green-600"
+              : "bg-purple-500 hover:bg-purple-600"
+          }`}
+        >
+          Zapisz kolekcję
+        </button>
+      </div>
       <Links links={links} />
     </div>
   );

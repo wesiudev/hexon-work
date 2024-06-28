@@ -210,24 +210,7 @@ function replaceById(array, newObj) {
     item.link.includes(newObj.link) ? newObj : item
   );
 }
-export async function updateLinkMovieTime(linkId, updatedLink) {
-  const linksRef = collection(db, "links");
-  const linksSnapshot = await getDocs(linksRef);
-  const links = linksSnapshot.docs
-    .map((doc) => doc.data())
-    .filter((link) => link.data.some((l) => l.link.includes(linkId)));
-  let newObject = {
-    hasMovieTimeEnded: true,
-    ...updatedLink,
-  };
 
-  let updatedArray = replaceById(links[0]?.data, newObject);
-
-  await updateDoc(doc(db, "links", links[0]?.id), {
-    data: updatedArray,
-  });
-  return links;
-}
 export async function updateLink(linkId, updatedLink) {
   const linksRef = collection(db, "links");
   const linksSnapshot = await getDocs(linksRef);

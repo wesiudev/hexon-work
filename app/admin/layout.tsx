@@ -6,13 +6,14 @@ import { app, auth } from "@/common/firebase";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Nav from "../Nav";
 import Toast from "../components/Toast";
 import { FaLightbulb } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setLight } from "@/common/redux/slices/lightSlice";
 import { usePathname } from "next/navigation";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
+import dynamic from "next/dynamic";
+const Nav = dynamic(() => import("./Nav"), { ssr: false });
 export default function AdminLayout({
   children,
 }: {
@@ -35,12 +36,11 @@ export default function AdminLayout({
   const dispatch = useDispatch();
 
   const { light } = useSelector((state: any) => state.light);
-  if (loading) {
-    return <Loading />;
-  } else
-    return (
-      <>
-        <Toast />
+
+  return (
+    <>
+      <Toast />
+      {!loading && (
         <div className="relative w-full overflow-x-hidden font-coco bg-[#404149] font-sans">
           {!pathname.includes("/leads/leads") &&
             !pathname.includes("/leads/courses") &&
@@ -81,6 +81,8 @@ export default function AdminLayout({
             <LoginPage />
           )}
         </div>
-      </>
-    );
+      )}
+      {loading && <Loading />}
+    </>
+  );
 }

@@ -34,7 +34,7 @@ export default function Page() {
         Strona głowna
       </Link>
       <div className="relative w-full">
-        <h1 className="text-4xl font-bold mt-12 mb-12 px-6 font-sans">
+        <h1 className="text-4xl font-bold mt-12 mb-12 px-6 font-sans text-white">
           Przeglądasz wszystkie kolekcje linków
         </h1>
       </div>

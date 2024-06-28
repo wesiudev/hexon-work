@@ -49,6 +49,7 @@ export default function Leads() {
 
     return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
   }
+
   return (
     <div className="bg-gray-600 h-max w-full font-sans">
       <Link
@@ -58,8 +59,8 @@ export default function Leads() {
         <FaLongArrowAltLeft className="mr-2 text-xl" />
         Powrót
       </Link>
-      <div className="flex flex-row items-center px-6 text-2xl font-bold font-gotham text-zinc-800 drop-shadow-xl shadow-black bg-gray-300">
-        Czas kandydatów spędzony na stronach zaproszeń:{" "}
+      <div className="flex flex-row items-center px-6 text-sm sm:text-base font-bold font-gotham text-white drop-shadow-xl shadow-black">
+        Czas oglądania filmu wdrożeniowego:{" "}
         <span className="text-green-500 p-3">{formatTime(sum)}</span>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 p-6 !text-white">
@@ -108,11 +109,27 @@ export default function Leads() {
                   </p>
                 </div>
                 <div className="bg-white text-zinc-800 drop-shadow-xl shadow-black mt-3">
-                  <h2 className="font-bold text-2xl p-3">{lead.name}</h2>
+                  <div className="flex flex-row w-full items-center justify-between">
+                    <h2 className="font-bold text-xl p-3">{lead.name}</h2>
+                    <div className="flex items-center px-3">
+                      <FaClock className="mr-1 w-5 h-5" />{" "}
+                      {lead?.timeSpent > 0 && (
+                        <div className="text-xl font-bold font-gotham">
+                          {formatTime(lead?.timeSpent)}
+                        </div>
+                      )}
+                      {(!lead?.timeSpent || lead?.timeSpent === 0) && (
+                        <div className="text-gray-400 text-xl font-bold font-gotham">
+                          ??:??:??
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  {!lead.message && (
+                    <h3 className="p-3 bg-gray-300">Nic nie powiedział</h3>
+                  )}
                   {lead.message !== "" && (
-                    <h3 className="p-3 bg-gray-300">
-                      wiadomość: &quot;{lead.message}&quot;
-                    </h3>
+                    <h3 className="p-3 bg-gray-300">{lead.message}</h3>
                   )}
                   <div className="flex flex-col p-3">
                     <div>{lead.phone}</div>
@@ -196,11 +213,27 @@ export default function Leads() {
                   </p>
                 </div>
                 <div className="bg-white text-zinc-800 drop-shadow-xl shadow-black mt-3">
-                  <h2 className="font-bold text-2xl p-3">{lead.name}</h2>
+                  <div className="flex flex-row w-full items-center justify-between">
+                    <h2 className="font-bold text-xl p-3">{lead.name}</h2>
+                    <div className="flex items-center px-3">
+                      <FaClock className="mr-1 w-5 h-5" />{" "}
+                      {lead?.timeSpent > 0 && (
+                        <div className="text-xl font-bold font-gotham">
+                          {formatTime(lead?.timeSpent)}
+                        </div>
+                      )}
+                      {(!lead?.timeSpent || lead?.timeSpent === 0) && (
+                        <div className="text-gray-400 text-xl font-bold font-gotham">
+                          ??:??:??
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  {!lead.message && (
+                    <h3 className="p-3 bg-gray-300">Nic nie powiedział</h3>
+                  )}
                   {lead.message !== "" && (
-                    <h3 className="p-3 bg-gray-300">
-                      wiadomość: &quot;{lead.message}&quot;
-                    </h3>
+                    <h3 className="p-3 bg-gray-300">{lead.message}</h3>
                   )}
                   <div className="flex flex-col p-3">
                     <div>{lead.phone}</div>
@@ -284,11 +317,27 @@ export default function Leads() {
                   </p>
                 </div>
                 <div className="bg-white text-zinc-800 drop-shadow-xl shadow-black mt-3">
-                  <h2 className="font-bold text-2xl p-3">{lead.name}</h2>
+                  <div className="flex flex-row w-full items-center justify-between">
+                    <h2 className="font-bold text-xl p-3">{lead.name}</h2>
+                    <div className="flex items-center px-3">
+                      <FaClock className="mr-1 w-5 h-5" />{" "}
+                      {lead?.timeSpent > 0 && (
+                        <div className="text-xl font-bold font-gotham">
+                          {formatTime(lead?.timeSpent)}
+                        </div>
+                      )}
+                      {(!lead?.timeSpent || lead?.timeSpent === 0) && (
+                        <div className="text-gray-400 text-xl font-bold font-gotham">
+                          ??:??:??
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  {!lead.message && (
+                    <h3 className="p-3 bg-gray-300">Nic nie powiedział</h3>
+                  )}
                   {lead.message !== "" && (
-                    <h3 className="p-3 bg-gray-300">
-                      wiadomość: &quot;{lead.message}&quot;
-                    </h3>
+                    <h3 className="p-3 bg-gray-300">{lead.message}</h3>
                   )}
                   <div className="flex flex-col p-3">
                     <div>{lead.phone}</div>

@@ -1,14 +1,11 @@
 import { getLinksById } from "@/common/firebase";
-import { redirect } from "next/navigation";
-import Links from "../../../components/Links";
 import Link from "next/link";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import DeleteCollection from "./DeleteCollection";
-import LinksWrapper from "./LinksWrapper";
+import LinksWrapper from "../../../components/LinksWrapper";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const links = await getLinksById(params.id);
-  !links && redirect("/admin/links");
   return (
     <div>
       <Link
@@ -18,7 +15,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         <FaLongArrowAltLeft className="mr-2 text-xl" />
         Powrót
       </Link>
-      <h2 className="my-12 px-6 text-left text-3xl font-bold">
+      <h2 className="my-12 px-6 text-left text-3xl font-bold text-white">
         Przeglądasz kolekcję linków:{" "}
         <span className="text-green-500 animate-pulse">{links.name}</span>
       </h2>

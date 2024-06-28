@@ -37,35 +37,40 @@ export default function Nav({
 
   const navItems = [
     { title: "Przegląd", href: `/admin`, icon: <FaHome /> },
-    { title: "Wiadomości", href: `/admin/messages`, icon: <FaEnvelope /> },
     {
-      title: "Generuj zaproszenia",
-      href: `/admin/generate-links`,
-      icon: <FaRobot />,
-    },
-    {
-      title: "Status zaproszeń",
+      title: "Zaproszenia",
       href: `/admin/links`,
-      icon: <SiAbbrobotstudio />,
-    },
-    {
-      title: "Blog",
-      href: `/admin/blog/edit`,
       expandable: true,
-      icon: <FaArtstation />,
+      icon: <SiAbbrobotstudio />,
       subItems: [
         {
-          title: "Nowy post",
-          href: `/admin/blog/new`,
-          icon: <FaUpload />,
+          title: "Generuj zaproszenia",
+          href: `/admin/generate-links`,
+          icon: <FaRobot />,
         },
-        {
-          title: "Edytuj post",
-          href: `/admin/blog/edit`,
-          icon: <FaEdit />,
-        },
+
+        { title: "Wiadomości", href: `/admin/messages`, icon: <FaEnvelope /> },
       ],
     },
+
+    // {
+    //   title: "Blog",
+    //   href: `/admin/blog/edit`,
+    //   expandable: true,
+    //   icon: <FaArtstation />,
+    //   subItems: [
+    //     {
+    //       title: "Nowy post",
+    //       href: `/admin/blog/new`,
+    //       icon: <FaUpload />,
+    //     },
+    //     {
+    //       title: "Edytuj post",
+    //       href: `/admin/blog/edit`,
+    //       icon: <FaEdit />,
+    //     },
+    //   ],
+    // },
     {
       title: "Leady",
       href: `/admin/leads`,
@@ -130,8 +135,12 @@ export default function Nav({
                 key={index}
                 className={`w-full ${item.expandable ? "relative" : ""}  `}
               >
-                <Link href={item.href} className="w-full">
-                  <button
+                <Link
+                  onClick={() => setNavOpen(false)}
+                  href={item.href}
+                  className="w-full"
+                >
+                  <div
                     onClick={() => {
                       if (item.expandable) {
                         if (expandedItems.includes(index as never)) {
@@ -151,16 +160,11 @@ export default function Nav({
                         : "bg-[#222430]"
                     }`}
                   >
-                    <div className="relative flex flex-row items-center justify-between w-full">
+                    <div className="flex flex-row items-center justify-between w-full">
                       <div className="flex flex-row items-center">
-                        <span className="mr-2">{item.icon}</span>
+                        <div className="mr-2">{item.icon}</div>
                         {item.title}
                       </div>
-                      {item.title === "Wiadomości" && messages?.length > 0 && (
-                        <div className="bg-red-500 text-white aspect-square rounded-full flex items-center justify-center h-6 w-6">
-                          {messages?.length}
-                        </div>
-                      )}
                     </div>
                     {item.expandable && (
                       <div
@@ -191,17 +195,28 @@ export default function Nav({
                         />
                       </div>
                     )}
-                  </button>
+                  </div>
                 </Link>
 
                 {item.expandable && expandedItems.includes(index as never) && (
                   <ul className=" bg-[#222430] py-2 px-4 w-full">
                     {item.subItems.map((subItem, subIndex) => (
                       <li key={subIndex}>
-                        <Link href={subItem.href}>
-                          <button className="flex items-center py-2 px-4 rounded-md hover:bg-[#2F313C] w-full">
-                            {subItem.icon}
-                            <span className="ml-2">{subItem.title}</span>
+                        <Link
+                          onClick={() => setNavOpen(false)}
+                          href={subItem.href}
+                        >
+                          <button className="relative flex items-center justify-between py-2 px-4 rounded-md hover:bg-[#2F313C] w-full">
+                            <div className="flex flex-row items-center">
+                              {subItem.icon}
+                              <div className="ml-2">{subItem.title}</div>
+                            </div>
+                            {subItem?.title === "Wiadomości" &&
+                              messages?.length > 0 && (
+                                <div className="bg-red-500 text-white aspect-square rounded-full flex items-center justify-center h-6 w-6">
+                                  {messages?.length}
+                                </div>
+                              )}
                           </button>
                         </Link>
                       </li>

@@ -9,6 +9,9 @@ import { v4 as uuidv4 } from "uuid";
 import Loading from "@/app/loading";
 export default function ChooseTime({ linkId }: { linkId: any }) {
   const [invite, setInvite] = useState<any>();
+  const [finishInsurance, setFinishInsurance] = useState(false);
+  const [time, setTime] = useState(0);
+  const [isSent, setIsSent] = useState(false);
   useEffect(() => {
     const ref = collection(getFirestore(app), "links");
     const unsub = onSnapshot(ref, (querySnapshot: any) => {
@@ -43,13 +46,11 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
   }
   const router = useRouter();
   const show =
-    moment(invite?.date).format("MM-DD-YYYY") ===
-      moment().format("MM-DD-YYYY") &&
+    invite?.date === moment().format("MM-DD-YYYY") &&
     parseInt(moment().format("H")) >= invite?.ranges?.start &&
     parseInt(moment().format("H")) <= invite?.ranges?.end;
   const isAfter =
-    moment(invite?.date).format("MM-DD-YYYY") ===
-      moment().format("MM-DD-YYYY") &&
+    invite?.date === moment().format("MM-DD-YYYY") &&
     parseInt(moment().format("H")) >= invite?.ranges?.start &&
     parseInt(moment().format("H")) >= invite?.ranges?.end;
   const [error, setError] = useState({
@@ -64,7 +65,6 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
     name: "",
   });
 
-  const [isSent, setIsSent] = useState(false);
   const handleSubmit = () => {
     // Reset errors
     setError({ name: false, phone: false, email: false });
@@ -86,23 +86,67 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
 
     // If no errors, proceed
     if (!hasError) {
-      pushMessage({ ...formData, id: uuidv4() });
+      pushMessage({
+        ...formData,
+        id: uuidv4(),
+        timeSpent: invite?.timeSpent + time,
+      });
       updateLink(linkId, {
         ...invite,
         finished: true,
       });
     }
   };
-  const [time, setTime] = useState(0);
-  const [hasMovieTimeEnded, setHasMovieTimeEnded] = useState(false);
 
   const interval = setInterval(() => {
     setTime(time + 1);
   }, 1000);
 
+  const linkUsed = invite?.finished;
+  function saveSession() {
+    const id = uuidv4();
+    pushSession({ timeSpent: time, id: id });
+    updateLink(linkId, {
+      ...invite,
+      hasMovieTimeEnded: true,
+      timeSpent: time,
+    });
+    setTimeout(() => {
+      clearInterval(interval);
+    }, 2000);
+  }
+
   return (
     <>
       {!invite && <Loading />}
+      <div
+        className={`fixed left-0 top-0 flex items-center justify-center w-full h-full bg-black duration-500 ${
+          finishInsurance ? "bg-opacity-80 z-50" : "bg-opacity-0 -z-50"
+        }`}
+      >
+        {finishInsurance && (
+          <div className="w-max h-max p-6 text-white font-bold">
+            Czy chcesz zakończyć oglądanie filmu?
+            <button
+              className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-3"
+              onClick={() => {
+                setFinishInsurance(false);
+                saveSession();
+              }}
+              type="button"
+            >
+              Przejdź dalej
+            </button>
+            <button
+              className="w-full bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-3"
+              onClick={() => setFinishInsurance(false)}
+              type="button"
+            >
+              Powrót
+            </button>
+          </div>
+        )}
+      </div>
       {invite?.status !== "delivered" && (
         <>
           <p className="text-white text-sm xl:text-base max-w-[30rem] font-sans mt-3 text-center">
@@ -157,13 +201,25 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
           </div>
         </>
       )}
+      {isAfter && !linkUsed && !invite.hasMovieTimeEnded && (
+        <div className="text-red-500 font-bold text-2xl mt-4 text-center">
+          Link nieaktywny. Te szkolenie było aktywne dnia{" "}
+          {moment(invite?.date).format("DD.MM.YYYY")} w godzinach {invite.hour}
+        </div>
+      )}
+      {invite?.finished && invite?.hasMovieTimeEnded && (
+        <h2 className="text-green-500 mt-4 font-bold text-3xl text-center">
+          Dziękujemy za udział w pierwszym etapie rekrutacji. Skontaktujemy się
+          z tobą już wkrótce!
+        </h2>
+      )}
       {invite?.status === "delivered" && (
         <div className="">
           <p className="flex flex-col items-center justify-center text-white text-lg xl:text-base max-w-[30rem] font-sans mt-3 text-center">
-            {(isAfter || hasMovieTimeEnded || invite.hasMovieTimeEnded) && (
+            {!invite?.finished && invite?.hasMovieTimeEnded && (
               <div className="w-full">
                 <h2 className="text-green-500 my-3 font-bold">
-                  Dziękujemy za udział w szkoleniu.
+                  Dziękujemy za udział w pierwszym etapie rekrutacji.
                 </h2>
                 {!invite.finished && (
                   <div className="">
@@ -266,15 +322,18 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
                 )}
               </div>
             )}
-            {!show && !isAfter && (
-              <span className="font-bold text-green-500">
-                Link aktywowano pomyślnie.
-              </span>
-            )}
+            {!show &&
+              !isAfter &&
+              !invite.hasMovieTimeEnded &&
+              !invite.finished && (
+                <span className="font-bold text-green-500">
+                  Link aktywowano pomyślnie.
+                </span>
+              )}
             {show &&
               !isAfter &&
-              !hasMovieTimeEnded &&
-              !invite.hasMovieTimeEnded && (
+              !invite.hasMovieTimeEnded &&
+              !invite.finished && (
                 <div className="w-full sm:w-[30rem] lg:w-[40rem] mt-12">
                   <video
                     src="https://firebasestorage.googleapis.com/v0/b/decocanva-408fb.appspot.com/o/video-output-2BAF655B-6E85-450F-B34A-E8E84A94B640.MOV?alt=media&token=c2e1033d-6658-481b-886d-7aa523b03aed"
@@ -283,15 +342,7 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
                   />
                   <button
                     onClick={() => {
-                      setHasMovieTimeEnded(true);
-                      updateLink(linkId, {
-                        ...invite,
-                        hasMovieTimeEnded: true,
-                      });
-                      pushSession({ timeSpent: time, id: uuidv4() });
-                      setTimeout(() => {
-                        clearInterval(interval);
-                      }, 2000);
+                      setFinishInsurance(true);
                     }}
                     disabled={isSent}
                     className="disabled:cursor-not-allowed bg-black hover:scale-110 text border-transparent-zinc-800 outline-none focus:outline-none duration-200 text-center p-4 w-max mt-12"
@@ -302,15 +353,18 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
                   </button>
                 </div>
               )}
-            {!show && !isAfter && (
-              <div className="mt-6 text-xl">
-                Wróć tutaj {moment().add(1, "day").format("YYYY-MM-DD")} między
-                godziną {invite?.hour} by odebrać dostęp do szkolenia
-                wdrożeniowego.
-              </div>
-            )}
+            {!show &&
+              !isAfter &&
+              !invite.finished &&
+              !invite.hasMovieTimeEnded && (
+                <div className="mt-6 text-xl">
+                  Wróć tutaj {moment(invite?.date).format("DD.MM.YYYY")} między
+                  godziną {invite?.hour} by odebrać dostęp do szkolenia
+                  wdrożeniowego.
+                </div>
+              )}
           </p>
-          {!show && isAfter && (
+          {!invite?.finished && invite?.hasMovieTimeEnded && (
             <p className="text-gray-500 text-sm text-justify mt-12 max-w-[30rem]">
               Aplikując wyrażam zgodę na przetwarzanie moich danych osobowych
               zawartych w formularzu rekrutacyjnym przez HEXON GROUP SPÓŁKA Z
