@@ -135,14 +135,7 @@ export default function Leads() {
           >
             Sprawdzone
           </button>
-          <button
-            onClick={() => setFilter("manage")}
-            className={`bg-black p-1 border-2 border-transparent border-dashed ${
-              filter === "manage" && "border-white"
-            }`}
-          >
-            Zarządzaj
-          </button>
+
           <button
             onClick={() => setFilter("signed")}
             className={`bg-black p-1 border-2 border-transparent border-dashed ${
@@ -867,14 +860,6 @@ export default function Leads() {
                     </div>
                   </div>
                 )}
-            </>
-          ))}
-
-          {leads.map((lead: any, i: any) => (
-            <>
-              {filter === "manage" && (
-                <div className="flex flex-col w-full"></div>
-              )}
             </>
           ))}
         </div>
