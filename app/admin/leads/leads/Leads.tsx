@@ -213,16 +213,31 @@ export default function Leads() {
                         <td>{lead.ownership === true ? "Tak" : "Nie"}</td>
                       </tr>
                       <tr className="bg-gray-600">
+                        <td>Numer KW:</td>
+                        <td>
+                          {lead?.ownerNumber1 &&
+                          lead?.ownerNumber2 &&
+                          lead?.ownerNumber3 ? (
+                            <div className="">
+                              {lead?.ownerNumber1} / {lead?.ownerNumber2} /{" "}
+                              {lead?.ownerNumber3}
+                            </div>
+                          ) : (
+                            "Nie podano"
+                          )}{" "}
+                        </td>
+                      </tr>
+                      <tr className="bg-gray-700">
                         <td>Numer Telefonu:</td>
                         <td>
                           {lead.phone} {lead.name}
                         </td>
                       </tr>
-                      <tr className="bg-gray-700">
+                      <tr className="bg-gray-600">
                         <td>Uczestnicy gospodarstwa:</td>
                         <td>{lead.visitors}</td>
                       </tr>
-                      <tr className="bg-gray-600">
+                      <tr className="bg-gray-700">
                         <td>Region:</td>
                         <td>{lead?.region ? lead.region : "Nie podano"}</td>
                       </tr>
@@ -362,16 +377,31 @@ export default function Leads() {
                         <td>{lead.ownership === true ? "Tak" : "Nie"}</td>
                       </tr>
                       <tr className="bg-gray-600">
+                        <td>Numer KW:</td>
+                        <td>
+                          {lead?.ownerNumber1 &&
+                          lead?.ownerNumber2 &&
+                          lead?.ownerNumber3 ? (
+                            <div className="">
+                              {lead?.ownerNumber1} / {lead?.ownerNumber2} /{" "}
+                              {lead?.ownerNumber3}
+                            </div>
+                          ) : (
+                            "Nie podano"
+                          )}{" "}
+                        </td>
+                      </tr>
+                      <tr className="bg-gray-700">
                         <td>Numer Telefonu:</td>
                         <td>
                           {lead.phone} {lead.name}
                         </td>
                       </tr>
-                      <tr className="bg-gray-700">
+                      <tr className="bg-gray-600">
                         <td>Uczestnicy gospodarstwa:</td>
                         <td>{lead.visitors}</td>
                       </tr>
-                      <tr className="bg-gray-600">
+                      <tr className="bg-gray-700">
                         <td>Region:</td>
                         <td>{lead?.region ? lead.region : "Nie podano"}</td>
                       </tr>
@@ -525,16 +555,31 @@ export default function Leads() {
                           <td>{lead.ownership === true ? "Tak" : "Nie"}</td>
                         </tr>
                         <tr className="bg-gray-600">
+                          <td>Numer KW:</td>
+                          <td>
+                            {lead?.ownerNumber1 &&
+                            lead?.ownerNumber2 &&
+                            lead?.ownerNumber3 ? (
+                              <div className="">
+                                {lead?.ownerNumber1} / {lead?.ownerNumber2} /{" "}
+                                {lead?.ownerNumber3}
+                              </div>
+                            ) : (
+                              "Nie podano"
+                            )}{" "}
+                          </td>
+                        </tr>
+                        <tr className="bg-gray-700">
                           <td>Numer Telefonu:</td>
                           <td>
                             {lead.phone} {lead.name}
                           </td>
                         </tr>
-                        <tr className="bg-gray-700">
+                        <tr className="bg-gray-600">
                           <td>Uczestnicy gospodarstwa:</td>
                           <td>{lead.visitors}</td>
                         </tr>
-                        <tr className="bg-gray-600">
+                        <tr className="bg-gray-700">
                           <td>Region:</td>
                           <td>{lead?.region ? lead.region : "Nie podano"}</td>
                         </tr>
@@ -694,16 +739,31 @@ export default function Leads() {
                           <td>{lead.ownership === true ? "Tak" : "Nie"}</td>
                         </tr>
                         <tr className="bg-gray-600">
+                          <td>Numer KW:</td>
+                          <td>
+                            {lead?.ownerNumber1 &&
+                            lead?.ownerNumber2 &&
+                            lead?.ownerNumber3 ? (
+                              <div className="">
+                                {lead?.ownerNumber1} / {lead?.ownerNumber2} /{" "}
+                                {lead?.ownerNumber3}
+                              </div>
+                            ) : (
+                              "Nie podano"
+                            )}{" "}
+                          </td>
+                        </tr>
+                        <tr className="bg-gray-700">
                           <td>Numer Telefonu:</td>
                           <td>
                             {lead.phone} {lead.name}
                           </td>
                         </tr>
-                        <tr className="bg-gray-700">
+                        <tr className="bg-gray-600">
                           <td>Uczestnicy gospodarstwa:</td>
                           <td>{lead.visitors}</td>
                         </tr>
-                        <tr className="bg-gray-600">
+                        <tr className="bg-gray-700">
                           <td>Region:</td>
                           <td>{lead?.region ? lead.region : "Nie podano"}</td>
                         </tr>

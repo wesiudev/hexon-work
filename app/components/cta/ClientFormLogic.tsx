@@ -21,6 +21,9 @@ export default function ClientFormLogic() {
     phone: "",
     name: "",
     region: "",
+    ownerNumber1: "",
+    ownerNumber2: "",
+    ownerNumber3: "",
   });
 
   const [isSending, setIsSending] = useState<any>(undefined);
@@ -584,6 +587,47 @@ export default function ClientFormLogic() {
                     zachodnio-pomorskie
                   </option>
                 </select>
+              </div>
+              <div className="mt-4">
+                <h2 className="text-xl">
+                  Numer księgi wieczystej
+                  <span className="text-sm ml-1">(opcjonalnie)</span>
+                </h2>
+                <p className="text-base text-zinc-800 text-justify font-light">
+                  Podaj swój numer księgi wieczystej w celu przyspieszenia
+                  weryfikacji wniosku.
+                </p>
+                <div className="flex flex-row items-center h-max">
+                  <input
+                    style={{ boxShadow: "0px 0px 3px black" }}
+                    className={`mt-3 w-[80px] p-2 placeholder:font-light focus:outline-2 focus:outline-green-500`}
+                    type="text"
+                    onChange={(e) =>
+                      setFormData({ ...formData, ownerNumber1: e.target.value })
+                    }
+                    value={formData.ownerNumber1}
+                  />
+                  <div className="px-2 mt-1.5">/</div>
+                  <input
+                    style={{ boxShadow: "0px 0px 3px black" }}
+                    className={`mt-3 w-[80px] p-2 placeholder:font-light focus:outline-2 focus:outline-green-500`}
+                    type="text"
+                    onChange={(e) =>
+                      setFormData({ ...formData, ownerNumber2: e.target.value })
+                    }
+                    value={formData.ownerNumber2}
+                  />
+                  <div className="px-2 mt-1.5">/</div>
+                  <input
+                    style={{ boxShadow: "0px 0px 3px black" }}
+                    className={`mt-3 w-[80px] p-2 placeholder:font-light focus:outline-2 focus:outline-green-500`}
+                    type="text"
+                    onChange={(e) =>
+                      setFormData({ ...formData, ownerNumber3: e.target.value })
+                    }
+                    value={formData.ownerNumber3}
+                  />
+                </div>
               </div>
               {isSending === "success" && (
                 <div className="text-green-500 animate-pulse mt-3">

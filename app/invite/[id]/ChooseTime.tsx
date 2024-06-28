@@ -2,19 +2,11 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import {
-  app,
-  updateLink,
-  pushMessage,
-  pushSession,
-  updateApplication,
-  updateLinkMovieTime,
-} from "@/common/firebase";
+import { app, updateLink, pushMessage, pushSession } from "@/common/firebase";
 import { useRouter } from "next/navigation";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import Loading from "@/app/loading";
-import Toast from "@/app/components/Toast";
 export default function ChooseTime({ linkId }: { linkId: any }) {
   const [invite, setInvite] = useState<any>();
   useEffect(() => {
