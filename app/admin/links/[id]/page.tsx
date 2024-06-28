@@ -17,7 +17,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       </Link>
       <h2 className="my-12 px-6 text-left text-3xl font-bold text-white">
         Przeglądasz kolekcję linków:{" "}
-        <span className="text-green-500 animate-pulse">{links.name}</span>
+        <span className="text-green-500">{links.name}</span>
       </h2>
       <div className="px-6">
         <span className="text-red-500">Uwaga!</span>{" "}

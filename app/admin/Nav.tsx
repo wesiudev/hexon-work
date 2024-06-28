@@ -11,6 +11,7 @@ import {
   FaEdit,
   FaEnvelope,
   FaHome,
+  FaLink,
   FaPlus,
   FaRemoveFormat,
   FaRobot,
@@ -41,12 +42,17 @@ export default function Nav({
       title: "Zaproszenia",
       href: `/admin/links`,
       expandable: true,
-      icon: <SiAbbrobotstudio />,
+      icon: <FaLink />,
       subItems: [
         {
           title: "Generuj zaproszenia",
           href: `/admin/generate-links`,
           icon: <FaRobot />,
+        },
+        {
+          title: "Status zaproszeń",
+          href: `/admin/links`,
+          icon: <SiAbbrobotstudio />,
         },
 
         { title: "Wiadomości", href: `/admin/messages`, icon: <FaEnvelope /> },
