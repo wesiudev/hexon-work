@@ -63,21 +63,21 @@ export default function Admin() {
   function generateLeadsChartData(data: any) {
     // Find unique month names from leads
     const uniqueMonths = new Set(
-      data.map((lead: any) => moment(lead.createdAt).format("MMMM YYYY"))
+      data.map((lead: any) => moment(lead.createdAt).format("MM.YYYY"))
     );
-    const uniqueMonthNames = Array.from(uniqueMonths).sort().reverse();
+    const uniqueMonthNames = Array.from(uniqueMonths).sort();
 
     // {'czerwiec 2024', 'maj 2024'}
     const chartData = uniqueMonthNames.map((month: any) => ({
       miesiac: month,
       leady: data.filter(
-        (lead: any) => moment(lead.createdAt).format("MMMM YYYY") === month
+        (lead: any) => moment(lead.createdAt).format("MM.YYYY") === month
       ).length,
     }));
 
     return chartData;
   }
-  generateLeadsChartData(data.leads);
+
   const { light } = useSelector((state: any) => state.light);
   const { width } = useWindowDimensions();
   return (

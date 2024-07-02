@@ -187,6 +187,8 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
                 updateLink(linkId, {
                   ...data,
                   date: data.date.format("MM-DD-YYYY"),
+                  id: invite?.id,
+                  name: invite?.name,
                 });
                 router.push(`/invite/${linkId}?sent=true`);
               }}

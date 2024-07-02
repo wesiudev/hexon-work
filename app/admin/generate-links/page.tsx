@@ -14,6 +14,8 @@ export default function Page() {
     const newLinks = Array.from({ length: quantity }, (_, i) => ({
       link: `https://hexon.work/invite/${uuidv4()}`,
       status: "pending",
+      id: uuidv4(),
+      name: "",
     }));
     setLinks((prevLinks: any) => [...prevLinks, ...newLinks]);
   }

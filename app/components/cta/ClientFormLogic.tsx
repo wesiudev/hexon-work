@@ -588,7 +588,7 @@ export default function ClientFormLogic() {
                   </option>
                 </select>
               </div>
-              <div className="mt-4">
+              {/* <div className="mt-4">
                 <h2 className="text-xl">
                   Numer księgi wieczystej
                   <span className="text-sm ml-1">(opcjonalnie)</span>
@@ -628,7 +628,7 @@ export default function ClientFormLogic() {
                     value={formData.ownerNumber3}
                   />
                 </div>
-              </div>
+              </div> */}
               {isSending === "success" && (
                 <div className="text-green-500 animate-pulse mt-3">
                   Wysłano pomyślnie!

@@ -31,15 +31,15 @@ export default async function Home({
       <div className="z-[30] fixed h-screen w-full left-0 top-0">
         <Hero />
       </div>
-      <div className="justify-evenly min-h-screen lg:mt-0 w-full mx-0 sm:mx-auto flex flex-col sm:w-4/5 lg:w-3/4 relative">
-        <div className="mx-auto grid lg:grid-cols-2">
-          <h1 className="z-50 bg-zinc-800 bg-opacity-80 rounded-xl p-6 flex flex-col justify-center">
+      <div className="justify-evenly min-h-screen lg:mt-0 w-full mx-0 sm:mx-auto flex flex-col sm:w-4/5 lg:w-3/4 relative pt-36 pb-12 lg:py-0 overflow-x-hidden">
+        <div className="mx-auto grid grid-cols-1 lg:grid-cols-2 h-max">
+          <h1 className="z-50 bg-zinc-800 bg-opacity-80 rounded-xl p-6 lg:p-12 flex flex-col justify-center h-max my-auto">
             <Image
               src="/logo-hexon2.png"
               width={400}
               height={400}
               alt=""
-              className="mx-auto lg:mx-0 w-3/4 sm:w-[300px]"
+              className="mx-auto lg:mx-0 w-1/2 sm:w-[200px] lg:w-[300px]"
             />
             <div className="font-light mt-6 text-base lg:text-lg xl:text-xl sm:max-w-[30rem] lg:max-w-[50rem] text-gray-50 text-center max-w-[40rem] lg:text-left z-30  mx-auto sm:mx-0">
               <span className="text-white drop-shadow-md shadow-black italic ">
@@ -47,24 +47,31 @@ export default async function Home({
                 budynków.
               </span>
             </div>
-            <div className="flex flex-col-reverse xl:flex-row z-30 w-full justify-center items-center sm:w-max mt-12 mx-auto lg:mx-0">
+            <div className="flex flex-col-reverse xl:flex-row z-30 w-full justify-center lg:justify-start items-center lg:items-start sm:w-max mt-6 mx-auto lg:mx-0">
               <Cta styleType="white" label="ZŁÓŻ WNIOSEK" />
               <ScrollTo />
             </div>
           </h1>
-          <div className="hidden lg:flex items-end lg:justify-end xl:justify-center w-full">
+          <div className="flex items-center xl:justify-center flex-col w-full lg:pl-12 mt-20 lg:mt-0">
             <Image
-              src="/cieplo.png"
+              src="/pnwing.png"
               width={500}
               height={500}
               alt=""
-              className="w-[320px] animate-left-to-right"
+              className="w-4/5 lg:w-full xl:w-[90%] relative z-50 h-auto animate-left-to-right"
             />
+            <h2 className="text-2xl lg:text-3xl font-italic text-white font-sans italic text-center mt-12">
+              Nawet do{" "}
+              <span className="font-bold bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent">
+                136 tys. zł
+              </span>{" "}
+              dofinansowania na remont twojego domu!
+            </h2>
           </div>
         </div>
       </div>
 
-      <main className="font-sans overflow-hidden relative items-center min-h-screen px-3 lg:px-0 grid grid-cols-1 z-30">
+      <main className="font-sans overflow-visible relative items-center min-h-screen px-3 lg:px-0 grid grid-cols-1 z-30">
         <section className={`w-full h-max z-50`}>
           <div
             id="about"
@@ -163,7 +170,7 @@ export default async function Home({
             <div className="mt-12">
               <Opinions />
             </div>
-            <div className="mt-6 text-center flex items-center justify-center">
+            <div className="mt-12 text-center flex items-center justify-center">
               <Link
                 href="https://www.google.com/search?sa=X&sca_esv=361f429e8db713bc&sca_upv=1&tbm=lcl&sxsrf=ADLYWIKH7tM-tI-2f5QMONghmCtFcrpq4A:1718290938971&q=hexon%20opinie&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxNDU2NjexNDS1MLcwNzY3MzYxMNrAyPiKkScjtSI_TyG_IDMvM3URKwoXADurxIU5AAAA&rldimm=15337491587873763402&hl=pl-PL&ved=0CAUQ5foLahcKEwiw9YfJ7NiGAxUAAAAAHQAAAAAQCQ&biw=1920&bih=953&dpr=1#lkt=LocalPoiReviews&arid=ChZDSUhNMG9nS0VJQ0FnSUMxXzZldmVREAE"
                 target="_blank"
@@ -178,6 +185,15 @@ export default async function Home({
                 />
               </Link>
             </div>
+            {/* <div className="w-[80%] lg:max-w-[40rem] mt-12 mx-auto p-3 overflow-visible">
+              <Image
+                src="/map/map2.png"
+                width={1024}
+                height={1024}
+                alt=""
+                className=""
+              />
+            </div> */}
           </div>
         </section>
       </main>
