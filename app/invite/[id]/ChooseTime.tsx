@@ -338,7 +338,7 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
               !invite.finished && (
                 <div className="w-full sm:w-[30rem] lg:w-[40rem] mt-12">
                   <video
-                    src="https://firebasestorage.googleapis.com/v0/b/decocanva-408fb.appspot.com/o/video-output-2BAF655B-6E85-450F-B34A-E8E84A94B640.MOV?alt=media&token=c2e1033d-6658-481b-886d-7aa523b03aed"
+                    src="https://firebasestorage.googleapis.com/v0/b/decocanva-408fb.appspot.com/o/webinar.mp4?alt=media&token=6b01f5f8-3a23-4773-a64b-fe8c7a0469a8"
                     controls
                     className={`w-full z-50`}
                   />
