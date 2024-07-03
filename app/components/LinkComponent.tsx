@@ -125,7 +125,7 @@ export default function LinkComponent({
         } text-white font-bold w-max h-12 flex items-center justify-center aspect-square duration-500 border-b border-black mb-6`}
       >
         {link?.name !== "" && link?.name !== undefined ? (
-          <div className="w-max px-3 bg-white text-zinc-800 p-3">
+          <div className="w-max px-3 bg-white text-zinc-800">
             Kandydat: {link?.name} <br /> Czas spędzony:{" "}
             {link?.timeSpent ? `${link?.timeSpent} sekund` : "brak danych"}
           </div>
@@ -137,6 +137,18 @@ export default function LinkComponent({
             placeholder="Imie i nazwisko"
             className="p-3 focus:outline-none shadow-md shadow-black bg-white text-zinc-800"
           />
+        )}
+        {link?.name !== "" && link?.name !== undefined && (
+          <button
+            title="Edytuj"
+            onClick={() => {
+              updateLink(removeInvitePrefix(link.link), { ...link, name: "" });
+              setName("");
+            }}
+            className="px-3 text-center bg-green-500 border-yellow-300 hover:bg-green-600 text-white font-bold h-12 flex items-center justify-center"
+          >
+            Edytuj
+          </button>
         )}
         {(link?.name === undefined || link?.name === "") && (
           <button
