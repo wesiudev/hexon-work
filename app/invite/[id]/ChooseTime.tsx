@@ -125,9 +125,8 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
     updateLink(linkId, {
       ...invite,
       hasMovieTimeEnded: true,
-      timeSpent: time,
+      timeSpent: invite?.timeSpent + time,
     });
-    setTime(0);
   }
 
   return (
@@ -161,7 +160,7 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
           </div>
         )}
       </div>
-      {invite?.status !== "delivered" && (
+      {invite?.status !== "delivered" && invite?.status !== "visited" && (
         <>
           <p className="text-white text-lg xl:text-base max-w-[30rem] font-sans mt-3 text-center font-bold">
             {invite?.name && `Cześć ${getFirstWord(invite.name)}!`} Wybierz
@@ -204,6 +203,8 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
                   date: data.date.format("MM-DD-YYYY"),
                   id: invite?.id,
                   name: invite?.name,
+                  status: "delivered",
+                  timeSpent: time,
                 });
                 router.push(`/invite/${linkId}?sent=true`);
               }}
@@ -237,7 +238,7 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
           z tobą już wkrótce!
         </h2>
       )}
-      {invite?.status === "delivered" && (
+      {(invite?.status === "delivered" || invite?.status === "visited") && (
         <div className="">
           <p className="flex flex-col items-center justify-center text-white text-lg xl:text-base max-w-[30rem] font-sans mt-3 text-center">
             {!invite?.finished && invite?.hasMovieTimeEnded && (
@@ -363,6 +364,13 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
                     src="https://firebasestorage.googleapis.com/v0/b/decocanva-408fb.appspot.com/o/webinar.mp4?alt=media&token=6b01f5f8-3a23-4773-a64b-fe8c7a0469a8"
                     controls
                     className={`w-full z-50`}
+                    onClick={() =>
+                      updateLink(linkId, {
+                        ...invite,
+                        timeSpent: invite?.timeSpent + time,
+                        status: "visited",
+                      })
+                    }
                   />
                   <button
                     onClick={() => {

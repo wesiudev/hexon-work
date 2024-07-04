@@ -219,7 +219,6 @@ export async function updateLink(linkId, updatedLink) {
     .filter((link) => link.data.some((l) => l.link.includes(linkId)));
   let newObject = {
     link: `https://hexon.work/invite/${linkId}`,
-    status: "delivered",
     ...updatedLink,
   };
 
