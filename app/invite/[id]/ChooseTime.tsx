@@ -6,6 +6,7 @@ import { app, updateLink, pushMessage, pushSession } from "@/common/firebase";
 import { useRouter } from "next/navigation";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
+import "moment/locale/pl";
 import Loading from "@/app/loading";
 export default function ChooseTime({ linkId }: { linkId: any }) {
   const [invite, setInvite] = useState<any>();
@@ -64,7 +65,13 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
     email: "",
     name: "",
   });
-
+  function getFirstWord(input: any) {
+    if (input) {
+      return input.split(" ")[0];
+    } else {
+      return;
+    }
+  }
   const handleSubmit = () => {
     // Reset errors
     setError({ name: false, phone: false, email: false });
@@ -149,10 +156,11 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
       </div>
       {invite?.status !== "delivered" && (
         <>
-          <p className="text-white text-sm xl:text-base max-w-[30rem] font-sans mt-3 text-center">
-            Aktywuj link, aby dołączyć do wdrażającego szkolenia online. Wybierz
-            godzinę, w której będziesz jutro uczestniczyć w szkoleniu.
+          <p className="text-white text-lg xl:text-base max-w-[30rem] font-sans mt-3 text-center font-bold">
+            {invite?.name && `Cześć ${getFirstWord(invite.name)}!`} Wybierz
+            godzinę, o której <b>jutro</b> dołączysz do szkolenia.
           </p>
+
           <div className="flex flex-col my-3">
             <h2 className="mt-3 text-xl bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
               Wybierz godzinę
@@ -196,10 +204,17 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
               title={
                 !data.hour ? "Wybierz godzinę aby przejść dalej" : "Aktywuj"
               }
-              className="disabled:cursor-not-allowed bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] font-sans text-lg text-center text-zinc-800 px-3 py-1 rounded-xl max-w-[40rem] mt-4 mx-auto"
+              className="hover:scale-105 duration-300 disabled:cursor-not-allowed bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] font-sans text-lg text-center text-zinc-800 px-3 py-1 rounded-xl max-w-[40rem] mt-4 mx-auto"
             >
               Aktywuj link
             </button>
+            <div className="text-left mt-6">
+              <div className="text-red-500 w-max font-bold mr-3 text-lg">
+                Uwaga!{" "}
+              </div>{" "}
+              Szkolenie będzie dostępne tylko i wyłącznie w wybranych godzinach
+              dnia <b>{moment().add(1, "day").format("D MMMM YYYY")}</b>
+            </div>
           </div>
         </>
       )}
@@ -350,7 +365,7 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
                     className="disabled:cursor-not-allowed bg-black hover:scale-110 text border-transparent-zinc-800 outline-none focus:outline-none duration-200 text-center p-4 w-max mt-12"
                   >
                     <span className="bg-gradient-to-r from-[#B4FC2D] to-[#3EE7C0] bg-clip-text text-transparent font-bold">
-                      ZAKOŃCZ CZAS OGLĄDANIA
+                      PRZEJDŹ DO 2. ETAPU
                     </span>
                   </button>
                 </div>

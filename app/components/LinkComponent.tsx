@@ -98,8 +98,8 @@ export default function LinkComponent({
           <p className={`font-light w-max text-sm`}>{link.link}</p>
         </button>
         <div
-          className={`h-full border-l-2 ${
-            light ? "border-black text-zinc-800" : "border-white text-white"
+          className={`h-full sm:border-l ${
+            light ? "border-zinc-600 text-zinc-800" : "border-white text-white"
           } px-3 py-1 w-[120px] duration-500`}
         >
           <div

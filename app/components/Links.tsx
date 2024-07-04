@@ -49,7 +49,9 @@ export default function Links({ links }: { links: any }) {
           </div>
           <div
             className={`w-[104px] sm:w-[174px] md:w-[224px] lg:w-[274px] xl:w-[324px] 2xl:w-[374px] font-bold h-12 flex items-center justify-center duration-500 ${
-              light ? "bg-white text-black" : "bg-zinc-600 text-white"
+              light
+                ? "bg-gray-300 sm:bg-white text-black"
+                : "bg-zinc-800 sm:bg-zinc-600 text-white"
             }`}
           >
             data
