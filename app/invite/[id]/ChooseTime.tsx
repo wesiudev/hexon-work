@@ -105,9 +105,18 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
     }
   };
 
-  const interval = setInterval(() => {
-    setTime(time + 1);
-  }, 1000);
+  useEffect(() => {
+    // Function to increment the time
+    const incrementTime = () => {
+      setTime((prevSeconds) => prevSeconds + 1);
+    };
+
+    // Set up the interval to increment every second
+    const intervalId = setInterval(incrementTime, 1000);
+
+    // Cleanup the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
 
   const linkUsed = invite?.finished;
   function saveSession() {
@@ -118,9 +127,7 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
       hasMovieTimeEnded: true,
       timeSpent: time,
     });
-    setTimeout(() => {
-      clearInterval(interval);
-    }, 2000);
+    setTime(0);
   }
 
   return (
