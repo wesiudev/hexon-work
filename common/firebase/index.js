@@ -227,7 +227,6 @@ export async function updateLink(linkId, updatedLink) {
   await updateDoc(doc(db, "links", links[0]?.id), {
     data: updatedArray,
   });
-  return links;
 }
 
 export async function deleteLink(id) {

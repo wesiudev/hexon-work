@@ -66,6 +66,7 @@ export default function LinkComponent({
             } ${
               link.status === "visited" &&
               justCopied.index !== index &&
+              !link.hasMovieTimeEnded &&
               "!text-purple-600"
             } ${link.hasMovieTimeEnded && "!text-blue-500"}
               ${justCopied?.index === index && "!text-green-500"}`}

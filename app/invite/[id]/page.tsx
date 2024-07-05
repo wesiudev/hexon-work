@@ -1,6 +1,5 @@
 import Header from "@/app/components/header";
 import Hero from "@/app/components/hero/Hero";
-import { getInviteById } from "@/common/firebase";
 import Image from "next/image";
 import Link from "next/link";
 import ChooseTime from "./ChooseTime";

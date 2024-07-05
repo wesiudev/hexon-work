@@ -2,12 +2,21 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { app, updateLink, pushMessage, pushSession } from "@/common/firebase";
+import { app, pushMessage, pushSession } from "@/common/firebase";
 import { useRouter } from "next/navigation";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import "moment/locale/pl";
 import Loading from "@/app/loading";
+
+const updateLink = async (id: string, data: any) =>
+  fetch("/api/v1/linkUpdate", {
+    method: "POST",
+    body: JSON.stringify({ id, data }),
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    cache: "no-store",
+  });
+
 export default function ChooseTime({ linkId }: { linkId: any }) {
   const [invite, setInvite] = useState<any>();
   const [finishInsurance, setFinishInsurance] = useState(false);
@@ -197,7 +206,7 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
             </h2> */}
             {/* <BasicDatePicker data={data} setData={setData} /> */}
             <button
-              onClick={() => {
+              onClick={() =>
                 updateLink(linkId, {
                   ...data,
                   date: data.date.format("MM-DD-YYYY"),
@@ -205,9 +214,8 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
                   name: invite?.name,
                   status: "delivered",
                   timeSpent: time,
-                });
-                router.push(`/invite/${linkId}?sent=true`);
-              }}
+                })
+              }
               disabled={!data.hour}
               title={
                 !data.hour ? "Wybierz godzinę aby przejść dalej" : "Aktywuj"
@@ -369,7 +377,7 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
                         ...invite,
                         timeSpent: invite?.timeSpent + time,
                         status: "visited",
-                      })
+                      }).then(() => setTime(0))
                     }
                   />
                   <button
