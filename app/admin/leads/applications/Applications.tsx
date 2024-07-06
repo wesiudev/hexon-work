@@ -58,6 +58,14 @@ export default function Leads() {
             Sprawdzone
           </button>{" "}
           <button
+            onClick={() => setFilter("signed")}
+            className={`bg-black p-1 border-2 border-transparent border-dashed ${
+              filter === "signed" && "border-white"
+            }`}
+          >
+            Podpisane
+          </button>{" "}
+          <button
             onClick={() => setFilter("trashcan")}
             className={`bg-black p-1 border-2 border-transparent border-dashed ${
               filter === "trashcan" && "border-white"
@@ -69,20 +77,18 @@ export default function Leads() {
         <div className="px-6 py-3 grid grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 font-sans gap-6 min-h-screen text-white">
           {leads.map((lead: any, i: any) => (
             <>
-              {!lead.isFinished &&
-                filter === "new" &&
-                lead.status !== "trash" && (
-                  <LeadApplication
-                    key={i}
-                    lead={lead}
-                    setSigningLead={setSigningLead}
-                    setNoteOpen={setNoteOpen}
-                    setIsSigning={setIsSigning}
-                    setIsAnimating={setIsAnimating}
-                    isAnimating={isAnimating}
-                    filter={filter}
-                  />
-                )}
+              {filter === "new" && !lead.signed && lead.status !== "trash" && (
+                <LeadApplication
+                  key={i}
+                  lead={lead}
+                  setSigningLead={setSigningLead}
+                  setNoteOpen={setNoteOpen}
+                  setIsSigning={setIsSigning}
+                  setIsAnimating={setIsAnimating}
+                  isAnimating={isAnimating}
+                  filter={filter}
+                />
+              )}
             </>
           ))}
           {leads.map((lead: any, i: any) => (
@@ -107,6 +113,28 @@ export default function Leads() {
             <>
               {filter === "old" &&
                 lead.isFinished &&
+                lead.status !== "rejected" &&
+                !lead.signed &&
+                lead.status !== "trash" && (
+                  <LeadApplication
+                    key={i}
+                    lead={lead}
+                    setSigningLead={setSigningLead}
+                    setNoteOpen={setNoteOpen}
+                    setIsSigning={setIsSigning}
+                    setIsAnimating={setIsAnimating}
+                    isAnimating={isAnimating}
+                    filter={filter}
+                  />
+                )}
+            </>
+          ))}
+          {leads.map((lead: any, i: any) => (
+            <>
+              {filter === "signed" &&
+                lead.isFinished &&
+                lead.status === "accepted" &&
+                lead.signed &&
                 lead.status !== "trash" && (
                   <LeadApplication
                     key={i}
