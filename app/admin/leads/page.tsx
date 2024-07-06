@@ -131,7 +131,7 @@ export default function Admin() {
           </LineChart>
         </div>
       </div>
-      <div
+      {/* <div
         className={`${
           light
             ? "text-zinc-800 bg-white"
@@ -180,7 +180,7 @@ export default function Admin() {
             <Line type="monotone" dataKey="leady" stroke="blue" />
           </LineChart>
         </div>
-      </div>
+      </div> */}
       <div
         className={`${
           light

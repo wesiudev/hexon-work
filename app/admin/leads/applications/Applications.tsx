@@ -6,10 +6,17 @@ import { collection, onSnapshot, getFirestore } from "firebase/firestore";
 import "moment/locale/pl";
 import Link from "next/link";
 import { FaClock, FaLongArrowAltLeft } from "react-icons/fa";
-
+import LeadApplication from "@/app/components/LeadApplication";
+import Confetti from "react-confetti";
+import { ReactSketchCanvas } from "react-sketch-canvas";
+import Image from "next/image";
 export default function Leads() {
   const [leads, setLeads] = useState<any[]>([]);
-  const [filter, setFilter] = useState("");
+  const [isSigning, setIsSigning] = useState(false);
+  const [signingLead, setSigningLead] = useState<any>({});
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [noteOpen, setNoteOpen] = useState<any>();
+  const [filter, setFilter] = useState("new");
   useEffect(() => {
     const ref = collection(getFirestore(app), "employees");
     const unsub = onSnapshot(ref, (querySnapshot: any) => {
@@ -24,376 +31,199 @@ export default function Leads() {
   }, []);
   moment.locale("pl");
   return (
-    <div className="bg-gray-600 h-max w-full font-sans">
-      <Link
-        href="/admin/leads"
-        className="bg-black py-3 px-6 text-white font-bold text-lg flex items-center"
-      >
-        <FaLongArrowAltLeft className="mr-2 text-xl" />
-        Powrót
-      </Link>
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 p-6 !text-white">
-        <button
-          onClick={() => setFilter("")}
-          className={`bg-black p-1 border-2 border-transparent border-dashed ${
-            filter === "" && "border-white"
-          }`}
+    <>
+      <div className="bg-gray-600 h-max w-full font-sans">
+        <Link
+          href="/admin/leads"
+          className="bg-black py-3 px-6 text-white font-bold text-lg flex items-center"
         >
-          Wszystkie
-        </button>
-        <button
-          onClick={() => setFilter("new")}
-          className={`bg-black p-1 border-2 border-transparent border-dashed ${
-            filter === "new" && "border-white"
-          }`}
-        >
-          Nowe
-        </button>
-        <button
-          onClick={() => setFilter("old")}
-          className={`bg-black p-1 border-2 border-transparent border-dashed ${
-            filter === "old" && "border-white"
-          }`}
-        >
-          Sprawdzone
-        </button>
+          <FaLongArrowAltLeft className="mr-2 text-xl" />
+          Powrót
+        </Link>
+        <div className="font-gotham font-light grid grid-cols-2 sm:grid-cols-3 gap-2 p-6 !text-white">
+          <button
+            onClick={() => setFilter("new")}
+            className={`bg-black p-1 border-2 border-transparent border-dashed ${
+              filter === "new" && "border-white"
+            }`}
+          >
+            Nowe
+          </button>
+          <button
+            onClick={() => setFilter("old")}
+            className={`bg-black p-1 border-2 border-transparent border-dashed ${
+              filter === "old" && "border-white"
+            }`}
+          >
+            Sprawdzone
+          </button>{" "}
+          <button
+            onClick={() => setFilter("trashcan")}
+            className={`bg-black p-1 border-2 border-transparent border-dashed ${
+              filter === "trashcan" && "border-white"
+            }`}
+          >
+            🚽
+          </button>
+        </div>
+        <div className="px-6 py-3 grid grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 font-sans gap-6 min-h-screen text-white">
+          {leads.map((lead: any, i: any) => (
+            <>
+              {!lead.isFinished &&
+                filter === "new" &&
+                lead.status !== "trash" && (
+                  <LeadApplication
+                    key={i}
+                    lead={lead}
+                    setSigningLead={setSigningLead}
+                    setNoteOpen={setNoteOpen}
+                    setIsSigning={setIsSigning}
+                    setIsAnimating={setIsAnimating}
+                    isAnimating={isAnimating}
+                    filter={filter}
+                  />
+                )}
+            </>
+          ))}
+          {leads.map((lead: any, i: any) => (
+            <>
+              {filter === "trashcan" &&
+                lead.isTrash &&
+                lead.status === "trash" && (
+                  <LeadApplication
+                    key={i}
+                    lead={lead}
+                    setSigningLead={setSigningLead}
+                    setNoteOpen={setNoteOpen}
+                    setIsSigning={setIsSigning}
+                    setIsAnimating={setIsAnimating}
+                    isAnimating={isAnimating}
+                    filter={filter}
+                  />
+                )}
+            </>
+          ))}
+          {leads.map((lead: any, i: any) => (
+            <>
+              {filter === "old" &&
+                lead.isFinished &&
+                lead.status !== "trash" && (
+                  <LeadApplication
+                    key={i}
+                    lead={lead}
+                    setSigningLead={setSigningLead}
+                    setNoteOpen={setNoteOpen}
+                    setIsSigning={setIsSigning}
+                    setIsAnimating={setIsAnimating}
+                    isAnimating={isAnimating}
+                    filter={filter}
+                  />
+                )}
+            </>
+          ))}
+        </div>
       </div>
-      <div className="px-6 py-3 grid grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 font-sans gap-6 min-h-screen text-white">
-        {leads.map((lead: any, i: any) => (
-          <>
-            {!lead.isFinished && filter === "new" && (
-              <div
-                key={lead.id}
-                className={`bg-zinc-800 p-3 h-max border-[3px] ${
-                  lead.status === undefined && "border-zinc-800"
-                } ${lead.status === "rejected" && "border-red-500"} ${
-                  lead?.status === "accepted" && "border-yellow-400"
-                }`}
-              >
-                <div className="flex w-full justify-between items-center">
-                  <p>{moment(lead.createdAt).format("DD-MM-YYYY")}</p>
-                  <p className="flex flex-row items-center">
-                    <FaClock className="mr-2 h-4 w-4" />
-                    {moment(lead.createdAt).fromNow()}
-                  </p>
-                </div>
-                <table className="w-full mt-3">
-                  <tbody>
-                    <tr className="bg-gray-700">
-                      <td>Email:</td>
-                      <td>{lead.email}</td>
-                    </tr>
-                    <tr className="bg-gray-700">
-                      <td>Imię i nazwisko:</td>
-                      <td>{lead.name}</td>
-                    </tr>
-                    <tr className="bg-gray-700">
-                      <td>Tel:</td>
-                      <td>{lead.phoneNumber}</td>
-                    </tr>
-                    <tr className="bg-gray-700">
-                      <tr className="bg-gray-700">
-                        <td colSpan={2}>
-                          <a
-                            href={lead.file}
-                            download
-                            className="text-white underline font-light"
-                          >
-                            Pobierz CV
-                          </a>
-                        </td>
-                      </tr>
-                    </tr>
-                  </tbody>
-                </table>
-                <div className="flex flex-col w-full mt-3">
-                  {lead.isFinished && (
-                    <button
-                      onClick={() =>
-                        updateApplication(lead.id, {
-                          ...lead,
-                          isFinished: false,
-                        })
-                      }
-                      className="w-full text-center bg-green-500 text-white py-2  font-light text-base"
-                    >
-                      Odznacz
-                    </button>
-                  )}
-                  {lead.isFinished && (
-                    <div className="grid grid-cols-2">
-                      <button
-                        onClick={() =>
-                          updateApplication(lead.id, {
-                            ...lead,
-                            status: "rejected",
-                          })
-                        }
-                        className="bg-gray-500 hover:bg-gray-400 duration-200 p-3"
-                      >
-                        Odrzuć
-                      </button>
-                      <button
-                        onClick={() =>
-                          updateApplication(lead.id, {
-                            ...lead,
-                            status: "accepted",
-                          })
-                        }
-                        className="bg-green-500 hover:bg-green-400 duration-200 p-3"
-                      >
-                        Akceptuj
-                      </button>
-                    </div>
-                  )}
-                  {!lead.isFinished && (
-                    <button
-                      onClick={() =>
-                        updateApplication(lead.id, {
-                          ...lead,
-                          isFinished: true,
-                        })
-                      }
-                      className="w-full text-center bg-green-500 text-white py-2 font-light text-base"
-                    >
-                      Oznacz jako sprawdzone
-                    </button>
-                  )}
-                  <Link
-                    className="w-full text-center bg-blue-500 text-white py-2 font-light text-base mt-2"
-                    href={`tel:${lead.phoneNumber}`}
-                  >
-                    Zadzwoń
-                  </Link>
-                </div>
-              </div>
-            )}
-          </>
-        ))}
-        {leads.map((lead: any, i: any) => (
-          <>
-            {filter === "" && (
-              <div
-                key={lead.id}
-                className={`bg-zinc-800 p-3 h-max border-[3px] ${
-                  lead.status === undefined && "border-zinc-800"
-                } ${lead.status === "rejected" && "border-red-500"} ${
-                  lead?.status === "accepted" && "border-yellow-400"
-                }`}
-              >
-                <div className="flex w-full justify-between items-center">
-                  <p>{moment(lead.createdAt).format("DD-MM-YYYY")}</p>
-                  <p className="flex flex-row items-center">
-                    <FaClock className="mr-2 h-4 w-4" />
-                    {moment(lead.createdAt).fromNow()}
-                  </p>
-                </div>
-                <table className="w-full mt-3">
-                  <tbody>
-                    {" "}
-                    <tr className="bg-gray-700">
-                      <td>Email:</td>
-                      <td>{lead.email}</td>
-                    </tr>
-                    <tr className="bg-gray-700">
-                      <td>Imię i nazwisko:</td>
-                      <td>{lead.name}</td>
-                    </tr>
-                    <tr className="bg-gray-700">
-                      <td>Tel:</td>
-                      <td>{lead.phoneNumber}</td>
-                    </tr>
-                    <tr className="bg-gray-700">
-                      <tr className="bg-gray-700">
-                        <td colSpan={2}>
-                          <a
-                            href={lead.file}
-                            download
-                            className="text-white underline font-light"
-                          >
-                            Pobierz CV
-                          </a>
-                        </td>
-                      </tr>
-                    </tr>
-                  </tbody>
-                </table>
-                <div className="flex flex-col w-full mt-3">
-                  {lead.isFinished && (
-                    <button
-                      onClick={() =>
-                        updateApplication(lead.id, {
-                          ...lead,
-                          isFinished: false,
-                        })
-                      }
-                      className="w-full text-center bg-green-500 text-white py-2  font-light text-base"
-                    >
-                      Odznacz
-                    </button>
-                  )}
-                  {lead.isFinished && (
-                    <div className="grid grid-cols-2">
-                      <button
-                        onClick={() =>
-                          updateApplication(lead.id, {
-                            ...lead,
-                            status: "rejected",
-                          })
-                        }
-                        className="bg-gray-500 hover:bg-gray-400 duration-200 p-3"
-                      >
-                        Odrzuć
-                      </button>
-                      <button
-                        onClick={() =>
-                          updateApplication(lead.id, {
-                            ...lead,
-                            status: "accepted",
-                          })
-                        }
-                        className="bg-green-500 hover:bg-green-400 duration-200 p-3"
-                      >
-                        Akceptuj
-                      </button>
-                    </div>
-                  )}
-                  {!lead.isFinished && (
-                    <button
-                      onClick={() =>
-                        updateApplication(lead.id, {
-                          ...lead,
-                          isFinished: true,
-                        })
-                      }
-                      className="w-full text-center bg-green-500 text-white py-2 font-light text-base"
-                    >
-                      Oznacz jako sprawdzone
-                    </button>
-                  )}
-                  <Link
-                    className="w-full text-center bg-blue-500 text-white py-2 font-light text-base mt-2"
-                    href={`tel:${lead.phoneNumber}`}
-                  >
-                    Zadzwoń
-                  </Link>
-                </div>
-              </div>
-            )}
-          </>
-        ))}
-        {leads.map((lead: any, i: any) => (
-          <>
-            {filter === "old" && lead.isFinished && (
-              <div
-                key={lead.id}
-                className={`bg-zinc-800 p-3 h-max border-[3px] ${
-                  lead.status === undefined && "border-zinc-800"
-                } ${lead.status === "rejected" && "border-red-500"} ${
-                  lead?.status === "accepted" && "border-yellow-400"
-                }`}
-              >
-                <div className="flex w-full justify-between items-center">
-                  <p>{moment(lead.createdAt).format("DD-MM-YYYY")}</p>
-                  <p className="flex flex-row items-center">
-                    <FaClock className="mr-2 h-4 w-4" />
-                    {moment(lead.createdAt).fromNow()}
-                  </p>
-                </div>
-                <table className="w-full mt-3">
-                  <tbody>
-                    <tr className="bg-gray-700">
-                      <td>Email:</td>
-                      <td>{lead.email}</td>
-                    </tr>
-                    <tr className="bg-gray-700">
-                      <td>Imię i nazwisko:</td>
-                      <td>{lead.name}</td>
-                    </tr>
-                    <tr className="bg-gray-700">
-                      <td>Tel:</td>
-                      <td>{lead.phoneNumber}</td>
-                    </tr>
-                    <tr className="bg-gray-700">
-                      <tr className="bg-gray-700">
-                        <td colSpan={2}>
-                          <a
-                            href={lead.file}
-                            download
-                            className="text-white underline font-light"
-                          >
-                            Pobierz CV
-                          </a>
-                        </td>
-                      </tr>
-                    </tr>
-                  </tbody>
-                </table>
-                <div className="flex flex-col w-full mt-3">
-                  {lead.isFinished && (
-                    <button
-                      onClick={() =>
-                        updateApplication(lead.id, {
-                          ...lead,
-                          isFinished: false,
-                        })
-                      }
-                      className="w-full text-center bg-green-500 text-white py-2  font-light text-base"
-                    >
-                      Odznacz
-                    </button>
-                  )}
-                  {lead.isFinished && (
-                    <div className="grid grid-cols-2">
-                      <button
-                        onClick={() =>
-                          updateApplication(lead.id, {
-                            ...lead,
-                            status: "rejected",
-                          })
-                        }
-                        className="bg-gray-500 hover:bg-gray-400 duration-200 p-3"
-                      >
-                        Odrzuć
-                      </button>
-                      <button
-                        onClick={() =>
-                          updateApplication(lead.id, {
-                            ...lead,
-                            status: "accepted",
-                          })
-                        }
-                        className="bg-green-500 hover:bg-green-400 duration-200 p-3"
-                      >
-                        Akceptuj
-                      </button>
-                    </div>
-                  )}
-                  {!lead.isFinished && (
-                    <button
-                      onClick={() =>
-                        updateApplication(lead.id, {
-                          ...lead,
-                          isFinished: true,
-                        })
-                      }
-                      className="w-full text-center bg-green-500 text-white py-2  font-light text-base"
-                    >
-                      Oznacz jako sprawdzone
-                    </button>
-                  )}
-                  <Link
-                    className="w-full text-center bg-blue-500 text-white py-2 font-light text-base mt-2"
-                    href={`tel:${lead.phoneNumber}`}
-                  >
-                    Zadzwoń
-                  </Link>
-                </div>
-              </div>
-            )}
-          </>
-        ))}
-      </div>
-    </div>
+      {noteOpen !== undefined && (
+        <div
+          onClick={() => {
+            setNoteOpen(undefined);
+          }}
+          className="z-[120] fixed left-0 top-0 w-full h-full bg-black bg-opacity-80 flex flex-col items-center justify-center"
+        >
+          <div
+            className="bg-slate-700 border-black border-2 p-6 sm:p-12"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <textarea
+              onChange={(e) =>
+                setNoteOpen({ ...noteOpen, note: e.target.value })
+              }
+              name="note"
+              id="note"
+              rows={10}
+              autoFocus
+              placeholder="Wpisz tekst"
+              className="font-bold text-base font-sans p-3 w-full text-zinc-800 drop-shadow-xl shadow-black"
+            >
+              {noteOpen.note}
+            </textarea>
+            <button
+              onClick={() => {
+                updateApplication(noteOpen.id, {
+                  ...noteOpen,
+                  note: noteOpen.note,
+                });
+                setNoteOpen(undefined);
+              }}
+              className="w-full bg-green-500 hover:bg-green-400 font-gotham p-3 text-white font-bold"
+            >
+              Zapisz
+            </button>
+          </div>
+        </div>
+      )}
+      {isSigning && (
+        <div
+          onClick={() => {
+            setIsSigning(false);
+            setSigningLead({});
+          }}
+          className="z-[120] fixed left-0 top-0 w-full h-full bg-black bg-opacity-50 flex flex-col items-center justify-center"
+        >
+          <div onClick={(e) => e.stopPropagation()} className="w-[300px] h-max">
+            <h2 className="text-xl font-bold bg-black w-full font-gotham p-3">
+              Podpis (parafka)
+            </h2>
+            <ReactSketchCanvas
+              width="300px"
+              height="150px"
+              canvasColor="white"
+              strokeColor="black"
+            />
+            <button
+              onClick={() => {
+                updateApplication(signingLead.id, {
+                  ...signingLead,
+                  signed: true,
+                });
+                setIsAnimating(true);
+                setTimeout(() => {
+                  setIsAnimating(false);
+                }, 7500);
+                setSigningLead({});
+                setIsSigning(false);
+              }}
+              className="w-full text-center bg-green-500 hover:bg-green-400 font-bold text-white py-2 text-base font-gotham"
+            >
+              Zatwierdź
+            </button>
+          </div>
+        </div>
+      )}{" "}
+      {isAnimating && (
+        <div className="fixed w-full h-full top-0 -left-1/2 translate-x-1/2 z-[100]">
+          <Confetti width={1920} height={1019} />
+        </div>
+      )}
+      {isAnimating && (
+        <div className="fixed w-full h-full top-0 -left-1/2 translate-x-1/2 z-[100]">
+          <Confetti width={1920} height={1019} />
+        </div>
+      )}{" "}
+      <Image
+        src="/toilet3.gif"
+        width={200}
+        height={200}
+        alt=""
+        className={`opacity-0 w-1/2 fixed -left-[1000px]`}
+      />
+      <Image
+        src="/dolar.gif"
+        width={200}
+        height={200}
+        alt=""
+        className={`opacity-0 w-1/2 fixed -left-[1000px]`}
+      />
+    </>
   );
 }
