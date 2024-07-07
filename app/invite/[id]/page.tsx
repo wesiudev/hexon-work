@@ -27,7 +27,7 @@ export default async function Page({
         <Hero />
       </div>
       <div className="relative z-50 flex items-center justify-center h-full py-48">
-        <div className="bg-black bg-opacity-50 rounded-3xl p-6 h-max lg:w-1/2 xl:w-[50%] 2xl:w-[40%] flex items-center justify-center flex-col">
+        <div className="bg-black bg-opacity-50 rounded-3xl p-6 h-max flex items-center justify-center flex-col">
           <h1 className="font-gotham text-5xl text-white text-center">
             Szkolenie wdrożeniowe
           </h1>

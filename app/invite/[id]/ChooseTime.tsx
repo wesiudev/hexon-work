@@ -55,14 +55,18 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
     });
   }
   const router = useRouter();
+  const today = new Date(moment().format("MM-DD-YYYY"));
+  const dateDB = new Date(invite?.date);
   const show =
     invite?.date === moment().format("MM-DD-YYYY") &&
     parseInt(moment().format("H")) >= invite?.ranges?.start &&
     parseInt(moment().format("H")) <= invite?.ranges?.end;
   const isAfter =
-    invite?.date === moment().format("MM-DD-YYYY") &&
-    parseInt(moment().format("H")) >= invite?.ranges?.start &&
-    parseInt(moment().format("H")) >= invite?.ranges?.end;
+    (moment().format("MM-DD-YYYY") === moment(dateDB).format("MM-DD-YYYY") &&
+      parseInt(moment().format("H")) >= invite?.ranges?.start &&
+      parseInt(moment().format("H")) >= invite?.ranges?.end) ||
+    today > dateDB;
+
   const [error, setError] = useState({
     name: false,
     phone: false,
@@ -367,7 +371,7 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
               !isAfter &&
               !invite.hasMovieTimeEnded &&
               !invite.finished && (
-                <div className="w-full sm:w-[30rem] lg:w-[40rem] mt-12">
+                <div className="w-full sm:w-[30rem] lg:w-[40rem] mt-12 px-12">
                   <video
                     src="https://firebasestorage.googleapis.com/v0/b/decocanva-408fb.appspot.com/o/webinar.mp4?alt=media&token=6b01f5f8-3a23-4773-a64b-fe8c7a0469a8"
                     controls
