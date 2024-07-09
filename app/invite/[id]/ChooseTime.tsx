@@ -146,6 +146,20 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
       timeSpent: invite?.timeSpent + time,
     });
   }
+  function requestFullScreenClose(element: any) {
+    if (element.exitFullscreen) {
+      element.exitFullscreen();
+    } else if (element.mozCancelFullScreen) {
+      /* Firefox */
+      element.mozCancelFullScreen();
+    } else if (element.webkitExitFullscreen) {
+      /* Chrome, Safari and Opera */
+      element.webkitExitFullscreen();
+    } else if (element.msExitFullscreen) {
+      /* IE/Edge */
+      element.msExitFullscreen();
+    }
+  }
   function requestFullScreen(element: any) {
     if (element.requestFullscreen) {
       element.requestFullscreen();
@@ -272,7 +286,7 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
                     onClick={() => {
                       requestFullScreen(video.current);
                     }}
-                    className={`group-hover:opacity-100 ease-in-out absolute text-2xl sm:text-3xl lg:text-4xl drop-shadow-xl shadow-black right-6 bottom-6 opacity-0`}
+                    className={`group-hover:opacity-100 ease-in-out absolute text-2xl sm:text-3xl lg:text-4xl drop-shadow-xl shadow-black right-6 bottom-6 opacity-0 !z-[500000]`}
                   >
                     <BsFullscreen />
                   </button>

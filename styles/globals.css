@@ -34,7 +34,9 @@ body {
   .scrollbar::-webkit-scrollbar {
     height: 5px;
   }
-
+  video::-webkit-media-controls {
+    display: none !important;
+  }
   .scrollbar::-webkit-scrollbar-thumb {
     background: #52eba7;
     border-radius: 99px;
