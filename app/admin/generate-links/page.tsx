@@ -16,6 +16,7 @@ export default function Page() {
       status: "pending",
       id: uuidv4(),
       name: "",
+      secondVersion: true,
     }));
     setLinks((prevLinks: any) => [...prevLinks, ...newLinks]);
   }
