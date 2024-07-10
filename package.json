@@ -32,6 +32,7 @@
     "canvas-to-image": "^2.2.5",
     "chart.js": "^4.4.3",
     "classnames": "^2.3.2",
+    "completions": "^2.9.1",
     "convert-base64-to-image": "^0.0.16",
     "dayjs": "^1.11.11",
     "decode-base64": "^3.0.1",

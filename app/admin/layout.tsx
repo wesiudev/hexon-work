@@ -13,6 +13,7 @@ import { setLight } from "@/common/redux/slices/lightSlice";
 import { usePathname } from "next/navigation";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 import dynamic from "next/dynamic";
+import Assistant from "../components/assistant/Assistant";
 const Nav = dynamic(() => import("./Nav"), { ssr: false });
 export default function AdminLayout({
   children,
@@ -20,6 +21,17 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const [messages, setMessages] = useState<any[]>([]);
+  const [assistantMessages, setAssistantMessages] = useState<any[]>([]);
+  useEffect(() => {
+    const ref = collection(getFirestore(app), "assistantMessages");
+    const unsub = onSnapshot(ref, (querySnapshot: any) => {
+      const snapshotData: any[] = [];
+      querySnapshot.forEach((doc: any) => {
+        snapshotData.push(doc.data());
+      });
+      setAssistantMessages(snapshotData);
+    });
+  }, []);
   useEffect(() => {
     const ref = collection(getFirestore(app), "messages");
     const unsub = onSnapshot(ref, (querySnapshot: any) => {
@@ -40,8 +52,9 @@ export default function AdminLayout({
   return (
     <>
       <Toast />
+      <Assistant messages={assistantMessages} />
       {!loading && (
-        <div className="relative w-full overflow-x-hidden font-coco bg-[#404149] font-sans">
+        <div className="relative w-full overflow-x-hidden font-coco bg-[#404149] font-sans pb-48">
           {!pathname.includes("/leads/leads") &&
             !pathname.includes("/leads/courses") &&
             !pathname.includes("/leads/applications") && (

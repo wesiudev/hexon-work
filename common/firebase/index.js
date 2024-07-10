@@ -46,6 +46,39 @@ export async function pushSession(data) {
     return productDocRef;
   }
 }
+export async function pushAssistantMessage(data) {
+  const productDocRef = doc(collection(db, "assistantMessages"), data.id);
+  const docSnap = await getDoc(productDocRef);
+  if (docSnap.exists()) {
+    return productDocRef;
+  } else {
+    await setDoc(productDocRef, {
+      ...data,
+      createdAt: Date.now(),
+    });
+    return productDocRef;
+  }
+}
+
+export async function getAssistantMessages() {
+  try {
+    const leadsRef = collection(db, "assistantMessages");
+    const leadsSnapshot = await getDocs(leadsRef);
+    const leads = [];
+
+    leadsSnapshot.forEach((doc) => {
+      const lead = doc.data();
+      lead.id = doc.id;
+      leads.push(lead);
+    });
+
+    return leads;
+  } catch (error) {
+    console.error("Error getting leads:", error);
+    throw error;
+  }
+}
+
 export async function pushLead(data) {
   const productDocRef = doc(collection(db, "leads"), data.id);
   const docSnap = await getDoc(productDocRef);
