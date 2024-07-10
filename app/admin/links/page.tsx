@@ -34,7 +34,7 @@ export default function Page() {
         Strona głowna
       </Link>
       <div className="relative w-full">
-        <h1 className="text-4xl font-bold mt-12 mb-12 px-6 font-sans text-white">
+        <h1 className="text-4xl font-bold mt-12 mb-12 px-6 font-gotham text-white">
           Przeglądasz wszystkie kolekcje linków
         </h1>
       </div>
@@ -45,19 +45,44 @@ export default function Page() {
               light === true
                 ? "bg-white text-zinc-800"
                 : "bg-zinc-800 text-white"
-            } font-bold text-sm sm:text-base lg:text-lg xl:text-xl font-sans flex flex-col items-start justify-start`}
+            } font-bold text-sm sm:text-base lg:text-lg xl:text-xl font-gotham flex flex-col items-start justify-start`}
             key={i}
             href={`/admin/links/${item.id}`}
           >
             <p className="text-3xl font-bold">{item.name}</p>
-            <p className="mt-4">ilość linków w kolekcji: {item.data?.length}</p>
-            <p className="mt-4">
-              ilość linków dostarczonych:{" "}
-              {
-                item.data?.filter((link: any) => link.status === "delivered")
-                  ?.length
-              }
-            </p>
+            <div className="-ml-6 flex flex-row flex-wrap">
+              <p className="ml-6 mt-6">
+                <span className="font-light">w trakcie: </span>
+                <span className="text-2xl text-white bg-black p-1">
+                  {
+                    item.data?.filter((link: any) => link.status === "pending")
+                      ?.length
+                  }
+                  {"/"}
+                  {item.data?.length}
+                </span>
+              </p>
+              <p className="ml-6 mt-6">
+                <span className="font-light">dostarczonych: </span>
+                <span className="text-2xl text-green-500">
+                  {
+                    item.data?.filter(
+                      (link: any) =>
+                        link.status === "delivered" || link.status === "visited"
+                    )?.length
+                  }
+                </span>
+              </p>
+              <p className="ml-6 mt-6">
+                <span className="font-light">obejrzanych: </span>
+                <span className="text-2xl text-purple-500">
+                  {
+                    item.data?.filter((link: any) => link.status === "visited")
+                      ?.length
+                  }
+                </span>
+              </p>
+            </div>
           </Link>
         ))}
         {links?.length === 0 && "Brak danych..."}

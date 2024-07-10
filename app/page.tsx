@@ -6,7 +6,8 @@ import ScrollTo from "./components/ScrollTo";
 import Opinions from "./components/opinions/Opinions";
 import CountToTheNumberAnimated from "./components/counter/CountToTheNumberAnimated";
 import Link from "next/link";
-
+import AOS from "aos";
+import Map from "./components/Map";
 export default async function Home({
   searchParams,
 }: {
@@ -78,13 +79,22 @@ export default async function Home({
             className="w-[90vw] sm:w-3/4 mx-auto text-xl sm:text-2xl lg:text-3xl flex flex-col mt-12 bg-white px-6 xl:px-12 py-3 xl:py-12 rounded-md relative text-zinc-700 drop-shadow-md shadow-black"
           >
             <div>
-              <Image
-                src="/logo-hexon2.png"
-                width={400}
-                height={400}
-                alt=""
-                className="max-w-[250px] mx-auto lg:mx-0"
-              />
+              <div className="group">
+                <Image
+                  src="/lofavicons-android-chrome-192x192h.png"
+                  width={400}
+                  height={400}
+                  alt=""
+                  className="max-w-[250px] mx-auto lg:mx-0"
+                />
+                <Image
+                  src="/logo-hexon2.png"
+                  width={400}
+                  height={400}
+                  alt=""
+                  className="max-w-[250px] mx-auto lg:mx-0"
+                />
+              </div>
               <h2 className="text-3xl lg:text-4xl font-bold mt-12">
                 Kim jesteśmy?
               </h2>
@@ -185,15 +195,12 @@ export default async function Home({
                 />
               </Link>
             </div>
-            {/* <div className="w-[80%] lg:max-w-[40rem] mt-12 mx-auto p-3 overflow-visible">
-              <Image
-                src="/map/map2.png"
-                width={1024}
-                height={1024}
-                alt=""
-                className=""
-              />
-            </div> */}
+            <h2 className="text-center text-3xl lg:text-4xl font-light font-gotham mt-24 italic">
+              Realizacje termomodernizacji w całej Polsce.
+            </h2>
+            <div className="relative w-[80%] lg:max-w-[30rem] mt-3 mx-auto p-3 overflow-visible">
+              <Map />
+            </div>
           </div>
         </section>
       </main>

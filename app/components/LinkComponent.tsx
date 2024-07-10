@@ -4,7 +4,7 @@ import moment from "moment";
 import Link from "next/link";
 import { useState } from "react";
 import { FaLink } from "react-icons/fa";
-
+import "moment/locale/pl";
 export default function LinkComponent({
   light,
   index,
@@ -20,6 +20,7 @@ export default function LinkComponent({
   setJustCopied: any;
   copyLink: any;
 }) {
+  moment.locale("pl");
   const [name, setName] = useState("");
   function removeInvitePrefix(url: string) {
     const prefix = "https://hexon.work/invite/";
@@ -117,7 +118,28 @@ export default function LinkComponent({
             <div className="flex flex-col sm:flex-row sm:space-x-2 items-center justify-center text-center h-full">
               {link?.date && (
                 <div className="text-[12px] font-bold">
-                  {moment(link.date).format("DD.MM.YYYY")}
+                  {link.secondVersion ? (
+                    <>
+                      <div className="">
+                        Aktywował link:{" "}
+                        <span className="text-green-500 font-bold">
+                          {moment(link?.date)
+                            .subtract(1, "day")
+                            .format("DD MMMM YYYY hh:mm:ss")}
+                        </span>
+                      </div>
+                      <div className="">
+                        Dostęp kończy się:{" "}
+                        <span className="text-purple-700 font-bold ">
+                          {moment(link.date).format("DD MMMM YYYY hh:mm:ss")}
+                        </span>
+                      </div>
+                    </>
+                  ) : (
+                    <span className="text-purple-700 font-bold ">
+                      {moment(link.date).format("DD MMMM YYYY")}
+                    </span>
+                  )}
                 </div>
               )}
               {link?.hour && (
