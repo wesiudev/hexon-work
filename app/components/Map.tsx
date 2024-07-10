@@ -13,7 +13,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-duration="3000"
           width={50}
           height={50}
@@ -24,7 +24,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="3000"
           width={50}
@@ -36,7 +36,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="3000"
           width={50}
@@ -48,7 +48,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="1500"
           width={50}
@@ -60,7 +60,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="3000"
           width={50}
@@ -72,7 +72,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="1500"
           width={50}
@@ -84,7 +84,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="3000"
           width={50}
@@ -96,7 +96,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="1500"
           width={50}
@@ -108,7 +108,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="3000"
           width={50}
@@ -120,7 +120,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="1500"
           width={50}
@@ -132,7 +132,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="3000"
           width={50}
@@ -144,7 +144,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="1500"
           width={50}
@@ -156,7 +156,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="3000"
           width={50}
@@ -168,7 +168,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="1500"
           width={50}
@@ -180,7 +180,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="3000"
           width={50}
@@ -192,7 +192,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="1500"
           width={50}
@@ -211,17 +211,17 @@ export default function Map() {
                 />
                 <Image
                   src="/map/domek.png"
-                   data-aos="fade-down" aos-delay={500}
+                   data-aos="zoom-in" aos-delay={500}
                   width={50}
                   height={50}
                   alt=""
                   className="w-[10%] absolute top-[23%] left-[78%]"
                 /> */}
       </div>
-      <div className="group" aos-data-aos="fade-down">
+      <div className="group" aos-data-aos="zoom-in">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="3000"
           width={50}
@@ -240,7 +240,7 @@ export default function Map() {
                 />
                 <Image
                   src="/map/domek.png"
-                   data-aos="fade-down" aos-delay={500}
+                   data-aos="zoom-in" aos-delay={500}
                   width={50}
                   height={50}
                   alt=""
@@ -250,7 +250,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="1500"
           width={50}
@@ -262,7 +262,7 @@ export default function Map() {
       <div className="group">
         <Image
           src="/map/domek.png"
-          data-aos="fade-down"
+          data-aos="zoom-in"
           data-aos-delay="500"
           data-aos-duration="3000"
           width={50}
