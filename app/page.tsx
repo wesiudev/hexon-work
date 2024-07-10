@@ -162,7 +162,7 @@ export default async function Home({
                   <CountToTheNumberAnimated
                     textBeforeNumber="Zrealizowaliśmy już"
                     textAfterNumber="Projektów"
-                    numberToAnimateTo={70}
+                    numberToAnimateTo={75}
                     textColor="#3F3F46"
                     animationSpeed={50}
                   />
@@ -191,7 +191,7 @@ export default async function Home({
             <h2 className="text-center text-3xl lg:text-4xl font-light font-gotham mt-24 italic">
               Realizacje termomodernizacji w całej Polsce.
             </h2>
-            <div className="relative w-[80%] lg:max-w-[30rem] mt-3 mx-auto p-3 overflow-visible">
+            <div className="relative w-[100%] lg:max-w-[40rem] mt-3 mx-auto p-3 overflow-visible">
               <Map />
             </div>
           </div>
