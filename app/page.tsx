@@ -81,18 +81,11 @@ export default async function Home({
             <div>
               <div className="group">
                 <Image
-                  src="/lofavicons-android-chrome-192x192h.png"
-                  width={400}
-                  height={400}
-                  alt=""
-                  className="max-w-[250px] mx-auto lg:mx-0"
-                />
-                <Image
                   src="/logo-hexon2.png"
                   width={400}
                   height={400}
                   alt=""
-                  className="max-w-[250px] mx-auto lg:mx-0"
+                  className="max-w-[250px] lg:mx-0 mt-12"
                 />
               </div>
               <h2 className="text-3xl lg:text-4xl font-bold mt-12">

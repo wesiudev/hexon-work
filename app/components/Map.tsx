@@ -18,7 +18,7 @@ export default function Map() {
           width={50}
           height={50}
           alt=""
-          className="w-[8%] absolute top-[40%] left-[8.5%]"
+          className="w-[8%] absolute top-[40%] left-[9.5%] sm:left-[8.5%]"
         />
       </div>
       <div className="group">
@@ -227,7 +227,7 @@ export default function Map() {
           width={50}
           height={50}
           alt=""
-          className="w-[10%] absolute top-[13.5%] left-[58%]"
+          className="w-[10%] absolute top-[14.5%] sm:top-[13.5%] left-[58%]"
         />
       </div>
       <div className="group">

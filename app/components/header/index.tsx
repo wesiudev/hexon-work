@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import Faq from "../faq";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { setModalVisible } from "@/common/redux/slices/actionSlice";
 import { useDispatch } from "react-redux";
 export default function Header({ view }: { view: any }) {
@@ -35,15 +35,43 @@ export default function Header({ view }: { view: any }) {
         "Termoocieplenie domu wymaga doświadczenia oraz znajomości odpowiednich technik i materiałów. Choć niektóre prace, takie jak montaż materiałów izolacyjnych w poddaszu, mogą być wykonywane samodzielnie przez właścicieli domów, zazwyczaj zaleca się skorzystanie z usług specjalistów, aby zapewnić prawidłowe wykonanie oraz optymalne rezultaty.",
     },
   ];
+  const [supportsPWA, setSupportsPWA] = useState<any>(false);
+  const [promptInstall, setPromptInstall] = useState<any>(null);
+
+  useEffect(() => {
+    const handler = (e: any) => {
+      e.preventDefault();
+      console.log("we are being triggered :D");
+      setSupportsPWA(true);
+      setPromptInstall(e);
+    };
+    window.addEventListener("beforeinstallprompt", handler);
+
+    return () => window.removeEventListener("transitionend", handler);
+  }, []);
+
+  const onClick = (evt: any) => {
+    evt.preventDefault();
+    if (!promptInstall) {
+      return;
+    }
+    promptInstall.prompt();
+  };
+  if (!supportsPWA) {
+    return null;
+  }
   return (
     <header className="fixed left-0 top-6 xl:top-12 w-full z-[500] font-sans">
       <Faq faqs={faqs} isFaqOpen={isFaqOpen} setFaqOpen={setFaqOpen} />
       <div className="w-[98vw] mx-auto flex flex-row justify-end px-6">
         <button
-          onClick={() => dispatch(setModalVisible("client"))}
+          id="setup_button"
+          aria-label="Install app"
+          title="Install app"
+          onClick={onClick}
           className="flex flex-row items-center hover:scale-110 duration-200 cursor-pointer fixed bottom-[63px] w-max px-4 py-2 left-[50%] -translate-x-[50%] bg-gradient-to-br from-[#C5FF17] to-[#33E5CF] text-zinc-800 rounded-t-xl text-sm"
         >
-          SKONTAKTUJ SIĘ
+          POBIERZ APLIKACJĘ
         </button>
         <div className="fixed w-full h-16 bottom-0 left-0 flex flex-row items-center justify-evenly text-white bg-gradient-to-r from-zinc-800 via-gray-500 to-zinc-800">
           {[
