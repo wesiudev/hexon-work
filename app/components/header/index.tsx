@@ -58,9 +58,7 @@ export default function Header({ view }: { view: any }) {
     }
     promptInstall.prompt();
   };
-  if (!supportsPWA) {
-    return null;
-  }
+
   return (
     <header className="fixed left-0 top-6 xl:top-12 w-full z-[500] font-sans">
       <Faq faqs={faqs} isFaqOpen={isFaqOpen} setFaqOpen={setFaqOpen} />
