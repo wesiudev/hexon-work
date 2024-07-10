@@ -10,7 +10,7 @@ async function getAnswer(question: string) {
   );
   return answer;
 }
-export default function Assistant({ messages }: { messages: object[] }) {
+export default function Assistant({ messages }: { messages: any[] }) {
   const [userQuestion, setUserQuestion] = useState("");
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [loading, setLoading] = useState(false);
