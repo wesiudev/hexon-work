@@ -39,7 +39,7 @@ export default function Assistant({ messages }: { messages: any[] }) {
           onClick={(e: any) => {
             e.stopPropagation();
           }}
-          className="w-[80%] lg:w-[50%] xl:w-[50rem] h-max p-6 bg-white"
+          className="w-full sm:w-[80%] lg:w-[50%] xl:w-[50rem] h-max p-3 lg:p-6 bg-white"
         >
           <h2 className="text-2xl font-bold text-center mb-12 text-zinc-800">
             Asystent AI
@@ -88,13 +88,13 @@ export default function Assistant({ messages }: { messages: any[] }) {
               </div>
             )}
           </div>
-          <div className="mt-6">
+          <div className="lg:mx-6 mt-6">
             <input
               type="text"
               onChange={(e) => setUserQuestion(e.target.value)}
               value={userQuestion}
               placeholder="Wpisz pytanie..."
-              className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-zinc-800 font-bold"
+              className=" w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-zinc-800 font-bold"
             />
             <button
               disabled={loading}
@@ -109,13 +109,12 @@ export default function Assistant({ messages }: { messages: any[] }) {
                   setLoading(false);
                 });
               }}
-              className="mt-3 disabled:opacity-50 disabled:cursor-not-allowed w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className=" mt-3 disabled:opacity-50 disabled:cursor-not-allowed w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               Wyślij
             </button>
           </div>
         </div>
-        <div className="w-[]"></div>
       </div>
     </>
   );
