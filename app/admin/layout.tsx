@@ -22,6 +22,7 @@ export default function AdminLayout({
 }) {
   const [messages, setMessages] = useState<any[]>([]);
   const [assistantMessages, setAssistantMessages] = useState<any[]>([]);
+  const [mode, setMode] = useState("assistantMessages");
   useEffect(() => {
     const ref = collection(getFirestore(app), "assistantMessages");
     const unsub = onSnapshot(ref, (querySnapshot: any) => {
@@ -52,7 +53,8 @@ export default function AdminLayout({
   return (
     <>
       <Toast />
-      <Assistant messages={assistantMessages} />
+
+      <Assistant messages={assistantMessages} mode={mode} setMode={setMode} />
       {!loading && (
         <div className="relative w-full overflow-x-hidden font-coco bg-[#404149] font-sans pb-48">
           {!pathname.includes("/leads/leads") &&

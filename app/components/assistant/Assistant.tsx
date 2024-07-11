@@ -3,19 +3,41 @@ import { pushAssistantMessage } from "@/common/firebase";
 import { useState } from "react";
 import { FaRobot, FaUser } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
-async function getAnswer(question: string) {
+import Messages from "./Messages";
+async function getAnswer(question: string, mode: string) {
   const answer = await fetch(
-    `${process.env.NEXT_PUBLIC_URL}/api/v1/assistant?msg=${question}`,
+    `${process.env.NEXT_PUBLIC_URL}/api/v1/assistantMessages?msg=${question}&mode=${mode}`,
     { cache: "no-store" }
   );
   return answer;
 }
-export default function Assistant({ messages }: { messages: any[] }) {
+export default function Assistant({
+  messages,
+  mode,
+  setMode,
+}: {
+  messages: any[];
+  mode: string;
+  setMode: Function;
+}) {
   const [userQuestion, setUserQuestion] = useState("");
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const sortedMessages = messages.sort(
     (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+  );
+  const lawyerMessages = messages.filter(
+    (message) => message.mode === "lawyer"
+  );
+  const assistant = messages.filter((message) => message.mode === "assistant");
+  const assistantMessages = messages.filter(
+    (message) =>
+      (message.role === "assistant" || message.role === "user") &&
+      (message.mode === "" ||
+        !message.mode ||
+        message.mode === typeof undefined) &&
+      message.mode !== "assistant" &&
+      message.mode !== "lawyer"
   );
 
   return (
@@ -44,48 +66,80 @@ export default function Assistant({ messages }: { messages: any[] }) {
           <h2 className="text-2xl font-bold text-center mb-12 text-zinc-800">
             Asystent AI
           </h2>
+          <div className="grid grid-cols-3 gap-3 sm:gap-6">
+            <button
+              onClick={() => setMode("assistantMessages")}
+              className="bg-black text-white font-bold text-xl"
+            >
+              Ogólny
+            </button>
+            <button
+              onClick={() => setMode("lawyer")}
+              className="bg-black text-white font-bold text-xl"
+            >
+              Prawnik
+            </button>
+            <button
+              onClick={() => setMode("assistant")}
+              className="bg-black text-white font-bold text-xl"
+            >
+              Asystent HEXON
+            </button>
+          </div>
           <div className="mt-6 flex flex-col max-h-[50vh] w-full overflow-y-scroll scrollbar p-6 pb-24">
-            {messages.length === 0 && (
-              <div className="text-zinc-800">Brak wiadomości...</div>
-            )}
-            {messages.length > 0 &&
-              messages.map((message: any, i: any) => (
-                <div
-                  key={i}
-                  className={`${
-                    i !== 0 && "mt-3"
-                  } text-left flex flex-row items-center justify-start`}
-                >
-                  {message.role === "assistant" && (
+            {mode === "assistant" && (
+              <>
+                {assistant.length === 0 && (
+                  <div className="text-zinc-800">Brak wiadomości...</div>
+                )}
+                <Messages messages={assistant} mode={mode} />
+                {loading && (
+                  <div className="flex flex-row items-center">
                     <div className="w-max h-max flex items-end justify-end text-2xl text-white bg-zinc-800 m-2 rounded-full aspect-square p-3">
                       <FaRobot className="w-6 h-6" />
                     </div>
-                  )}
-                  {message.role === "user" && (
+                    <p className="w-[80%] p-3 rounded-md bg-gray-300 text-zinc-800 font-light">
+                      Proszę czekać...
+                    </p>
+                  </div>
+                )}
+              </>
+            )}
+            {mode === "assistantMessages" && (
+              <>
+                {assistantMessages.length === 0 && (
+                  <div className="text-zinc-800">Brak wiadomości...</div>
+                )}
+                <Messages messages={assistantMessages} mode={mode} />
+                {loading && (
+                  <div className="flex flex-row items-center">
                     <div className="w-max h-max flex items-end justify-end text-2xl text-white bg-zinc-800 m-2 rounded-full aspect-square p-3">
-                      <FaUser className="w-6 h-6" />
+                      <FaRobot className="w-6 h-6" />
                     </div>
-                  )}
-                  <div
-                    className={`w-[80%] p-3 rounded-md ${
-                      message.role === "user"
-                        ? "bg-green-300 text-zinc-800 font-light"
-                        : "bg-gray-300 text-zinc-800 font-light"
-                    }`}
-                  >
-                    {message?.content}
-                  </div>{" "}
-                </div>
-              ))}
-            {loading && (
-              <div className="flex flex-row items-center">
-                <div className="w-max h-max flex items-end justify-end text-2xl text-white bg-zinc-800 m-2 rounded-full aspect-square p-3">
-                  <FaRobot className="w-6 h-6" />
-                </div>
-                <p className="w-[80%] p-3 rounded-md bg-gray-300 text-zinc-800 font-light">
-                  Proszę czekać...
-                </p>
-              </div>
+                    <p className="w-[80%] p-3 rounded-md bg-gray-300 text-zinc-800 font-light">
+                      Proszę czekać...
+                    </p>
+                  </div>
+                )}
+              </>
+            )}
+            {mode === "lawyer" && (
+              <>
+                {lawyerMessages.length === 0 && (
+                  <div className="text-zinc-800">Brak wiadomości...</div>
+                )}
+                <Messages messages={lawyerMessages} mode={mode} />
+                {loading && (
+                  <div className="flex flex-row items-center">
+                    <div className="w-max h-max flex items-end justify-end text-2xl text-white bg-zinc-800 m-2 rounded-full aspect-square p-3">
+                      <FaRobot className="w-6 h-6" />
+                    </div>
+                    <p className="w-[80%] p-3 rounded-md bg-gray-300 text-zinc-800 font-light">
+                      Proszę czekać...
+                    </p>
+                  </div>
+                )}
+              </>
             )}
           </div>
           <div className="lg:mx-6 mt-6">
@@ -104,8 +158,9 @@ export default function Assistant({ messages }: { messages: any[] }) {
                   content: userQuestion,
                   role: "user",
                   id: uuidv4(),
+                  mode: mode === "assistantMessages" ? "" : mode,
                 });
-                getAnswer(userQuestion).then((res) => {
+                getAnswer(userQuestion, mode).then((res) => {
                   setLoading(false);
                 });
               }}
