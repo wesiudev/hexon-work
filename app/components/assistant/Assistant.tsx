@@ -20,13 +20,13 @@ export default function Assistant({ messages }: { messages: any[] }) {
 
   return (
     <>
-      <div className="fixed bottom-12 right-12 z-[1999]">
+      <div className="fixed bottom-3 right-3 lg:bottom-6 lg:right-6 z-[1999]">
         {" "}
         <button
           onClick={() => setAssistantOpen(!assistantOpen)}
-          className="p-6 bg-green-500 text-white"
+          className="p-3 bg-green-500 text-white rounded-full"
         >
-          <FaRobot className="text-5xl" />
+          <FaRobot className="text-3xl lg:text-4xl" />
         </button>
       </div>
       <div
