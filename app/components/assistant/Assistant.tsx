@@ -42,11 +42,15 @@ export default function Assistant({
 
   return (
     <>
-      <div className="fixed bottom-3 right-3 lg:bottom-6 lg:right-6 z-[1999]">
+      <div className="fixed bottom-3 right-3 lg:bottom-6 lg:right-6 z-[2999]">
         {" "}
         <button
           onClick={() => setAssistantOpen(!assistantOpen)}
-          className="p-3 bg-green-500 text-white rounded-full"
+          className={`p-3 text-white rounded-full ${
+            assistantOpen
+              ? "scale-150 duration-500 bg-green-500"
+              : "scale-100 duration-200 bg-gray-500"
+          }`}
         >
           <FaRobot className="text-3xl lg:text-4xl" />
         </button>
@@ -63,30 +67,30 @@ export default function Assistant({
           }}
           className="w-full sm:w-[80%] lg:w-[50%] xl:w-[50rem] h-max p-3 lg:p-6 bg-white"
         >
-          <h2 className="text-2xl font-bold text-center mb-12 text-zinc-800">
+          <h2 className="text-2xl font-bold text-center mb-2 text-zinc-800">
             Asystent AI
           </h2>
           <div className="grid grid-cols-3 gap-3 sm:gap-6">
             <button
               onClick={() => setMode("assistantMessages")}
-              className="bg-black text-white font-bold text-xl"
+              className="bg-black text-white font-bold text-sm py-1"
             >
               Ogólny
             </button>
             <button
               onClick={() => setMode("lawyer")}
-              className="bg-black text-white font-bold text-xl"
+              className="bg-black text-white font-bold text-sm py-1"
             >
               Prawnik
             </button>
             <button
               onClick={() => setMode("assistant")}
-              className="bg-black text-white font-bold text-xl"
+              className="bg-black text-white font-bold text-sm py-1"
             >
               Asystent HEXON
             </button>
           </div>
-          <div className="mt-6 flex flex-col max-h-[50vh] w-full overflow-y-scroll scrollbar p-6 pb-24">
+          <div className="mt-6 flex flex-col max-h-[40vh] sm:max-h-[50vh] w-full overflow-y-scroll scrollbar p-6 pb-24">
             {mode === "assistant" && (
               <>
                 {assistant.length === 0 && (
