@@ -110,33 +110,33 @@ export default function LinkComponent({
         <div
           className={`h-full sm:border-l ${
             light ? "border-zinc-600 text-zinc-800" : "border-white text-white"
-          } px-3 py-1 w-[120px] duration-500`}
+          } px-3 py-1 sm:w-[120px] duration-500`}
         >
           <div
-            className={`h-full font-light w-[80px] sm:w-[150px] md:w-[200px] lg:w-[250px] xl:w-[300px] 2xl:w-[350px] text-sm flex items-center justify-center`}
+            className={`h-full font-light  w-full sm:w-[150px] md:w-[200px] lg:w-[250px] xl:w-[300px] 2xl:w-[350px] text-sm flex items-center justify-center`}
           >
             <div className="flex flex-col sm:flex-row sm:space-x-2 items-center justify-center text-center h-full">
               {link?.date && (
-                <div className="text-[12px] font-bold">
+                <div className="text-[12px] font-bold flex items-center justify-center">
                   {link.secondVersion ? (
                     <>
-                      <div className="">
+                      {/* <div className="">
                         Aktywował link:{" "}
                         <span className="text-green-500 font-bold">
                           {moment(link?.date)
                             .subtract(1, "day")
                             .format("DD MMMM YYYY hh:mm:ss")}
                         </span>
-                      </div>
-                      <div className="">
-                        Dostęp kończy się:{" "}
+                      </div> */}
+                      <div className="w-max">
+                        Czas do:{" "}
                         <span className="text-purple-700 font-bold ">
-                          {moment(link.date).format("DD MMMM YYYY hh:mm:ss")}
+                          {moment(link.date).format("DD MM YYYY hh:mm:ss")}
                         </span>
                       </div>
                     </>
                   ) : (
-                    <span className="text-purple-700 font-bold ">
+                    <span className="text-green-500 font-bold ">
                       {moment(link.date).format("DD MMMM YYYY")}
                     </span>
                   )}
