@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CoursesForm from "./CoursesForm";
 import Header from "@/components/header";
+import Hero from "@/components/hero/Hero";
 
 export default function Page() {
   return (
@@ -17,7 +18,7 @@ export default function Page() {
       </Link>
       <Header view={"courses"} />
       <div className="bg-zinc-800 h-screen w-full fixed left-0 top-0">
-        {/* <Hero /> */}
+        <Hero />
       </div>
       <div className="relative z-50 flex items-center justify-center h-full px-8 py-48">
         <div className="bg-black bg-opacity-50 rounded-3xl p-6 h-max lg:w-3/4 xl:w-3/5 2xl:w-1/2 flex items-center justify-center flex-col">
