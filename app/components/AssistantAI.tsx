@@ -58,30 +58,32 @@ export default function AssistantAI() {
   return (
     <>
       <div className="fixed bottom-3 right-3 lg:bottom-6 lg:right-6 z-[2999]">
-        <button
-          onClick={() => {
-            if (localStorage?.getItem("isCheckedOut") === "false") {
-              localStorage?.setItem("isCheckedOut", "true");
-            }
-            setAssistantOpen(!assistantOpen);
-          }}
-          className={`font-sans font-bold text-base text-left text-white ${
-            localStorage?.getItem("isCheckedOut") === "true"
-              ? "rounded-full p-3"
-              : "flex flex-row items-center rounded-lg p-1"
-          } ${
-            assistantOpen
-              ? "scale-150 duration-500 bg-green-500"
-              : "scale-100 duration-200 bg-gray-500"
-          }`}
-        >
-          <FaRobot className="text-3xl lg:text-4xl" />{" "}
-          {localStorage?.getItem("isCheckedOut") === "false" && (
-            <div className="ml-2">
-              Potrzebujesz pomocy? Tutaj uzyskasz szybką odpowiedź.
-            </div>
-          )}
-        </button>
+        {typeof window !== "undefined" && (
+          <button
+            onClick={() => {
+              if (localStorage?.getItem("isCheckedOut") === "false") {
+                localStorage?.setItem("isCheckedOut", "true");
+              }
+              setAssistantOpen(!assistantOpen);
+            }}
+            className={`font-sans font-bold text-base text-left text-white ${
+              localStorage?.getItem("isCheckedOut") === "true"
+                ? "rounded-full p-3"
+                : "flex flex-row items-center rounded-lg p-1"
+            } ${
+              assistantOpen
+                ? "scale-150 duration-500 bg-green-500"
+                : "scale-100 duration-200 bg-gray-500"
+            }`}
+          >
+            <FaRobot className="text-3xl lg:text-4xl" />{" "}
+            {localStorage?.getItem("isCheckedOut") === "false" && (
+              <div className="ml-2">
+                Potrzebujesz pomocy? Tutaj uzyskasz szybką odpowiedź.
+              </div>
+            )}
+          </button>
+        )}
       </div>
       <div
         id="containerId"
