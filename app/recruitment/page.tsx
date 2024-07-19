@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import Hero from "../components/hero/Hero";
-import RecruitmentForm from "../components/cta/RecruitmentForm";
-import RecruitmentVideo from "../components/video";
-import CountToTheNumberAnimated from "../components/counter/CountToTheNumberAnimated";
+import Hero from "@/components/hero/Hero";
+import RecruitmentForm from "@/components/cta/RecruitmentForm";
+import RecruitmentVideo from "@/components/video";
+import CountToTheNumberAnimated from "@/components/counter/CountToTheNumberAnimated";
 
 export default function Page() {
   return (

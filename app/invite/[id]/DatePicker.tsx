@@ -6,7 +6,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { css } from "@emotion/css";
 import dayjs from "dayjs";
-import moment from "moment";
 export default function BasicDatePicker({
   data,
   setData,
