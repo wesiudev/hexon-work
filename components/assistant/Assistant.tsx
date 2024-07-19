@@ -1,7 +1,7 @@
 "use client";
 import { pushAssistantMessage } from "@/common/firebase";
 import { useState } from "react";
-import { FaRobot, FaUser } from "react-icons/fa";
+import { FaRobot } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
 import Messages from "./Messages";
 async function getAnswer(question: string, mode: string) {
