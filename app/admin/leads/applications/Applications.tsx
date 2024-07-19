@@ -9,7 +9,7 @@ import { FaClock, FaLongArrowAltLeft } from "react-icons/fa";
 import Confetti from "react-confetti";
 import { ReactSketchCanvas } from "react-sketch-canvas";
 import Image from "next/image";
-import LeadApplication from "@/components/LeadApplication";
+import LeadApplication from "@/app/components/LeadApplication";
 export default function Leads() {
   const [leads, setLeads] = useState<any[]>([]);
   const [isSigning, setIsSigning] = useState(false);
