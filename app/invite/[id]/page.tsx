@@ -1,8 +1,8 @@
+import Header from "@/app/components/header";
+import Hero from "@/app/components/hero/Hero";
 import Image from "next/image";
 import Link from "next/link";
 import ChooseTime from "./ChooseTime";
-import Header from "@/components/header";
-import Hero from "@/components/hero/Hero";
 
 export default async function Page({
   params,

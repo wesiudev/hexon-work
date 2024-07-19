@@ -1,12 +1,12 @@
 import "@/styles/globals.css";
 import localFont from "next/font/local";
 import Script from "next/script";
-import AOSInit from "@/components/AOS";
+import AOSInit from "./components/AOS";
 import { Providers } from "@/common/redux/Provider";
-import ClientFormWrapper from "@/components/cta/ClientFormWrapper";
+import ClientFormWrapper from "./components/cta/ClientFormWrapper";
 import { Metadata } from "next";
 import { v4 as uuidv4 } from "uuid";
-import AssistantAI from "@/components/AssistantAI";
+import AssistantAI from "./components/AssistantAI";
 export default function Root({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pl">

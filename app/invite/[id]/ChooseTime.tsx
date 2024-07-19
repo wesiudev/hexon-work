@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import "moment/locale/pl";
-import Loading from "../../loading";
+import Loading from "@/app/loading";
 import { FaPause, FaPlay, FaCheckCircle } from "react-icons/fa";
 import { BsFullscreen } from "react-icons/bs";
 
