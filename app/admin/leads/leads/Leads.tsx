@@ -8,8 +8,8 @@ import Link from "next/link";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import Confetti from "react-confetti";
 import { ReactSketchCanvas } from "react-sketch-canvas";
-import Lead from "@/app/components/Lead";
 import Image from "next/image";
+import Lead from "@/components/Lead";
 export default function Leads() {
   const [isSigning, setIsSigning] = useState(false);
   const [signingLead, setSigningLead] = useState<any>({});

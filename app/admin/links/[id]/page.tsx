@@ -2,7 +2,7 @@ import { getLinksById } from "@/common/firebase";
 import Link from "next/link";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import DeleteCollection from "./DeleteCollection";
-import LinksWrapper from "../../../components/LinksWrapper";
+import LinksWrapper from "@/components/LinksWrapper";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const links = await getLinksById(params.id);

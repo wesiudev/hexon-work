@@ -1,5 +1,4 @@
 "use client";
-
 import { app } from "@/common/firebase";
 import { useWindowDimensions } from "@/lib/useWindowDimensions";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
@@ -16,11 +15,6 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  BarChart,
-  Bar,
-  PieChart,
-  Pie,
-  ResponsiveContainer,
 } from "recharts";
 import { useSelector } from "react-redux";
 interface AdminPageProps {

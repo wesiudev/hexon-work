@@ -2,11 +2,7 @@
 import { app } from "@/common/firebase";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import {
-  FaLightbulb,
-  FaLongArrowAltLeft,
-  FaLongArrowAltRight,
-} from "react-icons/fa";
+import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 import { useSelector } from "react-redux";
 export default function Page() {

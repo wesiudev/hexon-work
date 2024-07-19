@@ -6,10 +6,10 @@ import { collection, onSnapshot, getFirestore } from "firebase/firestore";
 import "moment/locale/pl";
 import Link from "next/link";
 import { FaClock, FaLongArrowAltLeft } from "react-icons/fa";
-import LeadApplication from "@/app/components/LeadApplication";
 import Confetti from "react-confetti";
 import { ReactSketchCanvas } from "react-sketch-canvas";
 import Image from "next/image";
+import LeadApplication from "@/components/LeadApplication";
 export default function Leads() {
   const [leads, setLeads] = useState<any[]>([]);
   const [isSigning, setIsSigning] = useState(false);

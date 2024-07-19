@@ -3,22 +3,12 @@ import Link from "next/link";
 import { SiAbbrobotstudio } from "react-icons/si";
 import {
   FaArrowLeft,
-  FaArtstation,
-  FaChartLine,
   FaChevronDown,
-  FaClipboardList,
-  FaCog,
-  FaEdit,
   FaEnvelope,
   FaHome,
   FaLink,
-  FaPlus,
-  FaRemoveFormat,
   FaRobot,
-  FaShoppingCart,
   FaSignOutAlt,
-  FaTags,
-  FaUpload,
   FaUser,
   FaUsers,
 } from "react-icons/fa";

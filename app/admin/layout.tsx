@@ -6,14 +6,14 @@ import { app, auth } from "@/common/firebase";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Toast from "../components/Toast";
 import { FaLightbulb } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setLight } from "@/common/redux/slices/lightSlice";
 import { usePathname } from "next/navigation";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 import dynamic from "next/dynamic";
-import Assistant from "../components/assistant/Assistant";
+import Toast from "@/components/Toast";
+import Assistant from "@/components/assistant/Assistant";
 const Nav = dynamic(() => import("./Nav"), { ssr: false });
 export default function AdminLayout({
   children,
