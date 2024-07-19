@@ -26,6 +26,7 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
   const [time, setTime] = useState(0);
   const [isSent, setIsSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isPlayedOnce, setIsPlayedOnce] = useState(false);
   const video = useRef<any>();
   useEffect(() => {
     const ref = collection(getFirestore(app), "links");
@@ -249,6 +250,7 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
                   />
                   <button
                     onClick={() => {
+                      setIsPlayedOnce(true);
                       video.current?.play();
                       setPaused(false);
                       updateLink(linkId, {
@@ -265,7 +267,11 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
                               : "group-hover:opacity-100"
                           } z-50 scale-100 duration-500`
                         : "rotate-45 z-0 duration-700"
-                    } ease-in-out absolute text-2xl sm:text-3xl lg:text-4xl drop-shadow-xl shadow-black left-6 bottom-6 opacity-0`}
+                    } ease-in-out absolute text-2xl sm:text-3xl lg:text-4xl drop-shadow-xl shadow-black ${
+                      !isPlayedOnce
+                        ? "-translte-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                        : "left-6 bottom-6"
+                    } opacity-0`}
                   >
                     <FaPlay className={``} />
                   </button>

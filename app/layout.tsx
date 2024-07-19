@@ -5,7 +5,8 @@ import AOSInit from "./components/AOS";
 import { Providers } from "@/common/redux/Provider";
 import ClientFormWrapper from "./components/cta/ClientFormWrapper";
 import { Metadata } from "next";
-
+import { v4 as uuidv4 } from "uuid";
+import AssistantAI from "./components/AssistantAI";
 export default function Root({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pl">
@@ -13,7 +14,8 @@ export default function Root({ children }: { children: React.ReactNode }) {
         <AOSInit />
         <Providers>
           {children}
-          <ClientFormWrapper />{" "}
+          <ClientFormWrapper />
+          <AssistantAI />
         </Providers>
         <Script
           strategy="afterInteractive"

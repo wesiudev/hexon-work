@@ -42,8 +42,8 @@ export default async function Home({
               alt=""
               className="mx-auto lg:mx-0 w-1/2 sm:w-[200px] lg:w-[300px]"
             />
-            <div className="font-light mt-6 text-base lg:text-lg xl:text-xl sm:max-w-[30rem] lg:max-w-[50rem] text-gray-50 text-center max-w-[40rem] lg:text-left z-30  mx-auto sm:mx-0">
-              <span className="text-white drop-shadow-md shadow-black italic ">
+            <div className="font-light mt-6 text-base lg:text-lg xl:text-xl text-gray-50 text-center lg:text-left z-30 w-full flex justify-center">
+              <span className="text-white drop-shadow-md shadow-black italic sm:max-w-[30rem] lg:max-w-[50rem] max-w-[40rem]">
                 Doradztwo na każdym etapie dofinansowania termomodernizacji
                 budynków.
               </span>

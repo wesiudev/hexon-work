@@ -6,18 +6,24 @@ export default function Messages({
   mode,
 }: {
   messages: any;
-  mode: string;
+  mode?: string;
 }) {
   return (
     <div>
-      {" "}
-      {messages.length > 0 &&
-        messages.map((message: any, i: any) => (
+      <div className="flex flex-row items-center justify-start">
+        <div className="w-max h-max flex items-end justify-end text-2xl text-white bg-zinc-800 m-2 rounded-full aspect-square p-3">
+          <FaRobot className="w-6 h-6" />
+        </div>
+        <div className="bg-gray-300 text-zinc-800 font-light p-3 rounded-xl">
+          Dzień dobry, jestem asystentem HEXON. Jak mogę Ci pomóc? Wpisz
+          wiadomość poniżej by otrzymać odpowiedź w mgnieniu oka.
+        </div>
+      </div>{" "}
+      {messages?.length > 0 &&
+        messages?.map((message: any, i: any) => (
           <div
             key={i}
-            className={`${
-              i !== 0 && "mt-3"
-            } text-left flex flex-row items-center justify-start`}
+            className={`mt-3 text-left flex flex-row items-center justify-start`}
           >
             <>
               {message.role === "assistant" && (

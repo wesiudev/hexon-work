@@ -42,7 +42,6 @@ export default function Header({ view }: { view: any }) {
   useEffect(() => {
     const handler = (e: any) => {
       e.preventDefault();
-      console.log("we are being triggered :D");
       setSupportsPWA(true);
       setPromptInstall(e);
     };
@@ -70,7 +69,7 @@ export default function Header({ view }: { view: any }) {
           onClick={onClick}
           className="animate-pulse hover:animate-none flex flex-row items-center hover:scale-110 duration-200 cursor-pointer fixed bottom-[63px] w-max px-4 py-2 left-[50%] -translate-x-[50%] bg-gradient-to-br from-[#C5FF17] to-[#33E5CF] text-zinc-800 rounded-t-xl font-bold text-lg"
         >
-          POBIERZ APLIKACJĘ{" "}
+          POBIERZ APLIKACJĘ
           <div className="bg-white p-2 rounded-full ml-3">
             <FaDownload className="text-lg text-black" />
           </div>

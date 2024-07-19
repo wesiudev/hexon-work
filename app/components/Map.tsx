@@ -14,7 +14,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-duration="3000"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -25,8 +25,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="3000"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -37,8 +36,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="3000"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -49,8 +47,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="1500"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -61,8 +58,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="3000"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -73,8 +69,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="1500"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -85,8 +80,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="3000"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -97,8 +91,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="1500"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -109,8 +102,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="3000"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -121,8 +113,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="1500"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -133,8 +124,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="3000"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -145,8 +135,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="1500"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -157,8 +146,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="3000"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -169,8 +157,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="1500"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -181,8 +168,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="3000"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -193,8 +179,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="1500"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -222,8 +207,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="3000"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -251,8 +235,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="1500"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
@@ -263,8 +246,7 @@ export default function Map() {
         <Image
           src="/map/domek.png"
           data-aos="zoom-in"
-          data-aos-delay="500"
-          data-aos-duration="3000"
+          data-aos-duration="1000"
           width={50}
           height={50}
           alt=""
