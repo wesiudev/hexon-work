@@ -1,13 +1,13 @@
 import Image from "next/image";
-import Hero from "./components/hero/Hero";
-import Header from "./components/header";
-import Cta from "./components/cta/Cta";
-import ScrollTo from "./components/ScrollTo";
-import Opinions from "./components/opinions/Opinions";
-import CountToTheNumberAnimated from "./components/counter/CountToTheNumberAnimated";
+import Hero from "@/components/hero/Hero";
+import Header from "@/components/header";
+import Cta from "@/components/cta/Cta";
+import ScrollTo from "@/components/ScrollTo";
+import Opinions from "@/components/opinions/Opinions";
+import CountToTheNumberAnimated from "@/components/counter/CountToTheNumberAnimated";
 import Link from "next/link";
 import AOS from "aos";
-import Map from "./components/Map";
+import Map from "@/components/Map";
 export default async function Home({
   searchParams,
 }: {
