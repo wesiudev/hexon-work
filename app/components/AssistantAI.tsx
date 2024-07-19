@@ -22,12 +22,12 @@ export default function AssistantAI() {
     container.scrollTop = container?.scrollHeight;
   };
   useEffect(() => {
-    if (!localStorage.getItem("isCheckedOut")) {
-      localStorage.setItem("isCheckedOut", "false");
+    if (!localStorage?.getItem("isCheckedOut")) {
+      localStorage?.setItem("isCheckedOut", "false");
     }
     const id = uuidv4();
-    if (!localStorage.getItem("session")) {
-      localStorage.setItem("session", id);
+    if (!localStorage?.getItem("session")) {
+      localStorage?.setItem("session", id);
       createSession({
         id: id,
         messages: [],
@@ -43,7 +43,7 @@ export default function AssistantAI() {
       });
       setMessages(
         snapshotData.filter(
-          (session) => session.id === localStorage.getItem("session")
+          (session) => session.id === localStorage?.getItem("session")
         )[0].messages
       );
     });
@@ -54,13 +54,13 @@ export default function AssistantAI() {
         {" "}
         <button
           onClick={() => {
-            if (localStorage.getItem("isCheckedOut") === "false") {
-              localStorage.setItem("isCheckedOut", "true");
+            if (localStorage?.getItem("isCheckedOut") === "false") {
+              localStorage?.setItem("isCheckedOut", "true");
             }
             setAssistantOpen(!assistantOpen);
           }}
           className={`font-sans font-bold text-base text-left text-white ${
-            localStorage.getItem("isCheckedOut") === "true"
+            localStorage?.getItem("isCheckedOut") === "true"
               ? "rounded-full p-3"
               : "flex flex-row items-center rounded-lg p-1"
           } ${
@@ -70,7 +70,7 @@ export default function AssistantAI() {
           }`}
         >
           <FaRobot className="text-3xl lg:text-4xl" />{" "}
-          {localStorage.getItem("isCheckedOut") === "false" && (
+          {localStorage?.getItem("isCheckedOut") === "false" && (
             <div className="ml-2">
               Potrzebujesz pomocy? Tutaj uzyskasz szybką odpowiedź.
             </div>
@@ -129,11 +129,11 @@ export default function AssistantAI() {
                     role: "user",
                     id: uuidv4(),
                   },
-                  localStorage.getItem("session")
+                  localStorage?.getItem("session")
                 ).then(() => {
                   scrollToBottom();
                 });
-                getAnswer(userQuestion, localStorage.getItem("session")!).then(
+                getAnswer(userQuestion, localStorage?.getItem("session")!).then(
                   (res) => {
                     setLoading(false);
                     scrollToBottom();
