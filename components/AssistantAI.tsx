@@ -49,7 +49,7 @@ export default function AssistantAI() {
     });
   }, []);
   if (localStorage?.getItem("isCheckedOut") === typeof undefined) {
-    return "Ładowanie...";
+    return <div className="">Ładowanie...</div>;
   } else {
     return (
       <>
