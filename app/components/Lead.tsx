@@ -17,6 +17,7 @@ export default function Lead({
   setIsSigning,
   setSigningLead,
   setNoteOpen,
+  signingLead,
 }: {
   lead: any;
   filter: string;
@@ -25,11 +26,12 @@ export default function Lead({
   setIsSigning: any;
   setSigningLead: any;
   setNoteOpen: any;
+  signingLead: any;
 }) {
   const [optionsOpen, setOptionsOpen] = useState(false);
   const [animationStarted, setAnimationStarted] = useState(false);
   const [animationCheck, setAnimationCheck] = useState(false);
-
+  const [animatedIndex, setAnimatindIndex] = useState(-1);
   const [trashLead, setTrashLead] = useState<any>();
   function getToiletOption() {
     const options = ["🚽", "🤮", "💩", "🤢"];
@@ -92,8 +94,26 @@ export default function Lead({
       {optionsOpen && (
         <div className="w-full h-full absolute left-0 top-0 bg-black bg-opacity-50" />
       )}
-
       {lead.signed && (
+        <div
+          onClick={() => {
+            setIsAnimating(true);
+            setTimeout(() => {
+              setIsAnimating(false);
+            }, 7750);
+          }}
+          className="rounded cursor-pointer absolute w-full h-full z-50 bg-black left-0 top-0 bg-opacity-80 flex items-center justify-center"
+        >
+          <Image
+            src="/dolar.gif"
+            width={200}
+            height={200}
+            alt=""
+            className={`w-1/2 ${isAnimating && "animate-bounce"}`}
+          />
+        </div>
+      )}
+      {isAnimating && signingLead.id === lead.id && (
         <div
           onClick={() => {
             setIsAnimating(true);

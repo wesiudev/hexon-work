@@ -88,12 +88,12 @@ export default function Leads() {
             />
             <button
               onClick={() => {
-                updateLead(signingLead.id, { ...signingLead, signed: true });
                 setIsAnimating(true);
                 setTimeout(() => {
+                  updateLead(signingLead.id, { ...signingLead, signed: true });
                   setIsAnimating(false);
+                  setSigningLead({});
                 }, 7500);
-                setSigningLead({});
                 setIsSigning(false);
               }}
               className="w-full text-center bg-green-500 hover:bg-green-400 font-bold text-white py-2 text-base font-gotham"
@@ -162,6 +162,7 @@ export default function Leads() {
                 lead.isTrash &&
                 lead.status === "trash" && (
                   <Lead
+                    signingLead={signingLead}
                     key={i}
                     lead={lead}
                     setSigningLead={setSigningLead}
@@ -181,6 +182,7 @@ export default function Leads() {
                 !lead.signed &&
                 lead.status !== "trash" && (
                   <Lead
+                    signingLead={signingLead}
                     key={i}
                     lead={lead}
                     setSigningLead={setSigningLead}
@@ -197,6 +199,7 @@ export default function Leads() {
             <>
               {filter === "" && !lead.signed && lead.status !== "trash" && (
                 <Lead
+                  signingLead={signingLead}
                   key={i}
                   lead={lead}
                   setSigningLead={setSigningLead}
@@ -217,6 +220,7 @@ export default function Leads() {
                 !lead.signed &&
                 lead.status !== "trash" && (
                   <Lead
+                    signingLead={signingLead}
                     key={i}
                     lead={lead}
                     setSigningLead={setSigningLead}
@@ -237,6 +241,7 @@ export default function Leads() {
                 lead.signed &&
                 lead.status !== "trash" && (
                   <Lead
+                    signingLead={signingLead}
                     key={i}
                     lead={lead}
                     setSigningLead={setSigningLead}
