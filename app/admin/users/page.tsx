@@ -1,5 +1,4 @@
 import { getPublicSessions } from "@/common/firebase";
-import Link from "next/link";
 
 export default async function Page() {
   const publicSessions = await getPublicSessions();
