@@ -17,12 +17,7 @@ export default function AssistantAI() {
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [messages, setMessages] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-  const scrollToBottom = () => {
-    if (typeof window !== undefined) {
-      const container: any = document?.getElementById("containerId");
-      container.scrollTop = container?.scrollHeight;
-    }
-  };
+
   useEffect(() => {
     if (typeof window !== undefined) {
       if (!localStorage?.getItem("isCheckedOut")) {
@@ -140,14 +135,13 @@ export default function AssistantAI() {
                     },
                     localStorage?.getItem("session")
                   ).then(() => {
-                    scrollToBottom();
+                    setLoading(false);
                   });
                   getAnswer(
                     userQuestion,
                     localStorage?.getItem("session")!
                   ).then((res) => {
                     setLoading(false);
-                    scrollToBottom();
                   });
                 }}
                 className=" mt-3 disabled:opacity-50 disabled:cursor-not-allowed w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
