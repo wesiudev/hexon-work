@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Header from "../components/header";
-import Hero from "../components/hero/Hero";
+import Header from "@/components/header";
+import Hero from "@/components/hero/Hero";
 import Link from "next/link";
 import CoursesForm from "./CoursesForm";
 

@@ -104,17 +104,17 @@ export const metadata: Metadata = {
 const gotham = localFont({
   src: [
     {
-      path: "../public/fonts/Gotham.ttf",
+      path: "/@public/fonts/Gotham.ttf",
       weight: "400",
       style: "regular",
     },
     {
-      path: "../public/fonts/Gotham-Light.ttf",
+      path: "/@public/fonts/Gotham-Light.ttf",
       weight: "300",
       style: "light",
     },
     {
-      path: "../public/fonts/GothamBold.ttf",
+      path: "/@public/fonts/GothamBold.ttf",
       weight: "500",
       style: "bold",
     },
@@ -124,34 +124,34 @@ const gotham = localFont({
 const cocosharp = localFont({
   src: [
     {
-      path: "../public/fonts/Italic.ttf",
+      path: "/@public/fonts/Italic.ttf",
       weight: "400",
       style: "italic",
     },
     {
-      path: "../public/fonts/BoldItalic.ttf",
+      path: "/@public/fonts/BoldItalic.ttf",
       weight: "700",
       style: "italic",
     },
     {
-      path: "../public/fonts/Bold.ttf",
+      path: "/@public/fonts/Bold.ttf",
       weight: "700",
     },
     {
-      path: "../public/fonts/ExtraLight.ttf",
+      path: "/@public/fonts/ExtraLight.ttf",
       weight: "200",
     },
     {
-      path: "../public/fonts/Light.ttf",
+      path: "/@public/fonts/Light.ttf",
       weight: "300",
     },
     {
-      path: "../public/fonts/LightItalic.ttf",
+      path: "/@public/fonts/LightItalic.ttf",
       weight: "300",
       style: "italic",
     },
     {
-      path: "../public/fonts/Regular.ttf",
+      path: "/@public/fonts/Regular.ttf",
       weight: "500",
     },
   ],
