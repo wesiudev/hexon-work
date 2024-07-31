@@ -7,6 +7,7 @@ import Opinions from "@/components/opinions/Opinions";
 import CountToTheNumberAnimated from "@/components/counter/CountToTheNumberAnimated";
 import Link from "next/link";
 import Map from "@/components/Map";
+import AssistantAI from "@/components/AssistantAI";
 export default async function Page({
   searchParams,
 }: {
@@ -14,6 +15,7 @@ export default async function Page({
 }) {
   return (
     <div className="font-sans w-full bg-[#222222] pb-48 h-full">
+      <AssistantAI />
       <Header view={searchParams?.view} />
       <div className="z-[1500] absolute w-[130px] sm:w-[300px] h-[50px] left-0 top-6 xl:top-12 overflow-hidden rounded-r-xl">
         <div className="w-full flex items-start relative">

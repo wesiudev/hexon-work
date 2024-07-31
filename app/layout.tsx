@@ -18,7 +18,6 @@ export default async function Root({
         <Providers>
           {children}
           <ClientFormWrapper />
-          <AssistantAI />
         </Providers>
         <Script
           strategy="afterInteractive"
