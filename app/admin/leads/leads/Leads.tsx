@@ -16,7 +16,6 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import htmlToDraft from "html-to-draftjs";
 import draftToHtml from "draftjs-to-html";
-import Loading from "@/app/loading";
 export default function Leads() {
   const [isSigning, setIsSigning] = useState(false);
   const [signingLead, setSigningLead] = useState<any>({});

@@ -1,4 +1,3 @@
-"use client";
 import Leads from "./Applications";
 
 export default async function Page() {
