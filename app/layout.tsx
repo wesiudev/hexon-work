@@ -1,12 +1,12 @@
 import "@/styles/globals.css";
 import localFont from "next/font/local";
 import Script from "next/script";
-import AOSInit from "./components/AOS";
+import AOSInit from "@/components/AOS";
 import { Providers } from "@/common/redux/Provider";
-import ClientFormWrapper from "./components/cta/ClientFormWrapper";
+import ClientFormWrapper from "@/components/cta/ClientFormWrapper";
 import { Metadata } from "next";
 import { v4 as uuidv4 } from "uuid";
-import AssistantAI from "./components/AssistantAI";
+import AssistantAI from "@/components/AssistantAI";
 export default function Root({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pl">
@@ -104,17 +104,17 @@ export const metadata: Metadata = {
 const gotham = localFont({
   src: [
     {
-      path: "/@public/fonts/Gotham.ttf",
+      path: "../public/fonts/Gotham.ttf",
       weight: "400",
       style: "regular",
     },
     {
-      path: "/@public/fonts/Gotham-Light.ttf",
+      path: "../public/fonts/Gotham-Light.ttf",
       weight: "300",
       style: "light",
     },
     {
-      path: "/@public/fonts/GothamBold.ttf",
+      path: "../public/fonts/GothamBold.ttf",
       weight: "500",
       style: "bold",
     },
@@ -124,7 +124,7 @@ const gotham = localFont({
 const cocosharp = localFont({
   src: [
     {
-      path: "/@public/fonts/Italic.ttf",
+      path: "../public/fonts/Italic.ttf",
       weight: "400",
       style: "italic",
     },
