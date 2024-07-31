@@ -25,6 +25,7 @@ interface AdminPageProps {
 
 export default function Admin() {
   moment.locale("pl");
+
   const [data, setData] = useState<AdminPageProps>({
     courses: [],
     leads: [],

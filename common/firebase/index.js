@@ -59,6 +59,16 @@ export async function pushAssistantMessage(data) {
     return productDocRef;
   }
 }
+
+export async function getPublicSessions() {
+  const productDocRef = collection(db, "publicSessions");
+  const querySnapshot = await getDocs(productDocRef);
+  const sessions = [];
+  querySnapshot.forEach((doc) => {
+    sessions.push({ ...doc.data(), id: doc.id });
+  });
+  return sessions;
+}
 export async function pushSessionMessage(data, sessionId) {
   const productDocRef = doc(collection(db, "publicSessions"), sessionId);
   const docSnap = await getDoc(productDocRef);

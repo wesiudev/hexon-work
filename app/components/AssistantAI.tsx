@@ -49,7 +49,7 @@ export default function AssistantAI() {
         setMessages(
           snapshotData.filter(
             (session) => session.id === localStorage?.getItem("session")
-          )[0].messages
+          )[0]?.messages
         );
       });
     }

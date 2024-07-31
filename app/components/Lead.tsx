@@ -3,12 +3,13 @@ import { updateLead } from "@/common/firebase";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { IoDiamondSharp } from "react-icons/io5";
 import { IoDiamondOutline } from "react-icons/io5";
 import ToiLead from "./ToiLead";
 import { FaCheckCircle } from "react-icons/fa";
+import { renderMarkdown } from "@/utils/parseMarkdown";
 export default function Lead({
   lead,
   filter,
@@ -37,6 +38,8 @@ export default function Lead({
     const options = ["🚽", "🤮", "💩", "🤢"];
     return options[Math.floor(Math.random() * options.length)];
   }
+  const [editorState, setEditorState] = useState<any>();
+
   return (
     <div
       key={lead.id}
@@ -239,15 +242,18 @@ export default function Lead({
       <div className="pt-3 w-full flex flex-row justify-between">
         <div>Notatka:</div>
         <button
-          onClick={() => setNoteOpen(lead)}
+          onClick={() => {
+            setNoteOpen(lead);
+          }}
           className="text-blue-500 font-light rounded p-0.5 px-2 hover:bg-white hover:bg-opacity-20"
         >
           Edytuj
         </button>
       </div>
       {lead?.note !== undefined && (
-        <p className="text-white font-light">{lead?.note}</p>
+        <div dangerouslySetInnerHTML={renderMarkdown(lead.note)} />
       )}
+
       <div className="flex flex-col w-full mt-3">
         {!lead.isFinished && (
           <button

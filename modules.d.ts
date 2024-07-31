@@ -13,3 +13,7 @@ declare module "@mui/x-date-pickers/DatePicker";
 declare module "@mui/x-date-pickers/LocalizationProvider";
 declare module "@mui/x-date-pickers/AdapterDayjs";
 declare module "@mui/x-date-pickers/internals/demo";
+declare module "react-draft-wysiwyg";
+declare module "draft-js";
+declare module "draftjs-to-html";
+declare module "html-to-draftjs";

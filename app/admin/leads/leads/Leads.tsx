@@ -10,13 +10,20 @@ import Confetti from "react-confetti";
 import { ReactSketchCanvas } from "react-sketch-canvas";
 import Image from "next/image";
 import Lead from "@/app/components/Lead";
+
+import { EditorState, convertToRaw, ContentState } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import htmlToDraft from "html-to-draftjs";
+import draftToHtml from "draftjs-to-html";
 export default function Leads() {
   const [isSigning, setIsSigning] = useState(false);
   const [signingLead, setSigningLead] = useState<any>({});
   const [leads, setLeads] = useState<any[]>([]);
   const [isAnimating, setIsAnimating] = useState(false);
   const [filter, setFilter] = useState("");
-  const [noteOpen, setNoteOpen] = useState<any>();
+  const [isNoteOpen, setIsNoteOpen] = useState<any>();
+  const [noteContent, setNoteContent] = useState<any>("");
   useEffect(() => {
     const ref = collection(getFirestore(app), "leads");
     const unsub = onSnapshot(ref, (querySnapshot: any) => {
@@ -29,10 +36,40 @@ export default function Leads() {
       );
     });
   }, []);
+  useEffect(() => {
+    if (isNoteOpen) {
+      let contentBlock;
+      if (typeof noteContent === "string") {
+        contentBlock = htmlToDraft(noteContent);
+        const contentState = ContentState.createFromBlockArray(
+          contentBlock.contentBlocks
+        );
+
+        setNoteContent(EditorState.createWithContent(contentState));
+      } else {
+        setNoteContent("");
+      }
+    }
+  }, []);
   moment.locale("pl");
+  function setNoteOpen(lead: any) {
+    setNoteContent(() => {
+      let contentBlock;
+      if (typeof lead?.note === "string") {
+        contentBlock = htmlToDraft(lead?.note);
+        const contentState = ContentState.createFromBlockArray(
+          contentBlock.contentBlocks
+        );
+        setNoteContent(EditorState.createWithContent(contentState));
+      } else {
+        setNoteContent("");
+      }
+    });
+    setIsNoteOpen(lead);
+  }
   return (
     <>
-      {noteOpen !== undefined && (
+      {isNoteOpen !== undefined && (
         <div
           onClick={() => {
             setNoteOpen(undefined);
@@ -43,22 +80,22 @@ export default function Leads() {
             className="bg-slate-700 border-black border-2 p-6 sm:p-12"
             onClick={(e) => e.stopPropagation()}
           >
-            <textarea
-              onChange={(e) =>
-                setNoteOpen({ ...noteOpen, note: e.target.value })
-              }
-              name="note"
-              id="note"
-              rows={10}
-              autoFocus
-              placeholder="Wpisz tekst"
-              className="font-bold text-base font-sans p-3 w-full text-zinc-800 drop-shadow-xl shadow-black"
-            >
-              {noteOpen.note}
-            </textarea>
+            <Editor
+              editorStyle={{
+                backgroundColor: "rgb(148 163 184)",
+                color: "black",
+                height: "300px",
+                padding: "3px 15px",
+              }}
+              editorState={noteContent}
+              onEditorStateChange={setNoteContent}
+            />
             <button
               onClick={() => {
-                updateLead(noteOpen.id, { ...noteOpen, note: noteOpen.note });
+                const content = draftToHtml(
+                  convertToRaw(noteContent.getCurrentContent())
+                );
+                updateLead(isNoteOpen.id, { ...isNoteOpen, note: content });
                 setNoteOpen(undefined);
               }}
               className="w-full bg-green-500 hover:bg-green-400 font-gotham p-3 text-white font-bold"
