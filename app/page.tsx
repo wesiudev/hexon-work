@@ -7,7 +7,7 @@ import Opinions from "@/components/opinions/Opinions";
 import CountToTheNumberAnimated from "@/components/counter/CountToTheNumberAnimated";
 import Link from "next/link";
 import Map from "@/components/Map";
-export default async function Home({
+export default async function Page({
   searchParams,
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
