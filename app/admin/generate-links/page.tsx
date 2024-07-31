@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { pushLinks } from "@/common/firebase";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-import Links from "@/app/components/Links";
+import Links from "@/components/Links";
 
 export default function Page() {
   const [links, setLinks] = useState<any>([]);

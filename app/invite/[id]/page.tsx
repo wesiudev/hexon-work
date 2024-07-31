@@ -1,5 +1,5 @@
-import Header from "@/app/components/header";
-import Hero from "@/app/components/hero/Hero";
+import Header from "@/components/header";
+import Hero from "@/components/hero/Hero";
 import Image from "next/image";
 import Link from "next/link";
 import ChooseTime from "./ChooseTime";

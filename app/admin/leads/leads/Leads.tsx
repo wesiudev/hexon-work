@@ -9,7 +9,7 @@ import { FaLongArrowAltLeft } from "react-icons/fa";
 import Confetti from "react-confetti";
 import { ReactSketchCanvas } from "react-sketch-canvas";
 import Image from "next/image";
-import Lead from "@/app/components/Lead";
+import Lead from "@/components/Lead";
 
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";

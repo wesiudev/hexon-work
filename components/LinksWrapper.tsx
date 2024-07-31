@@ -1,5 +1,5 @@
 "use client";
-import Links from "@/app/components/Links";
+import Links from "@/components/Links";
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, getFirestore } from "firebase/firestore";
 import { app } from "@/common/firebase";
