@@ -37,21 +37,6 @@ export default function Leads() {
       );
     });
   }, []);
-  useEffect(() => {
-    if (isNoteOpen) {
-      let contentBlock;
-      if (typeof noteContent === "string") {
-        contentBlock = htmlToDraft(noteContent);
-        const contentState = ContentState.createFromBlockArray(
-          contentBlock.contentBlocks
-        );
-
-        setNoteContent(EditorState.createWithContent(contentState));
-      } else {
-        setNoteContent("");
-      }
-    }
-  }, []);
   moment.locale("pl");
   function setNoteOpen(lead: any) {
     setNoteContent(() => {
