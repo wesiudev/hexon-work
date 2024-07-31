@@ -18,64 +18,72 @@ export default function AssistantAI() {
   const [messages, setMessages] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const scrollToBottom = () => {
-    const container: any = document?.getElementById("containerId");
-    container.scrollTop = container?.scrollHeight;
+    if (typeof window !== undefined) {
+      const container: any = document?.getElementById("containerId");
+      container.scrollTop = container?.scrollHeight;
+    }
   };
   useEffect(() => {
-    if (!localStorage?.getItem("isCheckedOut")) {
-      localStorage?.setItem("isCheckedOut", "false");
-    }
-    const id = uuidv4();
-    if (!localStorage?.getItem("session")) {
-      localStorage?.setItem("session", id);
-      createSession({
-        id: id,
-        messages: [],
-      });
+    if (typeof window !== undefined) {
+      if (!localStorage?.getItem("isCheckedOut")) {
+        localStorage?.setItem("isCheckedOut", "false");
+      }
+      const id = uuidv4();
+      if (!localStorage?.getItem("session")) {
+        localStorage?.setItem("session", id);
+        createSession({
+          id: id,
+          messages: [],
+        });
+      }
     }
   }, []);
   useEffect(() => {
-    const ref = collection(getFirestore(app), "publicSessions");
-    const unsub = onSnapshot(ref, (querySnapshot: any) => {
-      const snapshotData: any[] = [];
-      querySnapshot.forEach((doc: any) => {
-        snapshotData.push(doc.data());
+    if (typeof window !== undefined) {
+      const ref = collection(getFirestore(app), "publicSessions");
+      const unsub = onSnapshot(ref, (querySnapshot: any) => {
+        const snapshotData: any[] = [];
+        querySnapshot.forEach((doc: any) => {
+          snapshotData.push(doc.data());
+        });
+        setMessages(
+          snapshotData.filter(
+            (session) => session.id === localStorage?.getItem("session")
+          )[0]?.messages
+        );
       });
-      setMessages(
-        snapshotData.filter(
-          (session) => session.id === localStorage?.getItem("session")
-        )[0]?.messages
-      );
-    });
+    }
   }, []);
 
   return (
     <>
       <div className="fixed bottom-3 right-3 lg:bottom-6 lg:right-6 z-[2999]">
-        <button
-          onClick={() => {
-            if (localStorage?.getItem("isCheckedOut") === "false") {
-              localStorage?.setItem("isCheckedOut", "true");
-            }
-            setAssistantOpen(!assistantOpen);
-          }}
-          className={`font-sans font-bold text-base text-left text-white ${
-            localStorage?.getItem("isCheckedOut") === "true"
-              ? "rounded-full p-3"
-              : "flex flex-row items-center rounded-lg p-1"
-          } ${
-            assistantOpen
-              ? "scale-150 duration-500 bg-green-500"
-              : "scale-100 duration-200 bg-gray-500"
-          }`}
-        >
-          <FaRobot className="text-3xl lg:text-4xl" />{" "}
-          {localStorage?.getItem("isCheckedOut") === "false" && (
-            <div className="ml-2">
-              Potrzebujesz pomocy? Tutaj uzyskasz szybką odpowiedź.
-            </div>
-          )}
-        </button>
+        {typeof window !== undefined && (
+          <button
+            onClick={() => {
+              if (localStorage?.getItem("isCheckedOut") === "false") {
+                localStorage?.setItem("isCheckedOut", "true");
+              }
+              setAssistantOpen(!assistantOpen);
+            }}
+            className={`font-sans font-bold text-base text-left text-white ${
+              localStorage?.getItem("isCheckedOut") === "true"
+                ? "rounded-full p-3"
+                : "flex flex-row items-center rounded-lg p-1"
+            } ${
+              assistantOpen
+                ? "scale-150 duration-500 bg-green-500"
+                : "scale-100 duration-200 bg-gray-500"
+            }`}
+          >
+            <FaRobot className="text-3xl lg:text-4xl" />{" "}
+            {localStorage?.getItem("isCheckedOut") === "false" && (
+              <div className="ml-2">
+                Potrzebujesz pomocy? Tutaj uzyskasz szybką odpowiedź.
+              </div>
+            )}
+          </button>
+        )}
       </div>
       <div
         id="containerId"
@@ -119,32 +127,34 @@ export default function AssistantAI() {
               placeholder="Wpisz pytanie..."
               className=" w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-zinc-800 font-bold"
             />
-
-            <button
-              disabled={loading}
-              onClick={() => {
-                setLoading(true);
-                pushSessionMessage(
-                  {
-                    content: userQuestion,
-                    role: "user",
-                    id: uuidv4(),
-                  },
-                  localStorage?.getItem("session")
-                ).then(() => {
-                  scrollToBottom();
-                });
-                getAnswer(userQuestion, localStorage?.getItem("session")!).then(
-                  (res) => {
+            {typeof window !== undefined && (
+              <button
+                disabled={loading}
+                onClick={() => {
+                  setLoading(true);
+                  pushSessionMessage(
+                    {
+                      content: userQuestion,
+                      role: "user",
+                      id: uuidv4(),
+                    },
+                    localStorage?.getItem("session")
+                  ).then(() => {
+                    scrollToBottom();
+                  });
+                  getAnswer(
+                    userQuestion,
+                    localStorage?.getItem("session")!
+                  ).then((res) => {
                     setLoading(false);
                     scrollToBottom();
-                  }
-                );
-              }}
-              className=" mt-3 disabled:opacity-50 disabled:cursor-not-allowed w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Wyślij
-            </button>
+                  });
+                }}
+                className=" mt-3 disabled:opacity-50 disabled:cursor-not-allowed w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Wyślij
+              </button>
+            )}
           </div>
         </div>
       </div>
