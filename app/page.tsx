@@ -161,9 +161,9 @@ export default async function Home({
                   <CountToTheNumberAnimated
                     textBeforeNumber="Zrealizowaliśmy już"
                     textAfterNumber="Projektów"
-                    numberToAnimateTo={75}
+                    numberToAnimateTo={79}
                     textColor="#3F3F46"
-                    animationSpeed={50}
+                    animationSpeed={55}
                   />
                 </div>
               </div>
