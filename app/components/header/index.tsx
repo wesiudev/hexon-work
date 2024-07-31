@@ -45,9 +45,9 @@ export default function Header({ view }: { view: any }) {
       setSupportsPWA(true);
       setPromptInstall(e);
     };
-    window.addEventListener("beforeinstallprompt", handler);
+    window?.addEventListener("beforeinstallprompt", handler);
 
-    return () => window.removeEventListener("transitionend", handler);
+    return () => window?.removeEventListener("transitionend", handler);
   }, []);
 
   const onClick = (evt: any) => {
