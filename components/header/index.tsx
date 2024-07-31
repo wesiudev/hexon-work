@@ -7,10 +7,10 @@ import {
   FaUser,
 } from "react-icons/fa";
 import Link from "next/link";
-import Faq from "/@faq";
 import { useEffect, useState } from "react";
 import { setModalVisible } from "@/common/redux/slices/actionSlice";
 import { useDispatch } from "react-redux";
+import Faq from "../faq";
 export default function Header({ view }: { view: any }) {
   const dispatch = useDispatch();
   const [isFaqOpen, setFaqOpen] = useState<boolean>(false);

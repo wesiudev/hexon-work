@@ -5,7 +5,6 @@ import AOSInit from "@/components/AOS";
 import { Providers } from "@/common/redux/Provider";
 import ClientFormWrapper from "@/components/cta/ClientFormWrapper";
 import { Metadata } from "next";
-import { v4 as uuidv4 } from "uuid";
 import AssistantAI from "@/components/AssistantAI";
 export default function Root({ children }: { children: React.ReactNode }) {
   return (
@@ -129,29 +128,29 @@ const cocosharp = localFont({
       style: "italic",
     },
     {
-      path: "/@public/fonts/BoldItalic.ttf",
+      path: "../public/fonts/BoldItalic.ttf",
       weight: "700",
       style: "italic",
     },
     {
-      path: "/@public/fonts/Bold.ttf",
+      path: "../public/fonts/Bold.ttf",
       weight: "700",
     },
     {
-      path: "/@public/fonts/ExtraLight.ttf",
+      path: "../public/fonts/ExtraLight.ttf",
       weight: "200",
     },
     {
-      path: "/@public/fonts/Light.ttf",
+      path: "../public/fonts/Light.ttf",
       weight: "300",
     },
     {
-      path: "/@public/fonts/LightItalic.ttf",
+      path: "../public/fonts/LightItalic.ttf",
       weight: "300",
       style: "italic",
     },
     {
-      path: "/@public/fonts/Regular.ttf",
+      path: "../public/fonts/Regular.ttf",
       weight: "500",
     },
   ],
