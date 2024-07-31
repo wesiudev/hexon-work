@@ -3,7 +3,7 @@ import { getPublicSessions } from "@/common/firebase";
 export default async function Page() {
   const publicSessions = await getPublicSessions();
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
+    <div className="grid grid-cols-1">
       {publicSessions.map((item: any, i: any) => (
         <>
           {item.messages.length > 0 && (
