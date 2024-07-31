@@ -127,9 +127,7 @@ export default function AssistantAI() {
                     id: uuidv4(),
                   },
                   localStorage?.getItem("session")
-                ).then(() => {
-                  setLoading(false);
-                });
+                );
                 getAnswer(userQuestion, localStorage?.getItem("session")!).then(
                   (res) => {
                     setLoading(false);
