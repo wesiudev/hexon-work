@@ -14,7 +14,7 @@ import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 import dynamic from "next/dynamic";
 import Toast from "@/components/Toast";
 import Assistant from "@/components/assistant/Assistant";
-const Nav = dynamic(() => import("./Nav"), { ssr: false });
+const Nav = dynamic(() => import("@/components/Nav"), { ssr: false });
 export default function AdminLayout({
   children,
 }: {
