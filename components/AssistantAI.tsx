@@ -81,7 +81,6 @@ export default function AssistantAI() {
         )}
       </div>
       <div
-        id="containerId"
         onClick={() => setAssistantOpen(!assistantOpen)}
         className={`z-[1999]  overflow-y-scroll scrollbar h-full w-full fixed font-gotham bg-black flex flex-col items-center justify-center ${
           assistantOpen
