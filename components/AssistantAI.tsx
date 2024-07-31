@@ -19,7 +19,7 @@ export default function AssistantAI() {
   const [loading, setLoading] = useState(false);
   const scrollToBottom = () => {
     const container: any = document?.getElementById("containerId");
-    container?.scrollTop = container?.scrollHeight;
+    container.scrollTop = container?.scrollHeight;
   };
   useEffect(() => {
     if (!localStorage?.getItem("isCheckedOut")) {
