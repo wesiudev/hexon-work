@@ -6,6 +6,7 @@ declare module "array-paginate";
 declare module "react-scroll";
 declare module "react-is-visible";
 declare module "aos";
+declare module "@next/third-parties/google";
 declare module "uuid";
 declare module "completions";
 declare module "@emotion/css";

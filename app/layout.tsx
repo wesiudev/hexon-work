@@ -5,6 +5,7 @@ import AOSInit from "@/components/AOS";
 import { Providers } from "@/common/redux/Provider";
 import ClientFormWrapper from "@/components/cta/ClientFormWrapper";
 import { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 export default async function Root({
   children,
 }: {
@@ -18,6 +19,7 @@ export default async function Root({
           {children}
           <ClientFormWrapper />
         </Providers>
+        <GoogleAnalytics gaId="AW-16664946086" />
         <Script
           strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=AW-10818390066"
@@ -28,6 +30,18 @@ export default async function Root({
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'AW-10818390066');
+          `}
+        </Script>
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-16664946086"
+        />
+        <Script strategy="afterInteractive" id="google-analytics">
+          {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-16664946086');
           `}
         </Script>
         <Script
