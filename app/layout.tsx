@@ -19,12 +19,12 @@ export default async function Root({
           {children}
           <ClientFormWrapper />
         </Providers>
-        <GoogleAnalytics gaId="AW-16664946086" />
+
         <Script
-          strategy="afterInteractive"
+          async
           src="https://www.googletagmanager.com/gtag/js?id=AW-10818390066"
         />
-        <Script strategy="afterInteractive" id="google-analytics">
+        <Script async id="google-analytics1">
           {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
@@ -32,11 +32,12 @@ export default async function Root({
               gtag('config', 'AW-10818390066');
           `}
         </Script>
+
         <Script
-          strategy="afterInteractive"
+          async
           src="https://www.googletagmanager.com/gtag/js?id=AW-16664946086"
         />
-        <Script strategy="afterInteractive" id="google-analytics">
+        <Script async id="google-analytics2">
           {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
@@ -44,11 +45,12 @@ export default async function Root({
               gtag('config', 'AW-16664946086');
           `}
         </Script>
+
         <Script
-          strategy="afterInteractive"
+          async
           src="https://www.googletagmanager.com/gtag/js?id=G-TKFVWD1KMR"
         />
-        <Script strategy="afterInteractive" id="google-analytics">
+        <Script async id="google-analytics">
           {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
