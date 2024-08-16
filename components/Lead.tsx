@@ -44,7 +44,7 @@ export default function Lead({
   }
   return (
     <>
-      {/* MAIN ADMIN LEADS */}
+      {/* SHOW MAIN ADMIN LEAD */}
       {!lead.owner && user?.email === "admin@hexon.work" && (
         <div
           key={lead.id}
@@ -125,7 +125,28 @@ export default function Lead({
                   }
                   className="font-bold text-white bg-blue-500 hover:bg-blue-400 w-full py-1.5"
                 >
-                  Nikoś
+                  Nikodem
+                </button>
+                <button
+                  onClick={() =>
+                    updateLead(lead.id, {
+                      ...lead,
+                      owner: "",
+                    }).then(() => {
+                      setSelectedLead(null);
+                      toast.success("Przypisano pomyślnie!", {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                      });
+                    })
+                  }
+                  className="font-bold text-white bg-green-500 hover:bg-green-400 w-full py-1.5"
+                >
+                  Adam
                 </button>
               </div>
               <button
@@ -445,6 +466,61 @@ export default function Lead({
             {optionsOpen && (
               <div className="w-full h-full absolute left-0 top-0 bg-black bg-opacity-50" />
             )}
+            {selectedLead && (
+              <div className="w-full h-full absolute left-0 top-0 items-center justify-center p-6 bg-black bg-opacity-80 z-[50]">
+                <h2 className="text-2xl mb-4 mt-6">Przypisz leada do:</h2>
+                <div className="h-[70%] w-full overflow-y-scroll scrollbar pr-3 py-4 flex flex-col space-y-2">
+                  <button
+                    onClick={() =>
+                      updateLead(lead.id, {
+                        ...lead,
+                        owner: "nikos",
+                      }).then(() => {
+                        setSelectedLead(null);
+                        toast.success("Przypisano pomyślnie!", {
+                          position: "top-right",
+                          autoClose: 5000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                        });
+                      })
+                    }
+                    className="font-bold text-white bg-blue-500 hover:bg-blue-400 w-full py-1.5"
+                  >
+                    Nikodem
+                  </button>
+                  <button
+                    onClick={() =>
+                      updateLead(lead.id, {
+                        ...lead,
+                        owner: "",
+                      }).then(() => {
+                        setSelectedLead(null);
+                        toast.success("Przypisano pomyślnie!", {
+                          position: "top-right",
+                          autoClose: 5000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                        });
+                      })
+                    }
+                    className="font-bold text-white bg-green-500 hover:bg-green-400 w-full py-1.5"
+                  >
+                    Adam
+                  </button>
+                </div>
+                <button
+                  onClick={() => setSelectedLead(null)}
+                  className="w-max mx-auto mt-3 text-black underline hover:no-underline"
+                >
+                  Zamknij
+                </button>
+              </div>
+            )}
             {lead.signed && (
               <div
                 onClick={() => {
@@ -501,6 +577,15 @@ export default function Lead({
                   !optionsOpen ? "-translate-y-[500px]" : "-translate-y-0"
                 }`}
               >
+                <button
+                  onClick={() => {
+                    setSelectedLead(lead.id);
+                    setOptionsOpen(false);
+                  }}
+                  className="w-full py-1 text-white bg-green-500 bg-opacity-100 duration-150 hover:bg-opacity-80 px-12"
+                >
+                  Przypisz
+                </button>
                 <button
                   onClick={() => {
                     setOptionsOpen(false);
@@ -743,6 +828,61 @@ export default function Lead({
           {optionsOpen && (
             <div className="w-full h-full absolute left-0 top-0 bg-black bg-opacity-50" />
           )}
+          {selectedLead && (
+            <div className="w-full h-full absolute left-0 top-0 items-center justify-center p-6 bg-black bg-opacity-80 z-[50]">
+              <h2 className="text-2xl mb-4 mt-6">Przypisz leada do:</h2>
+              <div className="h-[70%] w-full overflow-y-scroll scrollbar pr-3 py-4 flex flex-col space-y-2">
+                <button
+                  onClick={() =>
+                    updateLead(lead.id, {
+                      ...lead,
+                      owner: "nikos",
+                    }).then(() => {
+                      setSelectedLead(null);
+                      toast.success("Przypisano pomyślnie!", {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                      });
+                    })
+                  }
+                  className="font-bold text-white bg-blue-500 hover:bg-blue-400 w-full py-1.5"
+                >
+                  Nikodem
+                </button>
+                <button
+                  onClick={() =>
+                    updateLead(lead.id, {
+                      ...lead,
+                      owner: "",
+                    }).then(() => {
+                      setSelectedLead(null);
+                      toast.success("Przypisano pomyślnie!", {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                      });
+                    })
+                  }
+                  className="font-bold text-white bg-green-500 hover:bg-green-400 w-full py-1.5"
+                >
+                  Adam
+                </button>
+              </div>
+              <button
+                onClick={() => setSelectedLead(null)}
+                className="w-max mx-auto mt-3 text-black underline hover:no-underline"
+              >
+                Zamknij
+              </button>
+            </div>
+          )}
           {lead.signed && (
             <div
               onClick={() => {
@@ -799,6 +939,15 @@ export default function Lead({
                 !optionsOpen ? "-translate-y-[500px]" : "-translate-y-0"
               }`}
             >
+              <button
+                onClick={() => {
+                  setSelectedLead(lead.id);
+                  setOptionsOpen(false);
+                }}
+                className="w-full py-1 text-white bg-green-500 bg-opacity-100 duration-150 hover:bg-opacity-80 px-12"
+              >
+                Przypisz
+              </button>
               <button
                 onClick={() => {
                   setOptionsOpen(false);
