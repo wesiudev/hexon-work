@@ -131,8 +131,8 @@ export default function Admin() {
             }{" "}
           </p>
         </div>
-        <div className="mt-4 bg-blue-100 p-4 rounded-xl">
-          {user?.email === "nikos@hexon.work" && (
+        {user?.email === "nikos@hexon.work" && (
+          <div className="mt-4 bg-blue-100 p-4 rounded-xl">
             <ResponsiveContainer width="100%" height={width < 768 ? 300 : 700}>
               <LineChart
                 data={generateLeadsChartData(data.leads, "leady")}
@@ -152,10 +152,10 @@ export default function Admin() {
                 <Line type="monotone" dataKey="leady" stroke="blue" />
               </LineChart>
             </ResponsiveContainer>
-          )}
-        </div>
-        <div className="mt-4 bg-green-100 p-4 rounded-xl">
-          {user?.email === "admin@hexon.work" && (
+          </div>
+        )}
+        {user?.email === "admin@hexon.work" && (
+          <div className="mt-4 bg-green-100 p-4 rounded-xl">
             <ResponsiveContainer width="100%" height={350}>
               <BarChart
                 data={generateLeadsChartData(data.leads, "leady")}
@@ -174,8 +174,8 @@ export default function Admin() {
                 <Bar dataKey="leady" fill="green" />
               </BarChart>
             </ResponsiveContainer>
-          )}
-        </div>
+          </div>
+        )}
       </div>
       {/* <div
         className={`${
