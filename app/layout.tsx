@@ -12,13 +12,10 @@ export default async function Root({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pl">
+    <html lang="pl" style={{ scrollBehavior: "smooth" }}>
       <body className={`${cocosharp.variable} ${gotham.variable}`}>
         <AOSInit />
-        <Providers>
-          {children}
-          <ClientFormWrapper />
-        </Providers>
+        <Providers>{children}</Providers>
 
         <Script
           async

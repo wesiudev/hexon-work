@@ -1,5 +1,4 @@
 "use client";
-import RecruitmentForm from "./RecruitmentForm";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalVisible } from "@/common/redux/slices/actionSlice";
 export default function Cta({
@@ -10,8 +9,6 @@ export default function Cta({
   label: string;
 }) {
   const dispatch = useDispatch();
-  const { action } = useSelector((state: any) => state.action);
-
   function setModalVisibility(action: string) {
     dispatch(setModalVisible(action));
   }
@@ -29,8 +26,6 @@ export default function Cta({
       >
         {label}
       </button>
-
-      {action === "recruitment" && <RecruitmentForm />}
     </>
   );
 }

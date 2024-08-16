@@ -1,5 +1,5 @@
 "use client";
-import { app } from "@/common/firebase";
+import { app, auth } from "@/common/firebase";
 import { useWindowDimensions } from "@/lib/useWindowDimensions";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 import moment from "moment";
@@ -15,8 +15,12 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
+  Bar,
+  BarChart,
 } from "recharts";
 import { useSelector } from "react-redux";
+import { useAuthState } from "react-firebase-hooks/auth";
 interface AdminPageProps {
   courses: any[];
   leads: any[];
@@ -25,7 +29,7 @@ interface AdminPageProps {
 
 export default function Admin() {
   moment.locale("pl");
-
+  const [user, loading] = useAuthState(auth);
   const [data, setData] = useState<AdminPageProps>({
     courses: [],
     leads: [],
@@ -45,7 +49,18 @@ export default function Admin() {
       const snapshotData: any[] = querySnapshot.docs.map((doc: any) =>
         doc.data()
       );
-      setData((prevData) => ({ ...prevData, leads: snapshotData }));
+      if (user?.email === "admin@hexon.work") {
+        setData((prevData) => ({
+          ...prevData,
+          leads: snapshotData.filter((lead: any) => !lead.owner),
+        }));
+      }
+      if (user?.email === "nikos@hexon.work") {
+        setData((prevData) => ({
+          ...prevData,
+          leads: snapshotData.filter((lead: any) => lead.owner === "nikos"),
+        }));
+      }
     });
     const unsub3 = onSnapshot(ref2, (querySnapshot: any) => {
       const snapshotData: any[] = querySnapshot.docs.map((doc: any) =>
@@ -55,7 +70,7 @@ export default function Admin() {
     });
   }, []);
 
-  function generateLeadsChartData(data: any) {
+  function generateLeadsChartData(data: any, key: string) {
     // Find unique month names from leads
     const uniqueMonths = new Set(
       data.map((lead: any) => moment(lead.createdAt).format("MM.YYYY"))
@@ -65,7 +80,7 @@ export default function Admin() {
     // {'czerwiec 2024', 'maj 2024'}
     const chartData = uniqueMonthNames.map((month: any) => ({
       miesiac: month,
-      leady: data.filter(
+      [key]: data.filter(
         (lead: any) => moment(lead.createdAt).format("MM.YYYY") === month
       ).length,
     }));
@@ -76,13 +91,15 @@ export default function Admin() {
   const { light } = useSelector((state: any) => state.light);
   const { width } = useWindowDimensions();
   return (
-    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 -ml-4 -mt-4 p-6 font-sans">
+    <div
+      className={`min-h-screen grid lg:grid-cols-2 -ml-4 -mt-4 p-6 font-sans`}
+    >
       <div
         className={`${
           light
             ? "text-zinc-800 bg-white"
             : "text-white bg-zinc-800 duration-300"
-        } flex flex-col p-6 h-max ml-4 mt-4`}
+        } flex flex-col p-6 h-max ml-4 mt-4 rounded-md`}
       >
         <h2
           className={`text-3xl font-bold font-sans ${
@@ -90,40 +107,66 @@ export default function Admin() {
           }`}
         >
           <Link href="/admin/leads/leads" className="flex items-center">
-            <FaArrowRight className="mr-2" /> Dofinansowanie
+            Dofinansowanie <FaArrowRight className="ml-2" />
           </Link>
         </h2>
         <div
-          className={`mt-4 p-3 font-bold ${
-            light ? "text-zinc-800 bg-gray-300" : "text-white bg-zinc-600"
+          className={`mt-4 p-4 font-bold rounded-xl ${
+            light ? "text-white bg-[blue]" : "text-white bg-zinc-600"
           }`}
         >
           <p className="text-xl">Wszystkie Leady: {data.leads.length}</p>
           <p className="text-xl">
             Nowe Leady:{" "}
-            {data.leads.filter((lead: any) => !lead.isFinished)?.length}{" "}
+            {
+              data.leads.filter(
+                (lead: any) => !lead.isFinished && !lead.isTrash
+              )?.length
+            }{" "}
           </p>
         </div>
-        <div className="mt-4 bg-white p-4">
-          <LineChart
-            height={300}
-            width={width < 1024 ? 0.75 * width : 0.4 * width}
-            data={generateLeadsChartData(data.leads)}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="miesiac" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
+        <div className="mt-4 bg-blue-100 p-4 rounded-xl">
+          {user?.email === "nikos@hexon.work" && (
+            <ResponsiveContainer width="100%" height={width < 768 ? 300 : 700}>
+              <LineChart
+                data={generateLeadsChartData(data.leads, "leady")}
+                margin={{
+                  top: 5,
+                  right: 0,
+                  left: 0,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="miesiac" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
 
-            <Line type="monotone" dataKey="leady" stroke="blue" />
-          </LineChart>
+                <Line type="monotone" dataKey="leady" stroke="blue" />
+              </LineChart>
+            </ResponsiveContainer>
+          )}
+          {user?.email === "admin@hexon.work" && (
+            <ResponsiveContainer width="100%" height={350}>
+              <BarChart
+                data={generateLeadsChartData(data.leads, "leady")}
+                margin={{
+                  top: 5,
+                  right: 0,
+                  left: 0,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="miesiac" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="leady" fill="green" />
+              </BarChart>
+            </ResponsiveContainer>
+          )}
         </div>
       </div>
       {/* <div
@@ -176,56 +219,66 @@ export default function Admin() {
           </LineChart>
         </div>
       </div> */}
-      <div
-        className={`${
-          light
-            ? "text-zinc-800 bg-white"
-            : "text-white bg-zinc-800 duration-300"
-        } flex flex-col p-6 h-max ml-4 mt-4`}
-      >
-        <h2
-          className={`text-3xl font-bold font-sans ${
-            light ? "text-zinc-800" : "text-white"
-          }`}
-        >
-          <Link href="/admin/leads/applications" className="flex items-center">
-            <FaArrowRight className="mr-2" />
-            Aplikacje
-          </Link>
-        </h2>
+      {user?.email === "admin@hexon.work" && (
         <div
-          className={`mt-4 p-3 font-bold ${
-            light ? "text-zinc-800 bg-gray-300" : "text-white bg-zinc-600"
-          }`}
+          className={`${
+            light
+              ? "text-zinc-800 bg-white"
+              : "text-white bg-zinc-800 duration-300"
+          } flex flex-col p-6 h-max ml-4 mt-4 rounded-md`}
         >
-          <p className="text-xl">Wszystkie Leady: {data.applications.length}</p>
-          <p className="text-xl">
-            Nowe Leady:{" "}
-            {data.applications.filter((lead: any) => !lead.isFinished)?.length}{" "}
-          </p>
-        </div>
-        <div className="mt-4 bg-white p-4">
-          <LineChart
-            height={300}
-            width={width < 1024 ? 0.75 * width : 0.4 * width}
-            data={generateLeadsChartData(data.applications)}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
+          <h2
+            className={`text-3xl font-bold font-sans ${
+              light ? "text-zinc-800" : "text-white"
+            }`}
           >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="miesiac" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
+            <Link
+              href="/admin/leads/applications"
+              className="flex items-center"
+            >
+              <FaArrowRight className="mr-2" />
+              Aplikacje
+            </Link>
+          </h2>
+          <div
+            className={`mt-4 p-4 font-bold rounded-xl ${
+              light ? "text-white bg-[green]" : "text-white bg-zinc-600"
+            }`}
+          >
+            <p className="text-xl">
+              Wszystkie aplikacje: {data.applications.length}
+            </p>
+            <p className="text-xl">
+              Nowe aplikacje:{" "}
+              {
+                data.applications.filter((lead: any) => !lead.isFinished)
+                  ?.length
+              }{" "}
+            </p>
+          </div>
+          <div className="mt-4 bg-green-100 p-4 rounded-xl">
+            <ResponsiveContainer width="100%" height={350}>
+              <LineChart
+                data={generateLeadsChartData(data.applications, "aplikacje")}
+                margin={{
+                  top: 5,
+                  right: 0,
+                  left: 0,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="miesiac" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
 
-            <Line type="monotone" dataKey="leady" stroke="blue" />
-          </LineChart>
+                <Line type="monotone" dataKey="aplikacje" stroke="green" />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

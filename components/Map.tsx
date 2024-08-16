@@ -5,7 +5,7 @@ import { useEffect } from "react";
 export default function Map() {
   useEffect(() => {
     AOS.init({
-      offset: 50,
+      offset: 0,
     });
   }, []);
   return (

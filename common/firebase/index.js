@@ -194,6 +194,12 @@ export async function updateLead(id, data) {
   await updateDoc(docRef, data);
   return docRef;
 }
+
+export async function deleteLead(id) {
+  const docRef = doc(collection(db, "leads"), id);
+  await deleteDoc(docRef);
+  return docRef;
+}
 export async function updateApplication(id, data) {
   const docRef = doc(collection(db, "employees"), id);
   await updateDoc(docRef, data);

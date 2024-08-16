@@ -54,7 +54,7 @@ export default function AdminLayout({
     <>
       <Toast />
 
-      <Assistant messages={assistantMessages} mode={mode} setMode={setMode} />
+      {/* <Assistant messages={assistantMessages} mode={mode} setMode={setMode} /> */}
       {!loading && (
         <div className="relative w-full overflow-x-hidden font-coco bg-[#404149] font-sans pb-48">
           {!pathname.includes("/leads/leads") &&

@@ -17,10 +17,12 @@ export default function AssistantAI() {
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [messages, setMessages] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-
+  const [isCheckedOut, setIsCheckedOut] = useState(false);
   useEffect(() => {
     if (!localStorage?.getItem("isCheckedOut")) {
-      localStorage?.setItem("isCheckedOut", "false");
+      setIsCheckedOut(false);
+    } else {
+      setIsCheckedOut(true);
     }
     const id = uuidv4();
     if (!localStorage?.getItem("session")) {
@@ -45,19 +47,19 @@ export default function AssistantAI() {
       );
     });
   }, []);
-
   return (
-    <>
+    <div>
       <div className="fixed bottom-3 right-3 lg:bottom-6 lg:right-6 z-[2999]">
         <button
           onClick={() => {
-            if (localStorage?.getItem("isCheckedOut") === "false") {
+            if (!isCheckedOut) {
               localStorage?.setItem("isCheckedOut", "true");
+              setIsCheckedOut(true);
             }
             setAssistantOpen(!assistantOpen);
           }}
           className={`font-sans font-bold text-base text-left text-white ${
-            localStorage?.getItem("isCheckedOut") === "true"
+            isCheckedOut
               ? "rounded-full p-3"
               : "flex flex-row items-center rounded-lg p-1"
           } ${
@@ -67,7 +69,7 @@ export default function AssistantAI() {
           }`}
         >
           <FaRobot className="text-3xl lg:text-4xl" />{" "}
-          {localStorage?.getItem("isCheckedOut") === "false" && (
+          {!isCheckedOut && (
             <div className="ml-2">
               Potrzebujesz pomocy? Tutaj uzyskasz szybką odpowiedź.
             </div>
@@ -141,6 +143,6 @@ export default function AssistantAI() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
