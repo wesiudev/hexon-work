@@ -112,7 +112,13 @@ export default function Admin() {
         </h2>
         <div
           className={`mt-4 p-4 font-bold rounded-xl ${
-            light ? "text-white bg-[blue]" : "text-white bg-zinc-600"
+            light
+              ? `text-white ${
+                  user?.email === "admin@hexon.work"
+                    ? "bg-[green]"
+                    : "bg-[blue]"
+                }`
+              : "text-white bg-zinc-600"
           }`}
         >
           <p className="text-xl">Wszystkie Leady: {data.leads.length}</p>
@@ -147,6 +153,8 @@ export default function Admin() {
               </LineChart>
             </ResponsiveContainer>
           )}
+        </div>
+        <div className="mt-4 bg-green-100 p-4 rounded-xl">
           {user?.email === "admin@hexon.work" && (
             <ResponsiveContainer width="100%" height={350}>
               <BarChart
