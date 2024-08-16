@@ -16,7 +16,6 @@ export default async function Root({
       <body className={`${cocosharp.variable} ${gotham.variable}`}>
         <AOSInit />
         <Providers>{children}</Providers>
-
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=AW-10818390066"

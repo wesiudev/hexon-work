@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import Toast from "../Toast";
 import { useDispatch } from "react-redux";
 import { setModalVisible } from "@/common/redux/slices/actionSlice";
+import Success from "../Success";
 export default function ClientFormLogic({
   searchParams,
 }: {
@@ -128,6 +129,7 @@ export default function ClientFormLogic({
   return (
     <div>
       <Toast />
+      {isSent && <Success />}
       <div className="flex flex-col relative">
         {formData.houseAge !== undefined && (
           <div
