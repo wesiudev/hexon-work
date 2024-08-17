@@ -149,12 +149,14 @@ export default function Lead({
                   Adam
                 </button>
               </div>
-              <button
-                onClick={() => setSelectedLead(null)}
-                className="w-max mx-auto mt-3 text-black underline hover:no-underline"
-              >
-                Zamknij
-              </button>
+              <div className="w-full flex justify-center bg-white bg-opacity-20 hover:bg-opacity-30 duration-150 p-3 mt-3">
+                <button
+                  onClick={() => setSelectedLead(null)}
+                  className="text-black underline hover:no-underline"
+                >
+                  Zamknij
+                </button>
+              </div>
             </div>
           )}
           {lead.signed && (
