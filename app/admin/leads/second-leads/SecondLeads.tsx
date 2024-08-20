@@ -81,7 +81,10 @@ export default function SecondLeads() {
                 const content = draftToHtml(
                   convertToRaw(noteContent.getCurrentContent())
                 );
-                updateLead(isNoteOpen.id, { ...isNoteOpen, note: content });
+                updateSecondLead(isNoteOpen.id, {
+                  ...isNoteOpen,
+                  note: content,
+                });
                 setNoteOpen(undefined);
               }}
               className="w-full bg-green-500 hover:bg-green-400 font-gotham p-3 text-white font-bold"
