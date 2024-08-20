@@ -64,7 +64,7 @@ export default function ClientForm({
             </div>
             <div className="lg:px-3 mt-3 lg:mt-0">
               <h2 className="text-2xl text-left xl:text-4xl font-bold text-blue-600 drop-shadow-xl shadow-black italic">
-                Wypełnij wniosek o dofinansowanie
+                Otrzymaj do 136 000,00 PLN na remont domu
               </h2>
               <p className="sm:text-justify mt-3 mx-auto text-gray-600 font-light">
                 Dzięki podanym informacjom będziemy mogli dostosować poziom
