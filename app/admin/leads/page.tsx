@@ -165,7 +165,7 @@ export default function Admin() {
               <div className="mt-4 bg-green-100 p-4 rounded-xl">
                 <ResponsiveContainer width="100%" height={350}>
                   <BarChart
-                    data={generateLeadsChartData(data.secondLeads, "leady")}
+                    data={generateLeadsChartData(data.leads, "leady")}
                     margin={{
                       top: 5,
                       right: 0,
