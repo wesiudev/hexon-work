@@ -8,11 +8,13 @@ import Toast from "../Toast";
 import { useDispatch } from "react-redux";
 import { setModalVisible } from "@/common/redux/slices/actionSlice";
 import Success from "../Success";
+import { useRouter } from "next/navigation";
 export default function ClientFormLogic({
   searchParams,
 }: {
   searchParams: any;
 }) {
+  const router = useRouter();
   const dispatch = useDispatch();
   const [error, setError] = useState({
     name: false,
@@ -89,6 +91,7 @@ export default function ClientFormLogic({
             theme: "dark",
             isLoading: false,
           });
+          router.push("/?thankyou=true");
           setTimeout(() => {
             dispatch(setModalVisible(""));
           }, 5000);
@@ -116,6 +119,7 @@ export default function ClientFormLogic({
             theme: "dark",
             isLoading: false,
           });
+          router.push("/?thankyou=true");
           setTimeout(() => {
             dispatch(setModalVisible(""));
           }, 5000);
