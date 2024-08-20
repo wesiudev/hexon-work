@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { IoDiamondOutline } from "react-icons/io5";
-import ToiLead from "./SecondToiLead";
+import ToiLead from "./ToiLead";
 import { FaCheckCircle } from "react-icons/fa";
 import { renderMarkdown } from "@/utils/parseMarkdown";
 import { useAuthState } from "react-firebase-hooks/auth";

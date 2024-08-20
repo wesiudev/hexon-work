@@ -1,5 +1,5 @@
 "use client";
-import { app, updateLead } from "@/common/firebase";
+import { app, updateLead, updateSecondLead } from "@/common/firebase";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, getFirestore } from "firebase/firestore";

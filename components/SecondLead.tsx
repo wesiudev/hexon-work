@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { IoDiamondOutline } from "react-icons/io5";
-import ToiLead from "./SecondToiLead";
+import ToiLead from "./ToiLead";
 import { FaCheckCircle } from "react-icons/fa";
 import { renderMarkdown } from "@/utils/parseMarkdown";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -48,7 +48,7 @@ export default function SecondLead({
       {user?.email === "admin@hexon.work" && (
         <div
           key={lead.id}
-          className={`min-h-[325px] rounded relative bg-zinc-800 p-3 h-max border-[3px] overflow-hidden ${
+          className={`rounded relative bg-zinc-800 p-3 h-max border-[3px] overflow-hidden ${
             lead.status === "trash" && "border-orange-700"
           } ${lead.status === "reseted" && "border-white"} ${
             lead.status === "accepted" && "border-green-500"
@@ -288,7 +288,7 @@ export default function SecondLead({
               </tr>
             </tbody>
           </table>
-          <div className="pt-3 w-full flex flex-row justify-between">
+          <div className="mt-10 w-full flex flex-row justify-between">
             <div>Notatka:</div>
             <button
               onClick={() => {
@@ -611,7 +611,7 @@ export default function SecondLead({
                 </tr>
               </tbody>
             </table>
-            <div className="pt-3 w-full flex flex-row justify-between">
+            <div className="mt-10 w-full flex flex-row justify-between">
               <div>Notatka:</div>
               <button
                 onClick={() => {
@@ -932,7 +932,7 @@ export default function SecondLead({
               </tr>
             </tbody>
           </table>
-          <div className="pt-3 w-full flex flex-row justify-between">
+          <div className="mt-10 w-full flex flex-row justify-between">
             <div>Notatka:</div>
             <button
               onClick={() => {
