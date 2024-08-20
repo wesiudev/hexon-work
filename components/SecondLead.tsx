@@ -1,5 +1,5 @@
 "use client";
-import { auth, deleteLead, updateLead } from "@/common/firebase";
+import { auth, deleteSecondLead, updateSecondLead } from "@/common/firebase";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +11,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { renderMarkdown } from "@/utils/parseMarkdown";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
-export default function Lead({
+export default function SecondLead({
   forceVisibility,
   lead,
   filter,
@@ -45,10 +45,10 @@ export default function Lead({
   return (
     <>
       {/* SHOW MAIN ADMIN LEAD */}
-      {!lead.owner && user?.email === "admin@hexon.work" && (
+      {user?.email === "admin@hexon.work" && (
         <div
           key={lead.id}
-          className={`rounded relative bg-zinc-800 p-3 h-max border-[3px] overflow-hidden ${
+          className={`min-h-[325px] rounded relative bg-zinc-800 p-3 h-max border-[3px] overflow-hidden ${
             lead.status === "trash" && "border-orange-700"
           } ${lead.status === "reseted" && "border-white"} ${
             lead.status === "accepted" && "border-green-500"
@@ -102,13 +102,13 @@ export default function Lead({
           {optionsOpen && (
             <div className="w-full h-full absolute left-0 top-0 bg-black bg-opacity-50" />
           )}
-          {selectedLead && (
+          {/* {selectedLead && (
             <div className="w-full h-full absolute left-0 top-0 items-center justify-center p-6 bg-black bg-opacity-80 z-[50]">
               <h2 className="text-2xl mb-4 mt-6">Przypisz leada do:</h2>
               <div className="h-[70%] w-full overflow-y-scroll scrollbar pr-3 py-4 flex flex-col space-y-2">
                 <button
                   onClick={() =>
-                    updateLead(lead.id, {
+                    updateSecondLead(lead.id, {
                       ...lead,
                       owner: "nikos",
                     }).then(() => {
@@ -129,7 +129,7 @@ export default function Lead({
                 </button>
                 <button
                   onClick={() =>
-                    updateLead(lead.id, {
+                    updateSecondLead(lead.id, {
                       ...lead,
                       owner: "",
                     }).then(() => {
@@ -158,7 +158,7 @@ export default function Lead({
                 </button>
               </div>
             </div>
-          )}
+          )} */}
           {lead.signed && (
             <div
               onClick={() => {
@@ -215,7 +215,7 @@ export default function Lead({
                 !optionsOpen ? "-translate-y-[500px]" : "-translate-y-0"
               }`}
             >
-              <button
+              {/* <button
                 onClick={() => {
                   setSelectedLead(lead.id);
                   setOptionsOpen(false);
@@ -223,7 +223,7 @@ export default function Lead({
                 className="w-full py-1 text-white bg-green-500 bg-opacity-100 duration-150 hover:bg-opacity-80 px-12"
               >
                 Przypisz
-              </button>
+              </button> */}
               <button
                 onClick={() => {
                   setOptionsOpen(false);
@@ -235,7 +235,7 @@ export default function Lead({
               </button>
               <button
                 onClick={() =>
-                  updateLead(lead.id, {
+                  updateSecondLead(lead.id, {
                     ...lead,
                     isFinished: false,
                     isTrash: false,
@@ -250,7 +250,7 @@ export default function Lead({
               <div className="h-12"></div>
               <button
                 onClick={() => {
-                  deleteLead(lead.id).then(() => {
+                  deleteSecondLead(lead.id).then(() => {
                     toast.success("Usunięto", {
                       position: "top-right",
                       autoClose: 5000,
@@ -271,61 +271,20 @@ export default function Lead({
           <table className="w-full mt-3">
             <tbody>
               <tr className="bg-gray-700">
-                <td>Komornik:</td>
-                <td>{lead.debtStatus}</td>
+                <td>Imie i nazwisko:</td>
+                <td>{lead.name}</td>
               </tr>
               <tr className="bg-gray-600">
-                <td>Źródło ciepła:</td>
-                <td>{lead.heatingSource}</td>
+                <td>Numer telefonu:</td>
+                <td>{lead.pNumber}</td>
               </tr>
               <tr className="bg-gray-700">
-                <td>Hektary:</td>
-                <td>{lead.hectareCount}</td>
+                <td>Dostawca:</td>
+                <td>{lead.provider}</td>
               </tr>
               <tr className="bg-gray-600">
-                <td>Więcej niż 10 lat:</td>
-                <td>{lead.houseAge}</td>
-              </tr>
-              <tr className="bg-gray-700">
-                <td>Rodzaj budynku:</td>
-                <td>{lead.houseType}</td>
-              </tr>
-              <tr className="bg-gray-600">
-                <td>Dochody:</td>
-                <td>{lead.incomeLevel}</td>
-              </tr>
-              <tr className="bg-gray-700">
-                <td>Właściciel KW:</td>
-                <td>{lead.ownership === true ? "Tak" : "Nie"}</td>
-              </tr>
-              <tr className="bg-gray-600">
-                <td>Numer KW:</td>
-                <td>
-                  {lead?.ownerNumber1 &&
-                  lead?.ownerNumber2 &&
-                  lead?.ownerNumber3 ? (
-                    <div className="">
-                      {lead?.ownerNumber1} / {lead?.ownerNumber2} /{" "}
-                      {lead?.ownerNumber3}
-                    </div>
-                  ) : (
-                    "Nie podano"
-                  )}{" "}
-                </td>
-              </tr>
-              <tr className="bg-gray-700">
-                <td>Numer Telefonu:</td>
-                <td>
-                  {lead.phone} {lead.name}
-                </td>
-              </tr>
-              <tr className="bg-gray-600">
-                <td>Uczestnicy gospodarstwa:</td>
-                <td>{lead.visitors}</td>
-              </tr>
-              <tr className="bg-gray-700">
-                <td>Region:</td>
-                <td>{lead?.region ? lead.region : "Nie podano"}</td>
+                <td>Właściciel firmy:</td>
+                <td>{lead.owner}</td>
               </tr>
             </tbody>
           </table>
@@ -348,7 +307,7 @@ export default function Lead({
             {!lead.isFinished && (
               <button
                 onClick={() =>
-                  updateLead(lead.id, {
+                  updateSecondLead(lead.id, {
                     ...lead,
                     isFinished: true,
                   })
@@ -363,7 +322,7 @@ export default function Lead({
                 <div className="grid grid-cols-2 mt-2 gap-2">
                   <button
                     onClick={() =>
-                      updateLead(lead.id, {
+                      updateSecondLead(lead.id, {
                         ...lead,
                         status: "rejected",
                       })
@@ -374,7 +333,7 @@ export default function Lead({
                   </button>
                   <button
                     onClick={() =>
-                      updateLead(lead.id, {
+                      updateSecondLead(lead.id, {
                         ...lead,
                         status: "accepted",
                       })
@@ -468,13 +427,13 @@ export default function Lead({
             {optionsOpen && (
               <div className="w-full h-full absolute left-0 top-0 bg-black bg-opacity-50" />
             )}
-            {selectedLead && (
+            {/* {selectedLead && (
               <div className="w-full h-full absolute left-0 top-0 items-center justify-center p-6 bg-black bg-opacity-80 z-[50]">
                 <h2 className="text-2xl mb-4 mt-6">Przypisz leada do:</h2>
                 <div className="h-[70%] w-full overflow-y-scroll scrollbar pr-3 py-4 flex flex-col space-y-2">
                   <button
                     onClick={() =>
-                      updateLead(lead.id, {
+                      updateSecondLead(lead.id, {
                         ...lead,
                         owner: "nikos",
                       }).then(() => {
@@ -495,7 +454,7 @@ export default function Lead({
                   </button>
                   <button
                     onClick={() =>
-                      updateLead(lead.id, {
+                      updateSecondLead(lead.id, {
                         ...lead,
                         owner: "",
                       }).then(() => {
@@ -522,7 +481,7 @@ export default function Lead({
                   Zamknij
                 </button>
               </div>
-            )}
+            )} */}
             {lead.signed && (
               <div
                 onClick={() => {
@@ -579,7 +538,7 @@ export default function Lead({
                   !optionsOpen ? "-translate-y-[500px]" : "-translate-y-0"
                 }`}
               >
-                <button
+                {/* <button
                   onClick={() => {
                     setSelectedLead(lead.id);
                     setOptionsOpen(false);
@@ -587,7 +546,7 @@ export default function Lead({
                   className="w-full py-1 text-white bg-green-500 bg-opacity-100 duration-150 hover:bg-opacity-80 px-12"
                 >
                   Przypisz
-                </button>
+                </button> */}
                 <button
                   onClick={() => {
                     setOptionsOpen(false);
@@ -599,7 +558,7 @@ export default function Lead({
                 </button>
                 <button
                   onClick={() =>
-                    updateLead(lead.id, {
+                    updateSecondLead(lead.id, {
                       ...lead,
                       isFinished: false,
                       isTrash: false,
@@ -614,7 +573,7 @@ export default function Lead({
                 <div className="h-12"></div>
                 <button
                   onClick={() => {
-                    deleteLead(lead.id).then(() => {
+                    deleteSecondLead(lead.id).then(() => {
                       toast.success("Usunięto", {
                         position: "top-right",
                         autoClose: 5000,
@@ -635,61 +594,20 @@ export default function Lead({
             <table className="w-full mt-3">
               <tbody>
                 <tr className="bg-gray-700">
-                  <td>Komornik:</td>
-                  <td>{lead.debtStatus}</td>
+                  <td>Imie i nazwisko:</td>
+                  <td>{lead.name}</td>
                 </tr>
                 <tr className="bg-gray-600">
-                  <td>Źródło ciepła:</td>
-                  <td>{lead.heatingSource}</td>
+                  <td>Numer telefonu:</td>
+                  <td>{lead.pNumber}</td>
                 </tr>
                 <tr className="bg-gray-700">
-                  <td>Hektary:</td>
-                  <td>{lead.hectareCount}</td>
+                  <td>Dostawca:</td>
+                  <td>{lead.provider}</td>
                 </tr>
                 <tr className="bg-gray-600">
-                  <td>Więcej niż 10 lat:</td>
-                  <td>{lead.houseAge}</td>
-                </tr>
-                <tr className="bg-gray-700">
-                  <td>Rodzaj budynku:</td>
-                  <td>{lead.houseType}</td>
-                </tr>
-                <tr className="bg-gray-600">
-                  <td>Dochody:</td>
-                  <td>{lead.incomeLevel}</td>
-                </tr>
-                <tr className="bg-gray-700">
-                  <td>Właściciel KW:</td>
-                  <td>{lead.ownership === true ? "Tak" : "Nie"}</td>
-                </tr>
-                <tr className="bg-gray-600">
-                  <td>Numer KW:</td>
-                  <td>
-                    {lead?.ownerNumber1 &&
-                    lead?.ownerNumber2 &&
-                    lead?.ownerNumber3 ? (
-                      <div className="">
-                        {lead?.ownerNumber1} / {lead?.ownerNumber2} /{" "}
-                        {lead?.ownerNumber3}
-                      </div>
-                    ) : (
-                      "Nie podano"
-                    )}{" "}
-                  </td>
-                </tr>
-                <tr className="bg-gray-700">
-                  <td>Numer Telefonu:</td>
-                  <td>
-                    {lead.phone} {lead.name}
-                  </td>
-                </tr>
-                <tr className="bg-gray-600">
-                  <td>Uczestnicy gospodarstwa:</td>
-                  <td>{lead.visitors}</td>
-                </tr>
-                <tr className="bg-gray-700">
-                  <td>Region:</td>
-                  <td>{lead?.region ? lead.region : "Nie podano"}</td>
+                  <td>Właściciel firmy:</td>
+                  <td>{lead.owner}</td>
                 </tr>
               </tbody>
             </table>
@@ -712,7 +630,7 @@ export default function Lead({
               {!lead.isFinished && (
                 <button
                   onClick={() =>
-                    updateLead(lead.id, {
+                    updateSecondLead(lead.id, {
                       ...lead,
                       isFinished: true,
                     })
@@ -727,7 +645,7 @@ export default function Lead({
                   <div className="grid grid-cols-2 mt-2 gap-2">
                     <button
                       onClick={() =>
-                        updateLead(lead.id, {
+                        updateSecondLead(lead.id, {
                           ...lead,
                           status: "rejected",
                         })
@@ -738,7 +656,7 @@ export default function Lead({
                     </button>
                     <button
                       onClick={() =>
-                        updateLead(lead.id, {
+                        updateSecondLead(lead.id, {
                           ...lead,
                           status: "accepted",
                         })
@@ -830,13 +748,13 @@ export default function Lead({
           {optionsOpen && (
             <div className="w-full h-full absolute left-0 top-0 bg-black bg-opacity-50" />
           )}
-          {selectedLead && (
+          {/* {selectedLead && (
             <div className="w-full h-full absolute left-0 top-0 items-center justify-center p-6 bg-black bg-opacity-80 z-[50]">
               <h2 className="text-2xl mb-4 mt-6">Przypisz leada do:</h2>
               <div className="h-[70%] w-full overflow-y-scroll scrollbar pr-3 py-4 flex flex-col space-y-2">
                 <button
                   onClick={() =>
-                    updateLead(lead.id, {
+                    updateSecondLead(lead.id, {
                       ...lead,
                       owner: "nikos",
                     }).then(() => {
@@ -857,7 +775,7 @@ export default function Lead({
                 </button>
                 <button
                   onClick={() =>
-                    updateLead(lead.id, {
+                    updateSecondLead(lead.id, {
                       ...lead,
                       owner: "",
                     }).then(() => {
@@ -884,7 +802,7 @@ export default function Lead({
                 Zamknij
               </button>
             </div>
-          )}
+          )} */}
           {lead.signed && (
             <div
               onClick={() => {
@@ -941,7 +859,7 @@ export default function Lead({
                 !optionsOpen ? "-translate-y-[500px]" : "-translate-y-0"
               }`}
             >
-              <button
+              {/* <button
                 onClick={() => {
                   setSelectedLead(lead.id);
                   setOptionsOpen(false);
@@ -949,7 +867,7 @@ export default function Lead({
                 className="w-full py-1 text-white bg-green-500 bg-opacity-100 duration-150 hover:bg-opacity-80 px-12"
               >
                 Przypisz
-              </button>
+              </button> */}
               <button
                 onClick={() => {
                   setOptionsOpen(false);
@@ -961,7 +879,7 @@ export default function Lead({
               </button>
               <button
                 onClick={() =>
-                  updateLead(lead.id, {
+                  updateSecondLead(lead.id, {
                     ...lead,
                     isFinished: false,
                     isTrash: false,
@@ -976,7 +894,7 @@ export default function Lead({
               <div className="h-12"></div>
               <button
                 onClick={() => {
-                  deleteLead(lead.id).then(() => {
+                  deleteSecondLead(lead.id).then(() => {
                     toast.success("Usunięto", {
                       position: "top-right",
                       autoClose: 5000,
@@ -997,61 +915,20 @@ export default function Lead({
           <table className="w-full mt-3">
             <tbody>
               <tr className="bg-gray-700">
-                <td>Komornik:</td>
-                <td>{lead.debtStatus}</td>
+                <td>Imie i nazwisko:</td>
+                <td>{lead.name}</td>
               </tr>
               <tr className="bg-gray-600">
-                <td>Źródło ciepła:</td>
-                <td>{lead.heatingSource}</td>
+                <td>Numer telefonu:</td>
+                <td>{lead.pNumber}</td>
               </tr>
               <tr className="bg-gray-700">
-                <td>Hektary:</td>
-                <td>{lead.hectareCount}</td>
+                <td>Dostawca:</td>
+                <td>{lead.provider}</td>
               </tr>
               <tr className="bg-gray-600">
-                <td>Więcej niż 10 lat:</td>
-                <td>{lead.houseAge}</td>
-              </tr>
-              <tr className="bg-gray-700">
-                <td>Rodzaj budynku:</td>
-                <td>{lead.houseType}</td>
-              </tr>
-              <tr className="bg-gray-600">
-                <td>Dochody:</td>
-                <td>{lead.incomeLevel}</td>
-              </tr>
-              <tr className="bg-gray-700">
-                <td>Właściciel KW:</td>
-                <td>{lead.ownership === true ? "Tak" : "Nie"}</td>
-              </tr>
-              <tr className="bg-gray-600">
-                <td>Numer KW:</td>
-                <td>
-                  {lead?.ownerNumber1 &&
-                  lead?.ownerNumber2 &&
-                  lead?.ownerNumber3 ? (
-                    <div className="">
-                      {lead?.ownerNumber1} / {lead?.ownerNumber2} /{" "}
-                      {lead?.ownerNumber3}
-                    </div>
-                  ) : (
-                    "Nie podano"
-                  )}{" "}
-                </td>
-              </tr>
-              <tr className="bg-gray-700">
-                <td>Numer Telefonu:</td>
-                <td>
-                  {lead.phone} {lead.name}
-                </td>
-              </tr>
-              <tr className="bg-gray-600">
-                <td>Uczestnicy gospodarstwa:</td>
-                <td>{lead.visitors}</td>
-              </tr>
-              <tr className="bg-gray-700">
-                <td>Region:</td>
-                <td>{lead?.region ? lead.region : "Nie podano"}</td>
+                <td>Właściciel firmy:</td>
+                <td>{lead.owner}</td>
               </tr>
             </tbody>
           </table>
@@ -1074,7 +951,7 @@ export default function Lead({
             {!lead.isFinished && (
               <button
                 onClick={() =>
-                  updateLead(lead.id, {
+                  updateSecondLead(lead.id, {
                     ...lead,
                     isFinished: true,
                   })
@@ -1089,7 +966,7 @@ export default function Lead({
                 <div className="grid grid-cols-2 mt-2 gap-2">
                   <button
                     onClick={() =>
-                      updateLead(lead.id, {
+                      updateSecondLead(lead.id, {
                         ...lead,
                         status: "rejected",
                       })
@@ -1100,7 +977,7 @@ export default function Lead({
                   </button>
                   <button
                     onClick={() =>
-                      updateLead(lead.id, {
+                      updateSecondLead(lead.id, {
                         ...lead,
                         status: "accepted",
                       })

@@ -1,7 +1,7 @@
 import { updateLead } from "@/common/firebase";
 import Link from "next/link";
 
-export default function ToiLead({
+export default function SecondToiLead({
   lead,
   setAnimationStarted,
   setAnimationCheck,

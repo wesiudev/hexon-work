@@ -26,6 +26,7 @@ interface AdminPageProps {
   leads: any[];
   applications: any[];
   nikosLeads: any[];
+  secondLeads: any[];
 }
 
 export default function Admin() {
@@ -36,12 +37,14 @@ export default function Admin() {
     leads: [],
     applications: [],
     nikosLeads: [],
+    secondLeads: [],
   });
   useEffect(() => {
     const ref1 = collection(getFirestore(app), "leads");
     const ref2 = collection(getFirestore(app), "employees");
+    const ref3 = collection(getFirestore(app), "secondLeads");
 
-    const unsub2 = onSnapshot(ref1, (querySnapshot: any) => {
+    const unsub = onSnapshot(ref1, (querySnapshot: any) => {
       const snapshotData: any[] = querySnapshot.docs.map((doc: any) =>
         doc.data()
       );
@@ -61,11 +64,17 @@ export default function Admin() {
         }));
       }
     });
-    const unsub3 = onSnapshot(ref2, (querySnapshot: any) => {
+    const unsub1 = onSnapshot(ref2, (querySnapshot: any) => {
       const snapshotData: any[] = querySnapshot.docs.map((doc: any) =>
         doc.data()
       );
       setData((prevData) => ({ ...prevData, applications: snapshotData }));
+    });
+    const unsub2 = onSnapshot(ref3, (querySnapshot: any) => {
+      const snapshotData: any[] = querySnapshot.docs.map((doc: any) =>
+        doc.data()
+      );
+      setData((prevData) => ({ ...prevData, secondLeads: snapshotData }));
     });
   }, []);
 
@@ -91,88 +100,160 @@ export default function Admin() {
     <div
       className={`min-h-screen grid lg:grid-cols-2 -ml-4 -mt-4 p-6 font-sans`}
     >
-      <div
-        className={`${
-          light
-            ? "text-zinc-800 bg-white"
-            : "text-white bg-zinc-800 duration-300"
-        } flex flex-col p-6 h-max ml-4 mt-4 rounded-md`}
-      >
-        <h2
-          className={`text-3xl font-bold font-sans ${
-            light ? "text-zinc-800" : "text-white"
-          }`}
-        >
-          <Link href="/admin/leads/leads" className="flex items-center">
-            Dofinansowanie <FaArrowRight className="ml-2" />
-          </Link>
-        </h2>
-        <div
-          className={`mt-4 p-4 font-bold rounded-xl ${
-            light
-              ? `text-white ${
-                  user?.email === "admin@hexon.work"
-                    ? "bg-[green]"
-                    : "bg-[blue]"
-                }`
-              : "text-white bg-zinc-600"
-          }`}
-        >
-          <p className="text-xl">Wszystkie Leady: {data.leads.length}</p>
-          <p className="text-xl">
-            Nowe Leady:{" "}
-            {
-              data.leads.filter(
-                (lead: any) => !lead.isFinished && !lead.isTrash
-              )?.length
-            }{" "}
-          </p>
+      {
+        <div className="flex flex-col">
+          <div
+            className={`${
+              light
+                ? "text-zinc-800 bg-white"
+                : "text-white bg-zinc-800 duration-300"
+            } flex flex-col p-6 h-max ml-4 mt-4 rounded-md`}
+          >
+            <h2
+              className={`text-3xl font-bold font-sans ${
+                light ? "text-zinc-800" : "text-white"
+              }`}
+            >
+              <Link href="/admin/leads/leads" className="flex items-center">
+                Dofinansowanie <FaArrowRight className="ml-2" />
+              </Link>
+            </h2>
+            <div
+              className={`mt-4 p-4 font-bold rounded-xl ${
+                light
+                  ? `text-white ${
+                      user?.email === "admin@hexon.work"
+                        ? "bg-[green]"
+                        : "bg-[blue]"
+                    }`
+                  : "text-white bg-zinc-600"
+              }`}
+            >
+              <p className="text-xl">Wszystkie Leady: {data.leads.length}</p>
+              <p className="text-xl">
+                Nowe Leady:{" "}
+                {
+                  data.leads.filter(
+                    (lead: any) => !lead.isFinished && !lead.isTrash
+                  )?.length
+                }{" "}
+              </p>
+            </div>
+            {user?.email === "nikos@hexon.work" && (
+              <div className="mt-4 bg-blue-100 p-4 rounded-xl">
+                <ResponsiveContainer width="100%" height={350}>
+                  <LineChart
+                    data={generateLeadsChartData(data.leads, "leady")}
+                    margin={{
+                      top: 5,
+                      right: 0,
+                      left: 0,
+                      bottom: 5,
+                    }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="miesiac" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Line type="monotone" dataKey="leady" stroke="blue" />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            )}
+            {user?.email === "admin@hexon.work" && (
+              <div className="mt-4 bg-green-100 p-4 rounded-xl">
+                <ResponsiveContainer width="100%" height={350}>
+                  <BarChart
+                    data={generateLeadsChartData(data.secondLeads, "leady")}
+                    margin={{
+                      top: 5,
+                      right: 0,
+                      left: 0,
+                      bottom: 5,
+                    }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="miesiac" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="leady" fill="green" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            )}
+          </div>
+          <div
+            className={`${
+              light
+                ? "text-zinc-800 bg-white"
+                : "text-white bg-zinc-800 duration-300"
+            } flex flex-col p-6 h-max ml-4 mt-4 rounded-md`}
+          >
+            <h2
+              className={`text-3xl font-bold font-sans ${
+                light ? "text-zinc-800" : "text-white"
+              }`}
+            >
+              <div className="flex flex-col">
+                <Link
+                  href="/admin/leads/second-leads"
+                  className="flex items-center"
+                >
+                  Dofinansowanie <FaArrowRight className="ml-2" />
+                </Link>
+                <div className="text-base font-light">(prąd)</div>
+              </div>
+            </h2>
+            <div
+              className={`mt-4 p-4 font-bold rounded-xl ${
+                light
+                  ? `text-white ${
+                      user?.email === "admin@hexon.work"
+                        ? "bg-[red]"
+                        : "bg-[blue]"
+                    }`
+                  : "text-white bg-zinc-600"
+              }`}
+            >
+              <p className="text-xl">
+                Wszystkie Leady: {data.secondLeads.length}
+              </p>
+              <p className="text-xl">
+                Nowe Leady:{" "}
+                {
+                  data.secondLeads.filter(
+                    (lead: any) => !lead.isFinished && !lead.isTrash
+                  )?.length
+                }{" "}
+              </p>
+            </div>
+            {user?.email === "admin@hexon.work" && (
+              <div className="mt-4 bg-red-100 p-4 rounded-xl">
+                <ResponsiveContainer width="100%" height={350}>
+                  <BarChart
+                    data={generateLeadsChartData(data.secondLeads, "leady")}
+                    margin={{
+                      top: 5,
+                      right: 0,
+                      left: 0,
+                      bottom: 5,
+                    }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="miesiac" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="leady" fill="red" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            )}
+          </div>
         </div>
-        {user?.email === "nikos@hexon.work" && (
-          <div className="mt-4 bg-blue-100 p-4 rounded-xl">
-            <ResponsiveContainer width="100%" height={350}>
-              <LineChart
-                data={generateLeadsChartData(data.leads, "leady")}
-                margin={{
-                  top: 5,
-                  right: 0,
-                  left: 0,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="miesiac" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="leady" stroke="blue" />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        )}
-        {user?.email === "admin@hexon.work" && (
-          <div className="mt-4 bg-green-100 p-4 rounded-xl">
-            <ResponsiveContainer width="100%" height={350}>
-              <BarChart
-                data={generateLeadsChartData(data.leads, "leady")}
-                margin={{
-                  top: 5,
-                  right: 0,
-                  left: 0,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="miesiac" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="leady" fill="green" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        )}
-      </div>
+      }
       {user?.email === "admin@hexon.work" && (
         <div className="flex flex-col">
           <div

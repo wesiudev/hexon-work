@@ -122,6 +122,38 @@ export async function getAssistantMessages() {
   }
 }
 
+export async function pushSecondLead(data) {
+  const productDocRef = doc(collection(db, "secondLeads"), data.id);
+  const docSnap = await getDoc(productDocRef);
+  if (docSnap.exists()) {
+    return productDocRef;
+  } else {
+    await setDoc(productDocRef, {
+      ...data,
+      createdAt: Date.now(),
+    });
+    return productDocRef;
+  }
+}
+
+export async function getSecondLeads() {
+  try {
+    const leadsRef = collection(db, "secondLeads");
+    const leadsSnapshot = await getDocs(leadsRef);
+    const leads = [];
+
+    leadsSnapshot.forEach((doc) => {
+      const lead = doc.data();
+      lead.id = doc.id;
+      leads.push(lead);
+    });
+
+    return leads;
+  } catch (error) {
+    console.error("Error getting leads:", error);
+    throw error;
+  }
+}
 export async function pushLead(data) {
   const productDocRef = doc(collection(db, "leads"), data.id);
   const docSnap = await getDoc(productDocRef);
@@ -187,6 +219,17 @@ export async function getMessages() {
 export async function updateMessage(id, data) {
   const docRef = doc(collection(db, "messages"), id);
   await updateDoc(docRef, data);
+  return docRef;
+}
+export async function updateSecondLead(id, data) {
+  const docRef = doc(collection(db, "secondLeads"), id);
+  await updateDoc(docRef, data);
+  return docRef;
+}
+
+export async function deleteSecondLead(id) {
+  const docRef = doc(collection(db, "secondLeads"), id);
+  await deleteDoc(docRef);
   return docRef;
 }
 export async function updateLead(id, data) {
