@@ -134,7 +134,7 @@ export default function ClientFormLogic({
     <div>
       <Toast />
       {isSent && <Success />}
-      <div className="flex flex-col relative">
+      <div className="flex flex-col relative pb-48">
         {formData.houseAge !== undefined && (
           <div
             style={{ boxShadow: "0px 0px 3px black" }}

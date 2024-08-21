@@ -12,9 +12,9 @@ export default function SecondCta() {
   return (
     <button
       onClick={() => setModalVisibility("energy")}
-      className="w-[300px] relative z-[15000]"
+      className="w-[300px] h-[150px] relative z-[15000]"
     >
-      <div className="border-2 border-green-500 text-xl font-bold absolute top-0 left-0 w-full h-full bg-black rounded-2xl bg-opacity-50 flex items-center justify-center">
+      <div className="z-10 border-2 border-green-500 text-xl font-bold absolute top-0 left-0 w-full h-full bg-black rounded-2xl bg-opacity-50 flex items-center justify-center">
         ZŁÓŻ WNIOSEK O TAŃSZY PRĄD DLA TWOJEJ FIRMY
       </div>
 
@@ -23,7 +23,7 @@ export default function SecondCta() {
         width={300}
         height={300}
         alt="Tańszy prąd formularz"
-        className="w-full h-auto rounded-2xl"
+        className="absolute inset-0 object-cover w-full h-full group-hover:scale-110 duration-500 rounded-2xl"
       />
     </button>
   );
