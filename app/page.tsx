@@ -9,6 +9,7 @@ import Link from "next/link";
 import Map from "@/components/Map";
 import AssistantAI from "@/components/AssistantAI";
 import ClientFormWrapper from "@/components/cta/ClientFormWrapper";
+import SecondCta from "@/components/cta/SecondCta";
 export default async function Page({
   searchParams,
 }: {
@@ -174,7 +175,28 @@ export default async function Page({
                   </div>
                 </div>
               </div>
+
               <Cta styleType="colored" label="ZŁÓŻ WNIOSEK" />
+
+              <div className="mt-12">
+                <h2 className="text-4xl drop-shadow-md shadow-black font-bold bg-gradient-to-r from-green-400 to-[#3EE7C0] bg-clip-text text-transparent">
+                  OPTYMALIZACJA KOSZTÓW PRĄDU DLA FIRM
+                </h2>
+                <p className="mt-4 text-justify text-base sm:text-lg xl:text-2xl">
+                  ŻYJEMY W CZASACH GDZIE DUŻO OSÓB A ZWŁASZCZA PRZEDSIĘBIORCÓW
+                  PROWADZĄCYCH OGROMNE FIRMY CO NA CO DZIEŃ ZUŻYWAJĄ BARDZO DUŻO
+                  PRĄDU, NIE SĄ ŚWIADOMI NAWET TEGO ŻE MOGĄ LEGALNIE I W ŚWIETLE
+                  PRAWA JAK I USTAW ODNOSZĄCYCH SIĘ DO ENERGII ZMIENIĆ SWOJEGO
+                  SPRZEDAWCĘ, KTÓRY DOSTARCZA IM PRĄD DO FIRMY. AKURAT NASZA
+                  FIRMA JAK I TEŻ PARĘ INNYCH W POLSCE SĄ W TYM TEMACIE
+                  NABIEŻĄCO I ŚLEDZĄ AKTUALNY RYNEK SPRZEDAŻY PRĄDU, DLATEGO TEŻ
+                  PODJĘLIŚMY WSPÓŁPRACĘ Z RÓZNYMI FIRMAMI ZAGRANICZNYMI W TYM
+                  SZWAJCARSKIMI, ABY POMOGŁY NAM URATOWAĆ NASZE POLSKIE FIRMY I
+                  NIE DOPROWADZIĆ DO TEGO ABY BYŁY ZMUSZONE DO ZAKOŃCZENIA
+                  SWOJEJ DZIAŁALNOŚCI ZE WZGLĘDU NA WYSOKIE RACHUNKI ZA PRĄD.
+                </p>
+                <SecondCta style="home" />
+              </div>
               <div className="mt-12">
                 <Opinions />
               </div>

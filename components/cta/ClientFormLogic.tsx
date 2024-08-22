@@ -68,7 +68,7 @@ export default function ClientFormLogic({
       theme: "dark",
     });
     if (!hasError) {
-      if (!searchParams) {
+      if (formData.region !== "pomorskie") {
         pushLead({ ...formData, id: uuidv4() }).then(() => {
           setIsSent(true);
           toast.update(id, {
@@ -96,7 +96,7 @@ export default function ClientFormLogic({
             dispatch(setModalVisible(""));
           }, 5000);
         });
-      } else if (searchParams === "gad") {
+      } else if (formData.region === "pomorskie") {
         pushLead({ ...formData, id: uuidv4(), owner: "nikos" }).then(() => {
           setIsSent(true);
           toast.update(id, {
