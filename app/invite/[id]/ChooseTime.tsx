@@ -40,6 +40,9 @@ export default function ChooseTime({ linkId }: { linkId: any }) {
         newData.flat().filter((link: any) => link.link.includes(linkId))[0]
       );
     });
+    return () => {
+      unsub();
+    };
   }, []);
 
   const [data, setData] = useState<any>({

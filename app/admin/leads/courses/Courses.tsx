@@ -19,6 +19,9 @@ export default function Courses() {
       });
       setLeads(snapshotData);
     });
+    return () => {
+      unsub();
+    };
   }, []);
   moment.locale("pl");
   return (

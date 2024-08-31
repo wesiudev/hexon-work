@@ -28,6 +28,9 @@ export default function Leads() {
         snapshotData.sort((a, b) => (b.createdAt > a.createdAt ? 1 : -1))
       );
     });
+    return () => {
+      unsub();
+    };
   }, []);
   moment.locale("pl");
   return (

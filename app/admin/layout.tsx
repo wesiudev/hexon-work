@@ -22,7 +22,6 @@ export default function AdminLayout({
 }) {
   const [messages, setMessages] = useState<any[]>([]);
   const [assistantMessages, setAssistantMessages] = useState<any[]>([]);
-  const [mode, setMode] = useState("assistantMessages");
   useEffect(() => {
     const ref = collection(getFirestore(app), "assistantMessages");
     const unsub = onSnapshot(ref, (querySnapshot: any) => {
@@ -32,6 +31,9 @@ export default function AdminLayout({
       });
       setAssistantMessages(snapshotData);
     });
+    return () => {
+      unsub();
+    };
   }, []);
   useEffect(() => {
     const ref = collection(getFirestore(app), "messages");
@@ -42,6 +44,9 @@ export default function AdminLayout({
       });
       setMessages(snapshotData);
     });
+    return () => {
+      unsub();
+    };
   }, []);
   const pathname = usePathname();
   const [isNavOpen, setNavOpen] = useState(false);

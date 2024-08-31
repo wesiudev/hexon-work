@@ -76,6 +76,11 @@ export default function Admin() {
       );
       setData((prevData) => ({ ...prevData, secondLeads: snapshotData }));
     });
+    return () => {
+      unsub();
+      unsub1();
+      unsub2();
+    };
   }, []);
 
   function generateLeadsChartData(data: any, key: string) {

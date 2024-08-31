@@ -46,6 +46,9 @@ export default function AssistantAI() {
         )[0]?.messages
       );
     });
+    return () => {
+      unsub();
+    };
   }, []);
   return (
     <div>

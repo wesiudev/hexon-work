@@ -14,6 +14,9 @@ export default function LinksWrapper({ id }: { id: string }) {
       });
       setLinks(snapshotData?.filter((link) => link.id === id)[0]?.data);
     });
+    return () => {
+      unsub();
+    };
   }, []);
 
   return (

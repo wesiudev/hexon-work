@@ -17,6 +17,9 @@ export default function Page() {
       });
       setLinks(snapshotData);
     });
+    return () => {
+      unsub();
+    };
   }, []);
 
   return (

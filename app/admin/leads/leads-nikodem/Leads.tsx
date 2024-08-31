@@ -36,7 +36,9 @@ export default function Leads() {
           .filter((lead) => lead.owner === "nikos")
           .sort((a, b) => (b.createdAt > a.createdAt ? 1 : -1))
       );
-    });
+    });return () => {
+      unsub(); 
+    };
   }, []);
   moment.locale("pl");
   function setNoteOpen(lead: any) {

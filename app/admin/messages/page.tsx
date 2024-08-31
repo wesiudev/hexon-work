@@ -32,6 +32,10 @@ export default function Leads() {
         snapshotData.sort((a, b) => (b.createdAt > a.createdAt ? 1 : -1))
       );
     });
+    return () => {
+      unsub();
+      unsub2();
+    };
   }, []);
   moment.locale("pl");
   const sum = sessions.reduce(

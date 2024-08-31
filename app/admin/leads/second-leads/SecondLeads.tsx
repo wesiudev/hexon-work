@@ -35,6 +35,9 @@ export default function SecondLeads() {
         snapshotData.sort((a, b) => (b.createdAt > a.createdAt ? 1 : -1))
       );
     });
+    return () => {
+      unsub();
+    };
   }, []);
   moment.locale("pl");
   function setNoteOpen(lead: any) {
